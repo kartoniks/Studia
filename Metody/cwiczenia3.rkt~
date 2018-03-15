@@ -1,0 +1,21 @@
+#lang racket
+
+;(define (make-rat n d)
+ ; (cons n (cons d null)))
+
+(define (make-rat n d)
+  (let ((c (gcd n d)))
+    (list (/ n c) (/ d c))))
+
+(define (rat-num q)
+  (car q))
+
+(define (rat-den q)
+  (car (cdr q)))
+
+(define (rat? q)
+  (and (pair? (cdr q))
+       (not (= (rat-num q) 0))))
+       
+  
+  

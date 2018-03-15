@@ -1,0 +1,25 @@
+#lang racket
+;; obliczanie (przybliżonego) punktu stałego funkcji f przez iterację, let pozwala uniknąć powtarzania obliczeń
+(define (fix-point f x0)
+  (let ((x1 (f x0)))
+    (if (close-enough? x0 x1)
+        x0
+        (fix-point f x1))))
+
+;; próba obliczania pierwiastka kwadratowego z x jako punktu stałego funkcji y ↦ x / y zapętla się
+;; stosujemy tłumienie z uśrednieniem: procedurę wyższego rzędu zwracającą procedurę jako wynik
+(define (average-damp f)
+  (lambda (x) (/ (+ x (f x)) 2)))
+
+(define (sqrt-ad x)
+  (fix-point (average-damp (lambda (y) (/ x y))) 1.0))
+
+;;cwiczenie 2
+(define (compose f g)
+  (lambda (x) (f (g x))))
+
+;;cwiczenie 3
+(define (repeated p n)
+  (if (= n 0)
+      identity
+      (compose p (repeated2 p (- n 1)))))
