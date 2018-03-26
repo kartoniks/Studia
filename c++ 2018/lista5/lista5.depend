@@ -1,0 +1,23 @@
+# depslib dependency file v1.0
+1521913584 source:c:\users\kartoniks\desktop\c++ 2018\lista5\data.cpp
+	"data.hpp"
+
+1521913289 c:\users\kartoniks\desktop\c++ 2018\lista5\data.hpp
+	<iostream>
+	<stdexcept>
+	<cmath>
+	<iostream>
+	<chrono>
+	<ctime>
+
+1521913375 source:c:\users\kartoniks\desktop\c++ 2018\lista5\main.cpp
+	<iostream>
+	"data.hpp"
+	"godzina.hpp"
+
+1521913638 source:c:\users\kartoniks\desktop\c++ 2018\lista5\godzina.cpp
+	"godzina.hpp"
+
+1521913638 c:\users\kartoniks\desktop\c++ 2018\lista5\godzina.hpp
+	"data.hpp"
+

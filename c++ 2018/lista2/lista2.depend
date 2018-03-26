@@ -1,0 +1,20 @@
+# depslib dependency file v1.0
+1519994616 source:c:\users\kartoniks\desktop\lista2\main.cpp
+	"prosta.h"
+
+1519994549 c:\users\kartoniks\desktop\lista2\prosta.h
+	<iostream>
+	<stdexcept>
+	<cmath>
+
+1519994728 source:c:\users\kartoniks\desktop\lista2\prosta.cpp
+	"prosta.h"
+
+1520156888 source:c:\users\kartoniks\desktop\c++ 2018\lista2\prosta.cpp
+	"prosta.h"
+
+1519994549 c:\users\kartoniks\desktop\c++ 2018\lista2\prosta.h
+	<iostream>
+	<stdexcept>
+	<cmath>
+
