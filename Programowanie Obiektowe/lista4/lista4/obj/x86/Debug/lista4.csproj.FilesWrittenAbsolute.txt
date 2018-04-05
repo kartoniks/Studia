@@ -1,0 +1,5 @@
+/home/kartoniks/Desktop/ProgramowanieObiektowe/lista4/lista4/obj/x86/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.cs
+/home/kartoniks/Desktop/ProgramowanieObiektowe/lista4/lista4/bin/Debug/lista4.exe.mdb
+/home/kartoniks/Desktop/ProgramowanieObiektowe/lista4/lista4/bin/Debug/lista4.exe
+/home/kartoniks/Desktop/ProgramowanieObiektowe/lista4/lista4/obj/x86/Debug/lista4.exe
+/home/kartoniks/Desktop/ProgramowanieObiektowe/lista4/lista4/obj/x86/Debug/lista4.exe.mdb

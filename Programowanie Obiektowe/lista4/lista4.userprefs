@@ -1,0 +1,14 @@
+﻿<Properties StartupItem="lista4/lista4.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="lista4/PrimeCollection.cs">
+    <Files>
+      <File FileName="lista4/Program.cs" Line="10" Column="4" />
+      <File FileName="lista4/CommonInterface.cs" Line="44" Column="11" />
+      <File FileName="lista4/PrimeCollection.cs" Line="56" Column="5" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

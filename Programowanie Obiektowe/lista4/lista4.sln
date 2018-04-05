@@ -1,0 +1,17 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lista4", "lista4\lista4.csproj", "{FCE3EC2E-EA90-4898-9723-064CE271DA39}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FCE3EC2E-EA90-4898-9723-064CE271DA39}.Debug|x86.ActiveCfg = Debug|x86
+		{FCE3EC2E-EA90-4898-9723-064CE271DA39}.Debug|x86.Build.0 = Debug|x86
+		{FCE3EC2E-EA90-4898-9723-064CE271DA39}.Release|x86.ActiveCfg = Release|x86
+		{FCE3EC2E-EA90-4898-9723-064CE271DA39}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+EndGlobal

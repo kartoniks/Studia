@@ -1,0 +1,18 @@
+# depslib dependency file v1.0
+1519582023 source:/home/kartoniks/Desktop/Programowanie obiektowe/Lista1/ulamki2/main1.c
+	<stdio.h>
+	"ulamki.h"
+
+1519582245 /home/kartoniks/Desktop/Programowanie obiektowe/Lista1/ulamki2/ulamki.h
+
+1519654460 source:/home/kartoniks/Desktop/ProgramowanieObiektowe/Lista1/ulamki2/main1.c
+	<stdio.h>
+	"ulamki.h"
+
+1519582245 /home/kartoniks/Desktop/ProgramowanieObiektowe/Lista1/ulamki2/ulamki.h
+
+1519582274 source:/home/kartoniks/Desktop/ProgramowanieObiektowe/Lista1/ulamki2/ulamki.c
+	<stdio.h>
+	<stdlib.h>
+	"ulamki.h"
+

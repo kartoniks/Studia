@@ -1,0 +1,21 @@
+# depslib dependency file v1.0
+1519581600 source:/home/kartoniks/Desktop/Programowanie obiektowe/Lista1/Ulamki/figury.c
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	"figury.h"
+
+1519581565 /home/kartoniks/Desktop/Programowanie obiektowe/Lista1/Ulamki/figury.h
+
+1519581277 source:/home/kartoniks/Desktop/Programowanie obiektowe/Lista1/Ulamki/main1.c
+	<stdio.h>
+	"figury.h"
+
+1519581600 source:/home/kartoniks/Desktop/ProgramowanieObiektowe/Lista1/Figury/figury.c
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	"figury.h"
+
+1519581565 /home/kartoniks/Desktop/ProgramowanieObiektowe/Lista1/Figury/figury.h
+

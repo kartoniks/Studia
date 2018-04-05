@@ -1,0 +1,5 @@
+/home/kartoniks/Desktop/ProgramowanieObiektowe/lista3/lista3/obj/x86/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.cs
+/home/kartoniks/Desktop/ProgramowanieObiektowe/lista3/lista3/bin/Debug/lista3.exe.mdb
+/home/kartoniks/Desktop/ProgramowanieObiektowe/lista3/lista3/bin/Debug/lista3.exe
+/home/kartoniks/Desktop/ProgramowanieObiektowe/lista3/lista3/obj/x86/Debug/lista3.exe
+/home/kartoniks/Desktop/ProgramowanieObiektowe/lista3/lista3/obj/x86/Debug/lista3.exe.mdb

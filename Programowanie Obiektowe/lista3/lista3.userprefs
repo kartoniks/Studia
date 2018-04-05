@@ -1,0 +1,25 @@
+﻿<Properties StartupItem="lista3/lista3.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="lista3/Main.cs">
+    <Files>
+      <File FileName="lista3/Program.cs" Line="110" Column="7" />
+      <File FileName="lista3/Main.cs" Line="10" Column="39" />
+      <File FileName="lista3/zad1.cs" Line="14" Column="15" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="lista3" expanded="True">
+            <Node name="lista3" expanded="True">
+              <Node name="Main.cs" selected="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
