@@ -104,8 +104,6 @@
           ;w założeniu jest jedna dziura, więc append będzie działał na listach pustych i jednym akumulatorze
           [(let? ex) (append (hole-iter (let-def ex) acc)
                               (hole-iter (let-expr ex) (cons (let-def-var (let-def ex)) acc)))]
-          ;jeśli wyrażenie jest letem to trzeba szukać dziury w definicji i w podwyrażeniu
-          ;ale nową zmienną dodać tylko do podwyrażenia
           [(let-def? ex) (hole-iter (let-def-expr ex) acc)]))
   (remove-duplicates (hole-iter e null)))
 
