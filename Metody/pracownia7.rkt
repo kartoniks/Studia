@@ -127,11 +127,13 @@
                                   (find-in-env arg envi)
                                   arg))
                      e)]))
-  (define (rename-uni numex it env);zmienia wartości zmiennych na unikalne
+  (define (rename-uni numex it env);zmienia wartości wszystkich zmiennych na unikalne
     #|(writeln numex)
     (writeln it)
     (writeln env)|#
-    ;bierze wyrażenie w postaci numerowanej (z prefiksem licznik
+    ;bierze wyrażenie w postaci numerowanej (z prefiksem - globalny licznik)
+    ;tutaj dużo czytelniej byłoby użyć instrukcji set!,
+    ;zamiast skomplikowanego przekazywania licznika, ale ona chyba nie jest czysto funkcyjna?
     (cond [(arith-expr? (num-expr numex)) (num-cons it (swap-vars (num-expr numex) env))]
           [(let? (num-expr numex))
            (let* ([newval (number->symbol it)]
@@ -160,7 +162,7 @@
                                 (list (num-expr subleft)
                                       (num-expr subright)))))]))
 
-  (define (letpulldef ex)
+  (define (letpulldef ex);znajduje w wyrażeniu leta, w którego definicji już nie ma letów, albo zwraca #f
     (cond [(and (let? ex);"prosty" let, którego zawsze można wyciągnąć na przód
                 (arith-expr? (let-def-expr (let-def ex))))
            (let-def ex)]
@@ -173,7 +175,7 @@
                          (letpulldef (let-expr ex)))]))
 
   (define (inside? ls val)
-    (writeln ls)
+    ;(writeln ls)
     (cond [(null? ls) #f]
           [(equal? ls val) #t]
           [(not (list? ls)) #f]
@@ -181,7 +183,7 @@
                                 (inside? (cdr ls) val))]
           [(list? ls) (inside? (cdr ls) val)]))
   
-  (define (letremove ex)
+  (define (letremove ex);usuwa let-definicję z wyrażenia (tę najbardziej zagnieżdżoną, która nie zależy od innych)
     (cond [(and (let? ex)
                 (equal? (let-def ex) (letpulldef ex)))
            (let-expr ex)]
@@ -198,11 +200,11 @@
                                                  (let-def-expr (let-def ex)))
                                    (letremove (let-expr ex))))]))
 
-  (define (deflist ex defs)
+  (define (deflist ex defs);wyciąga let-definicje z wyrażenia aż nie będzie żadnej i zapisuje razem z wyrażeniem
     (let* ([nextdef (letpulldef ex)]
            [cleared (letremove ex)])
-      (writeln nextdef)
-      (writeln cleared)
+      ;(writeln nextdef)
+      ;(writeln cleared)
       (if nextdef
           (deflist cleared (cons nextdef defs))
           (list (reverse defs) cleared))))
@@ -217,49 +219,14 @@
     )
   )
 
-
-;(let-lift '(let (x 2) x))
-(let-lift '(let (x (- 2 (let (z 3) z))) (+ x 2)))
-(let-lift '(let (x (let (y 2) y)) x))
-(let-lift '(let (x (let (y 2) y)) (let (z 3) z)))
-(let-lift '(+ (let (x 5) x) (let (x 1) x))) ;NIE DZIALA /JUŻ DZIAŁA
-
-#|
-(define (let-lift e)
-  (define (swap-vars e envi);evaluates variables defined in environment
-    (writeln e)
-    (cond [(const? e) e]
-          [(var? e) (find-in-env e envi)]
-          [else (map (λ (arg) (if (var? arg)
-                                  (find-in-env arg envi)
-                                  arg))
-                     e)]))
-  (define (rename-uni ex it env)
-    ;Nie jestem pewien czy set! jest dobrą instrukcją, ale w dokumentacji był właśnie przykład
-    ;iteratora, z dopiskiem: While side effects are to be avoided, however, they should be
-    ;used if the resulting code is significantly more readable. Czyli chyba jest ok w tym przypadku.
-    (cond [(arith-expr? ex) (swap-vars ex env)]
-          [(let? ex)
-           (let ([newval (number->symbol it)])
-             (let-cons (let-def-cons newval
-                                     (rename-uni (let-def-expr (let-def ex))
-                                           (+ 1 it)
-                                           (add-to-env (let-def-var (let-def ex))
-                                                       newval
-                                                       env)))
-                       (rename-uni (let-expr ex)
-                             (+ 1 it)
-                             (add-to-env (let-def-var (let-def ex))
-                                         newval
-                                         env))))]
-          [(op? ex) (op-cons (op-op ex)
-                             (map (λ (x) (rename-uni x it env))
-                                  (op-args ex)))]))
-                                                         
-  (rename-uni e 0 empty-env)
-  )
-
-(let-lift '(let (x (let (y 2) y)) x))
-(let-lift '(+ (let (x 5) x)
-              (let (x 1) x)))
-|#
+#|Pomysł na program był taki, żeby najpierw przemianować wszystkie zmienne na unikalne
+wartości, potem wyciągać kolejno zagnieżdżone lety z wyrażenia, a na koniec połączyć to let-cons.
+Założyłem, że operatory są dwuargumentowe (w mailu wykładowca odpowiedział, że można tak
+zrobić, bo "nie ma to wielkiego znaczenia dla idei rozwiązania", a ja miałem dużo trudności
+z przekazywaniem globalnego licznika w przypadku zmiennej liczby argumentów.
+TESTY: |#
+(let-lift '(let (x 2) x));prosty test
+(let-lift '(let (x (- 2 (let (z 3) z))) (+ x 2)));test z zagnieżdżonym letem
+(let-lift '(let (x (let (x 2) x)) x));test z powtarzającą się nazwą
+(let-lift '(let (x (let (y 2) (let (z 3) z))) (let (q 1) (+ q x))));test z wielkrotnym zagnieżdżeniem
+(let-lift '(+ (let (x 5) x) (let (x 1) x)));test z operatorem na wierzchu

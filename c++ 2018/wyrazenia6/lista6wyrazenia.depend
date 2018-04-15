@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1523357603 source:/home/kartoniks/Desktop/c++/lista6wyrazenia/main.cpp
+	<iostream>
+	"wyrazenie.hpp"
+
+1523356531 /home/kartoniks/Desktop/c++/lista6wyrazenia/wyrazenie.hpp
+	<iostream>
+	<map>
+
+1523357603 source:/home/kartoniks/Desktop/c++/lista6wyrazenia/wyrazenie.cpp
+	"wyrazenie.hpp"
+	<cmath>
+

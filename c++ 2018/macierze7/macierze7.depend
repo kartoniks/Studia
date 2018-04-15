@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1523722409 source:/home/kartoniks/Desktop/Studia/c++ 2018/macierze7/main.cpp
+	<iostream>
+	"matrix.hpp"
+
+1523722566 /home/kartoniks/Desktop/Studia/c++ 2018/macierze7/matrix.hpp
+	<iostream>
+
+1523722573 source:/home/kartoniks/Desktop/Studia/c++ 2018/macierze7/matrix.cpp
+	"matrix.hpp"
+
