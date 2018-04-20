@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1524245327 source:c:\users\kartoniks\desktop\c++ 2018\wymierne8\main.cpp
+	<iostream>
+	"wymierna.hpp"
+
+1524245734 c:\users\kartoniks\desktop\c++ 2018\wymierne8\wymierna.hpp
+	<iostream>
+	<limits>
+
+1524245224 source:c:\users\kartoniks\desktop\c++ 2018\wymierne8\wymierna.cpp
+	"wymierna.hpp"
+
