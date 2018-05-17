@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">Playarena</string>
+    <string name="app_name">playarena_app</string>
+    <string name="action_settings">Settings</string>
 </resources>
