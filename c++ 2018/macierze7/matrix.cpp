@@ -1,8 +1,9 @@
 #include "matrix.hpp"
 
-
 matrix::matrix(int m, int n)
 {
+    if(m<1 || n<1)
+        throw sizeerror();
     this->m=m;
     this->n=n;
     p = new double*[m];
@@ -22,20 +23,26 @@ matrix::matrix(const matrix &M2) : matrix::matrix(M2.m, M2.n)
 }
 matrix::matrix(matrix&& M2)
 {
+    this->~matrix();
     p=M2.p;
     m=M2.m;
     n=M2.n;
 }
 matrix& matrix::operator=(const matrix& M2)
 {
+    this->~matrix();
     matrix* newm = new matrix(M2);
     p=newm->p;
     m=newm->m;
     n=newm->n;
+    newm->p = NULL;
+    delete newm;
     return *this;
 }
 matrix& matrix::operator+=(const matrix& M2)
 {
+    if(m!=M2.m || n!=M2.n)
+        throw sizeerror();
     for(int i=0; i<m; i++)
         for(int j=0; j<n; j++)
             p[i][j]+=M2.p[i][j];
@@ -110,7 +117,7 @@ matrix matrix::reduce(int r, int c)
 int matrix::determinant()
 {
     if(m!=n)
-        throw "cannot compute determinant of nonsquare matrix";
+        throw deterror();
     if(m==2)
         return p[0][0]*p[1][1]-p[0][1]*p[1][0];
     int recres=0;
@@ -126,7 +133,7 @@ matrix matrix::inverse()
 {
     int det = this->determinant();
     if(det==0)
-        throw "no inverse, determinant is equal to 0";
+        throw inverseerror();
     matrix adj = this->adjoint();
     for(int i=0; i<m; i++)
         for(int j=0; j<n; j++)
@@ -154,12 +161,24 @@ ostream& operator<<(ostream& os, const matrix& M)
     os<<endl;
     return os;
 }
+istream& operator>>(istream& is, matrix& M)
+{
+    for(int i=0; i<M.m; i++)
+    {
+        for(int j=0; j<M.n; j++)
+            is>>M.p[i][j];
+    }
+    return is;
+}
 
 matrix::~matrix()
 {
+    if(p!=NULL)
+    {
     for(int i=0; i<m; i++)
         delete[] p[i];
     delete[] p;
+    }
 }
 
 void matrix::display()
@@ -171,4 +190,19 @@ void matrix::display()
         cout<<endl;
     }
     cout<<endl;
+}
+
+const char* sizeerror::what()
+{
+    return "Invalid matrix sizes";
+}
+
+const char* inverseerror::what()
+{
+    return "Matrix doesn't have inverse";
+}
+
+const char* deterror::what()
+{
+    return "Cannot compute determinant of nonsquare matrix";
 }

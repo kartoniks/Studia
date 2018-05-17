@@ -1,232 +1,205 @@
 #lang racket
+;Współpraca podczas robienia listy z Dominik Hawryluk
+(require "calc.rkt")
 
-;; expressions
+(define (def-name p)
+  (car p))
 
-(define (const? t)
-  (number? t))
+(define (def-prods p)
+  (cdr p))
 
-(define (op? t)
-  (and (list? t)
-       (member (car t) '(+ - * /))))
+(define (rule-name r)
+  (car r))
 
-(define (op-op e)
-  (car e))
+(define (rule-body r)
+  (cdr r))
 
-(define (op-args e)
+(define (lookup-def g nt)
+  (cond [(null? g) (error "unknown non-terminal" g)]
+        [(eq? (def-name (car g)) nt) (def-prods (car g))]
+        [else (lookup-def (cdr g) nt)]))
+
+(define parse-error 'PARSEERROR)
+
+(define (parse-error? r) (eq? r 'PARSEERROR))
+
+(define (res v r)
+  (cons v r))
+
+(define (res-val r)
+  (car r))
+
+(define (res-input r)
+  (cdr r))
+
+;;
+
+(define (token? e)
+  (and (list? e)
+       (> (length e) 0)
+       (eq? (car e) 'token)))
+
+(define (token-args e)
   (cdr e))
 
-(define op-left second)
-(define op-right third)
+(define (nt? e)
+  (symbol? e))
 
-(define (op-cons op args)
-  (cons op args))
+;;
 
-(define (op->proc op)
-  (cond [(eq? op '+) +]
-        [(eq? op '*) *]
-        [(eq? op '-) -]
-        [(eq? op '/) /]))
+(define (parse g e i)
+  (cond [(token? e) (match-token (token-args e) i)]
+        [(nt? e) (parse-nt g (lookup-def g e) i)]))
 
-(define (let-def? t)
-  (and (list? t)
-       (= (length t) 2)
-       (symbol? (car t))))
+(define (parse-nt g ps i)
+  (if (null? ps)
+      parse-error
+      (let ([r (parse-many g (rule-body (car ps)) i)])
+        (if (parse-error? r)
+            (parse-nt g (cdr ps) i)
+            (res (cons (rule-name (car ps)) (res-val r))
+                 (res-input r))))))
 
-(define (let-def-var e)
-  (car e))
+(define (parse-many g es i)
+  (if (null? es)
+      (res null i)
+      (let ([r (parse g (car es) i)])
+        (if (parse-error? r)
+            parse-error
+            (let ([rs (parse-many g (cdr es) (res-input r))])
+              (if (parse-error? rs)
+                  parse-error
+                  (res (cons (res-val r) (res-val rs))
+                       (res-input rs))))))))
 
-(define (let-def-expr e)
-  (cadr e))
+(define (match-token xs i)
+  (if (and (not (null? i))
+           (member (car i) xs))
+      (res (car i) (cdr i))
+      parse-error))
 
-(define (let-def-cons x e)
-  (list x e))
+;;
 
-(define (let? t)
-  (and (list? t)
-       (= (length t) 3)
-       (eq? (car t) 'let)
-       (let-def? (cadr t))))
+(define num-grammar
+  '([digit {DIG (token #\0 #\1 #\2 #\3 #\4 #\5 #\6 #\7 #\8 #\9)}]
+    [numb {MANY digit numb}
+          {SINGLE digit}]))
 
-(define (let-def e)
-  (cadr e))
+(define (node-name t)
+  (car t))
 
-(define (let-expr e)
-  (caddr e))
+(define (c->int c)
+  (- (char->integer c) (char->integer #\0)))
 
-(define (let-cons def e)
-  (list 'let def e))
+(define (walk-tree-acc t acc)
+  (cond [(eq? (node-name t) 'MANY)
+         (walk-tree-acc
+          (third t)
+          (+ (* 10 acc) (c->int (second (second t)))))]
+        [(eq? (node-name t) 'SINGLE)
+         (+ (* 10 acc) (c->int (second (second t))))]))
 
-(define (var? t)
-  (symbol? t))
+(define (walk-tree t)
+  (walk-tree-acc t 0))
 
-(define (var-var e)
-  e)
+;;
 
-(define (var-cons x)
-  x)
+(define arith-grammar
+  (append num-grammar
+     '([add-expr {ADD-MANY   mult-expr (token #\+) add-expr}
+                 {SUB-MANY   mult-expr (token #\-) add-expr}
+                 {ADD-SINGLE mult-expr}]
+       [mult-expr {MULT-MANY base-expr (token #\*) mult-expr}
+                  {DIV-MANY base-expr (token #\/) mult-expr}
+                  {MULT-SINGLE base-expr}]
+       [base-expr {BASE-NUM numb}
+                  {PARENS (token #\() add-expr (token #\))}])))
 
-(define (arith/let-expr? t)
-  (or (const? t)
-      (and (op? t)
-           (andmap arith/let-expr? (op-args t)))
-      (and (let? t)
-           (arith/let-expr? (let-expr t))
-           (arith/let-expr? (let-def-expr (let-def t))))
-      (var? t)))
+(define (arith-walk-tree t)
+  (cond [(eq? (node-name t) 'ADD-SINGLE)
+         (arith-walk-tree (second t))]
+        [(eq? (node-name t) 'ADD-MANY)
+         (binop-cons
+          '+
+          (arith-walk-tree (second t))
+          (arith-walk-tree (fourth t)))]
+        [(eq? (node-name t) 'SUB-MANY)
+         (binop-cons
+          '-
+          (arith-walk-tree (second t))
+          (arith-walk-tree (fourth t)))]
+        [(eq? (node-name t) 'MULT-SINGLE)
+         (arith-walk-tree (second t))]
+        [(eq? (node-name t) 'MULT-MANY)
+         (binop-cons
+          '*
+          (arith-walk-tree (second t))
+          (arith-walk-tree (fourth t)))]
+        [(eq? (node-name t) 'DIV-MANY)
+         (binop-cons
+          '/
+          (arith-walk-tree (second t))
+          (arith-walk-tree (fourth t)))]
+        [(eq? (node-name t) 'BASE-NUM)
+         (walk-tree (second t))]
+        [(eq? (node-name t) 'PARENS)
+         (arith-walk-tree (third t))]))
 
-;; let-lifted expressions
+(define (calc s)
+ (eval
+  (rotate (arith-walk-tree
+           (car
+            (parse
+             arith-grammar
+             'add-expr
+             (string->list s)))))))
 
-(define (arith-expr? t)
-  (or (const? t)
-      (and (op? t)
-           (andmap arith-expr? (op-args t)))
-      (var? t)))
+#|Zamiast męczyć się z wyginaniem drzewa na poziomie arith-walk-tree,
+wyginam je dopiero po przejściu na drzewa wyrażeń racketowych, na których
+łatwiej mi się operowało.
+Rotacja polega na "wepchaniu" minusa do lewego poddrzewa i dopasowania argumentów|# 
+(define (rotate t)
+  (cond [(number? t) t]
+        [(and (list? t);odejmowanie odwraca gdy w prawym poddrzewie jest + albo -
+              (eq? (car t) '-)
+              (or (and (list? (third t)) (eq? '+ (first (third t))))
+                  (and (list? (third t)) (eq? '- (first (third t))))))
+         (let ([leftexp  (second t)]
+               [midexp   (second (third t))]
+               [rightexp (third (third t))]
+               [oper     (first (third t))])
+           (rotate (binop-cons oper
+                       (binop-cons '-
+                                   (rotate leftexp)
+                                   (rotate midexp))
+                       (rotate rightexp))))]
+        [(and (list? t);dzielenie odwraca gdy w prawym poddrzewie jest * albo /
+              (eq? (car t) '/)
+              (or (and (list? (third t)) (eq? '* (first (third t))))
+                  (and (list? (third t)) (eq? '/ (first (third t))))))
+         (let ([leftexp  (second t)]
+               [midexp   (second (third t))]
+               [rightexp (third (third t))]
+               [oper     (first (third t))])
+           (rotate (binop-cons oper
+                       (binop-cons '/
+                                   (rotate leftexp)
+                                   (rotate midexp))
+                       (rotate rightexp))))]
+        [(binop? t) (binop-cons (first t)
+                                (rotate (second t))
+                                (rotate (third t)))]
+        [else t]))
 
-(define (let-lifted-expr? t)
-  (or (and (let? t)
-           (let-lifted-expr? (let-expr t))
-           (arith-expr? (let-def-expr (let-def t))))
-      (arith-expr? t)))
+(define exp1 "5-2-1")
+(define exp2 "1-2-3-4-5-6-7-8")
+(define exp3 "8-4/2-1")
 
-;; generating a symbol using a counter
+(rotate (arith-walk-tree (car (parse
+   arith-grammar
+   'add-expr
+   (string->list exp1)))))
 
-(define (number->symbol i)
-  (string->symbol (string-append "x" (number->string i))))
-
-(define (numbered? t);typ danych zapamiętujący daną i licznik 
-  (and (list? t)
-       (= 3 (length t))
-       (eq? (car t) 'num)
-       (const? (cadr t))))
-(define num-iter second)
-(define num-expr third)
-(define (num-cons it val)
-  (list 'num it val))
-
-;; environments (could be useful for something)
-
-(define empty-env
-  null)
-
-(define (add-to-env x v env)
-  (cons (list x v) env))
-
-(define (find-in-env x env)
-  (cond [(null? env) (error "undefined variable" x)]
-        [(eq? x (caar env)) (cadar env)]
-        [else (find-in-env x (cdr env))]))
-
-;; the let-lift procedure
-
-(define (let-lift e)
-  (define (swap-vars e envi);wylicza wyrażenia arytmetyczne w środowisku
-    (cond [(const? e) e]
-          [(var? e) (find-in-env e envi)]
-          [else (map (λ (arg) (if (and (var? arg)
-                                       (not (member arg '(+ - * /))))
-                                  (find-in-env arg envi)
-                                  arg))
-                     e)]))
-  (define (rename-uni numex it env);zmienia wartości wszystkich zmiennych na unikalne
-    #|(writeln numex)
-    (writeln it)
-    (writeln env)|#
-    ;bierze wyrażenie w postaci numerowanej (z prefiksem - globalny licznik)
-    ;tutaj dużo czytelniej byłoby użyć instrukcji set!,
-    ;zamiast skomplikowanego przekazywania licznika, ale ona chyba nie jest czysto funkcyjna?
-    (cond [(arith-expr? (num-expr numex)) (num-cons it (swap-vars (num-expr numex) env))]
-          [(let? (num-expr numex))
-           (let* ([newval (number->symbol it)]
-                  [def-subf (rename-uni
-                             (num-cons (+ 1 it) (let-def-expr (let-def (num-expr numex))))
-                             (+ 1 it)
-                             env)]
-                  [exp-subf (rename-uni
-                             (num-cons (num-iter def-subf) (let-expr (num-expr numex)))
-                             (num-iter def-subf)
-                             (add-to-env (let-def-var (let-def (num-expr numex)))
-                                         newval
-                                         env))])
-             (num-cons (num-iter exp-subf)
-                       (let-cons (let-def-cons newval (num-expr def-subf))
-                                 (num-expr exp-subf))))]
-          [(op? (num-expr numex))
-           (let* ([subleft (rename-uni (num-cons it (op-left (num-expr numex)))
-                                       it
-                                       env)]
-                  [subright (rename-uni (num-cons (num-iter subleft) (op-right (num-expr numex)))
-                                        (num-iter subleft)
-                                        env)])
-             (num-cons (num-iter subright)
-                       (op-cons (op-op (num-expr numex))
-                                (list (num-expr subleft)
-                                      (num-expr subright)))))]))
-
-  (define (letpulldef ex);znajduje w wyrażeniu leta, w którego definicji już nie ma letów, albo zwraca #f
-    (cond [(and (let? ex);"prosty" let, którego zawsze można wyciągnąć na przód
-                (arith-expr? (let-def-expr (let-def ex))))
-           (let-def ex)]
-          [(arith-expr? ex) #f]
-          [(op? ex) (if (letpulldef (op-left ex))
-                        (letpulldef (op-left ex))
-                        (letpulldef (op-right ex)))]
-          [(let? ex) (if (letpulldef (let-def-expr (let-def ex)))
-                         (letpulldef (let-def-expr (let-def ex)))
-                         (letpulldef (let-expr ex)))]))
-
-  (define (inside? ls val)
-    ;(writeln ls)
-    (cond [(null? ls) #f]
-          [(equal? ls val) #t]
-          [(not (list? ls)) #f]
-          [(list? (car ls)) (or (inside? (car ls) val)
-                                (inside? (cdr ls) val))]
-          [(list? ls) (inside? (cdr ls) val)]))
-  
-  (define (letremove ex);usuwa let-definicję z wyrażenia (tę najbardziej zagnieżdżoną, która nie zależy od innych)
-    (cond [(and (let? ex)
-                (equal? (let-def ex) (letpulldef ex)))
-           (let-expr ex)]
-          [(arith-expr? ex) ex]
-          [(op? ex) (op-cons (op-op ex)
-                             (if (inside? (op-left ex) (letpulldef ex))
-                                 (list (letremove (op-left ex)) (op-right ex))
-                                 (list (op-left ex) (letremove (op-right ex)))))]
-          [(let? ex) (if (letremove (let-def-expr (let-def ex)))
-                         (let-cons (let-def-cons (let-def-var (let-def ex))
-                                                 (letremove (let-def-expr (let-def ex))))
-                                   (let-expr ex))
-                         (let-cons (let-def-cons (let-def-var (let-def ex))
-                                                 (let-def-expr (let-def ex)))
-                                   (letremove (let-expr ex))))]))
-
-  (define (deflist ex defs);wyciąga let-definicje z wyrażenia aż nie będzie żadnej i zapisuje razem z wyrażeniem
-    (let* ([nextdef (letpulldef ex)]
-           [cleared (letremove ex)])
-      ;(writeln nextdef)
-      ;(writeln cleared)
-      (if nextdef
-          (deflist cleared (cons nextdef defs))
-          (list (reverse defs) cleared))))
-
-  (define (finaltransform ls);funkcja pomocnicza, zapisująca listy w odpowiedni sposób
-    (cond [(null? (car ls)) (cadr ls)]
-          [else (let-cons (caar ls) (finaltransform (list (cdr (car ls)) (cadr ls))))]))
-                 
-  (let* ([uniexp (num-expr (rename-uni (num-cons 0 e) 0 empty-env))]
-         [separated (deflist uniexp '())]);lista definicji i wyrażenia bez definicji
-    (finaltransform separated)
-    )
-  )
-
-#|Pomysł na program był taki, żeby najpierw przemianować wszystkie zmienne na unikalne
-wartości, potem wyciągać kolejno zagnieżdżone lety z wyrażenia, a na koniec połączyć to let-cons.
-Założyłem, że operatory są dwuargumentowe (w mailu wykładowca odpowiedział, że można tak
-zrobić, bo "nie ma to wielkiego znaczenia dla idei rozwiązania", a ja miałem dużo trudności
-z przekazywaniem globalnego licznika w przypadku zmiennej liczby argumentów.
-TESTY: |#
-(let-lift '(let (x 2) x));prosty test
-(let-lift '(let (x (- 2 (let (z 3) z))) (+ x 2)));test z zagnieżdżonym letem
-(let-lift '(let (x (let (x 2) x)) x));test z powtarzającą się nazwą
-(let-lift '(let (x (let (y 2) (let (z 3) z))) (let (q 1) (+ q x))));test z wielkrotnym zagnieżdżeniem
-(let-lift '(+ (let (x 5) x) (let (x 1) x)));test z operatorem na wierzchu
+(calc exp1)
+(calc exp2)
+(calc exp3)

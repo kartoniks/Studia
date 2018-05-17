@@ -33,6 +33,8 @@
 			<Add option="-fexceptions" />
 		</Compiler>
 		<Unit filename="main.cpp" />
+		<Unit filename="wymierna.cpp" />
+		<Unit filename="wymierna.hpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

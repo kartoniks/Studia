@@ -61,10 +61,16 @@
         [else (list 'node (cadr t) (mirror (cadddr t)) (mirror (caddr t)))]))
 
 ;;CWICZENIE 4
-(define (flatten tree ans) ;zapisuje drzewo w postaci infixowej (lewy środek prawy)
+
+(define (flatten tree ans) 
   (if (eq? tree 'leaf)
       ans
-      (flatten (caddr tree) (cons (cadr tree) (flatten (cadddr tree) ans)))))
+      (flatten (node-left tree)
+               (cons (node-val tree) (flatten (node-right tree) ans)))))
+
+(define (flatten2 t);zapisuje drzewo w postaci infixowej (lewy środek prawy)
+  (if (leaf? t) null
+      (append (flatten2 (node-left t)) (cons (node-val t) (flatten2 (node-right t))))))
 
 ;;CWICZENIE 5
 (define (leaf? x) ;z wykładu, potrzebne do BST

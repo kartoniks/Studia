@@ -175,7 +175,12 @@
       '(())
       (concat (map (λ (zs) (place (car xs) zs))
                    (permi (cdr xs))))))
-              
 
+;funkcja flatten spłaszcza listę
+(define (flatten xss)
+  (cond [(null? xss) null]
+        [(list? xss) (append (flatten (car xss)) (flatten (cdr xss)))] 
+        [else (list xss)]));gdy xss jest juz wartoscia, a nie lista
 
+(flatten '(3))
 

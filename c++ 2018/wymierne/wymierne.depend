@@ -1,0 +1,16 @@
+# depslib dependency file v1.0
+1524567829 source:/home/kartoniks/Desktop/Studia/c++ 2018/wymierne8/wymierna.cpp
+	"wymierna.hpp"
+	<map>
+
+1524568073 /home/kartoniks/Desktop/Studia/c++ 2018/wymierne8/wymierna.hpp
+	<iostream>
+	<limits>
+
+1524565306 source:/home/kartoniks/Desktop/Studia/c++ 2018/wymierne/main.cpp
+	<iostream>
+
+1524566347 source:/home/kartoniks/Desktop/Studia/c++ 2018/wymierne8/main.cpp
+	<iostream>
+	"wymierna.hpp"
+

@@ -27,8 +27,8 @@ class wymierna
     wymierna operator-(const wymierna &w2);
     wymierna operator*(const wymierna &w2);
     wymierna operator/(const wymierna &w2);
-    operator int();
-    operator double();
+    explicit operator int();
+    explicit operator double();
     wymierna& operator-();
     wymierna& operator!();
     private:

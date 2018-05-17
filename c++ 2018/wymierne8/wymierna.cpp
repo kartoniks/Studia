@@ -1,4 +1,5 @@
 #include "wymierna.hpp"
+#include <map>
 namespace obliczenia{
 wymierna::wymierna(int a, int b)
 {
@@ -99,11 +100,13 @@ wymierna::operator double()
 
     return val;
 }
+
 ostream& operator<< (ostream &wyj, const wymierna &w)
 {
     wyj<<w.licz<<"/"<<w.mian<<endl;
 }
 }
+
 const char* przekroczenie::what()
 {
     return "Przekroczenie zakresu";
