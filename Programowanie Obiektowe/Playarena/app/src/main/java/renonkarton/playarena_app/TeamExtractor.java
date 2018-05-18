@@ -1,5 +1,6 @@
 package renonkarton.playarena_app;
 
+import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 
 import java.io.IOException;
@@ -20,10 +21,10 @@ public class TeamExtractor {
         return x;
     }
 
-    //url docelowo ma być podwanane w argumencie, zeby wiecej tabeli moznabylo przerobic
+    //url docelowo ma byc podawane w argumencie, zeby wiecej tabeli moznabylo przerobic
     public static Team[] getTeams(String url) throws IOException
     {
-        Document doc = TableDownloader.downloader("http://playarena.pl/leagueSeason/ajaxTable?league_season_id=15681");
+        Document doc = Jsoup.connect("http://playarena.pl/leagueSeason/ajaxTable?league_season_id=15681").get();
         Elements team_list = doc.getElementsByTag("tr");
         Team[] result = new Team[16];
         //  System.out.print(team_list.toString());
@@ -35,15 +36,17 @@ public class TeamExtractor {
             //Wszystkie rzeczy z atrybutem class to te rzeczy, ktore chcemy - pozycja w tabeli/nazwa/punkty i bramki
             Elements important_data = team_data.getElementsByAttribute("class");
             //a no ciekawostka jest tez taka, ze jest to dwukrotnie xD
-            System.out.println(important_data.text());
+            //System.out.println(important_data.text());
+
             //pozycja w tabeli jest pierwsza
             String position_text = important_data.get(1).text();
             //nazwa jest trzecia
             String name = important_data.get(3).text();
-
+            //punkty sa dziewiate
+            int points = StringToInt(important_data.get(9).text());
             //szybki konwerter
             int position = StringToInt(position_text);
-            result[i-1] = new Team(name,position);
+            result[i-1] = new Team(name,position, points);
         }
         return result;
     }
@@ -52,8 +55,7 @@ public class TeamExtractor {
     public static void main(String argv[]) throws IOException
     {
         Team[] teams_array = TeamExtractor.getTeams("hohoh");
-        for (Team x:
-                teams_array) {
+        for (Team x : teams_array) {
             System.out.println(x.toString());
 
         }

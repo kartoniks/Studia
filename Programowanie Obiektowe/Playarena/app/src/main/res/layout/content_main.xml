@@ -8,14 +8,64 @@
     tools:context=".MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Siemaneczko sportowe swiry"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.465" />
+    <TableLayout
+        android:layout_marginTop="10dp"
+        android:id="@+id/table_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TableRow
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:id="@+id/table_row1"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/name"
+                android:fontFamily="serif"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:textColor="#000"
+                android:text="Name"/>
+            <TextView
+                android:id="@+id/age"
+                android:textColor="#000"
+                android:fontFamily="serif"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:text="Age"/>
+            <TextView
+                android:textColor="#000"
+                android:id="@+id/position"
+                android:fontFamily="serif"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:text="Position"/>
+            <TextView
+                android:textColor="#000"
+                android:id="@+id/address"
+                android:fontFamily="serif"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:text="location"/>
+
+        </TableRow>
+        <View
+            android:layout_height="3dip"
+            android:layout_width="match_parent"
+            android:background="#ff0000"/>
+    </TableLayout>
+
+    <ListView
+        android:id="@+id/records_view"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/table_layout"
+        tools:layout_editor_absoluteX="0dp"></ListView>
 
 </android.support.constraint.ConstraintLayout>

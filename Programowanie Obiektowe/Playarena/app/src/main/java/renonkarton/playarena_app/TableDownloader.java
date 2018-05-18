@@ -23,8 +23,8 @@ public class TableDownloader {
 
     public static Document  downloader(String url) throws IOException  {
         Document doc = Jsoup.connect(url).get();
-        String myhtml = doc.toString();
         return doc;
+        //String myhtml = doc.toString();
         // xhtmlConverter toXML = new xhtmlConverter();
         // String myxhtml = toXML.toXHTML(myhtml);
         // System.out.println(myhtml);
