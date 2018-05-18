@@ -1,4 +1,4 @@
-package com.example.kartoniks.playarena;
+package renonkarton.playarena_app;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.example.kartoniks.playarena", appContext.getPackageName());
+        assertEquals("renonkarton.playarena_app", appContext.getPackageName());
     }
 }

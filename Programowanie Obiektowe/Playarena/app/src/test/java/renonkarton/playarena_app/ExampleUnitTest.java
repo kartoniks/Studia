@@ -1,4 +1,4 @@
-package com.example.kartoniks.playarena;
+package renonkarton.playarena_app;
 
 import org.junit.Test;
 
