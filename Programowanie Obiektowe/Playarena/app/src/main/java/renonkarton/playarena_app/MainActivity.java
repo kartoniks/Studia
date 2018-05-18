@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.util.Log;
 
 import java.io.IOException;
 
@@ -36,12 +37,11 @@ public class MainActivity extends AppCompatActivity {
         try {
             //pobiera tabele druzyn
             Team[] teams_array = TeamExtractor.getTeams("hohoh");
-
             //wyswietla tabele
             Context baseContext = getApplicationContext();
             TableLayout tableLayout = TableDisplay.setlayout(baseContext, teams_array);
             setContentView(tableLayout);
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

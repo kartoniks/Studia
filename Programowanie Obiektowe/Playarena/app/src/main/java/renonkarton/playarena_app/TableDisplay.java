@@ -14,22 +14,22 @@ public class TableDisplay {
 
         TableRow tableRow = new TableRow(mycontext);
         TextView text = new Button(mycontext);
-        text.setText("Ala ma kota");
+        text.setText("Playarena kurla");
         tableRow.addView(text);
         tableLayout.addView(tableRow);
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 16; i++) {
             tableRow = new TableRow(mycontext);
             Button button = new Button(mycontext);
-            button.setText("1");
+            button.setText(data[i].position.toString());
             tableRow.addView(button);
 
             button = new Button(mycontext);
-            button.setText("2");
+            button.setText(data[i].name.toString());
             tableRow.addView(button);
 
             button = new Button(mycontext);
-            button.setText("3");
+            button.setText(data[i].points.toString());
             tableRow.addView(button);
 
             tableLayout.addView(tableRow);

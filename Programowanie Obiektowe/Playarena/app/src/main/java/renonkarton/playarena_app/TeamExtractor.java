@@ -4,9 +4,11 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
+
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
-
+import android.util.Log;
 public class TeamExtractor {
 
     private static int StringToInt(String enter) //with dot!
@@ -22,12 +24,12 @@ public class TeamExtractor {
     }
 
     //url docelowo ma byc podawane w argumencie, zeby wiecej tabeli moznabylo przerobic
-    public static Team[] getTeams(String url) throws IOException
+    public  static Team[] getTeams(String url) throws IOException, ExecutionException, InterruptedException
     {
-        Document doc = Jsoup.connect("http://playarena.pl/leagueSeason/ajaxTable?league_season_id=15681").get();
+        //exectute tworzy ten watek w oparciu o ten link, a potem get wywala wartosc
+        Document doc =  (new TableDownloader()).execute("http://playarena.pl/leagueSeason/ajaxTable?league_season_id=15681").get();
         Elements team_list = doc.getElementsByTag("tr");
         Team[] result = new Team[16];
-        //  System.out.print(team_list.toString());
         for(int i = 1; i < 17; i++)
         {
             //Tu mamy caly html dotyczacy jednego klubu
@@ -52,12 +54,11 @@ public class TeamExtractor {
     }
 
 
-    public static void main(String argv[]) throws IOException
+    public static void main(String argv[]) throws IOException, InterruptedException, ExecutionException
     {
         Team[] teams_array = TeamExtractor.getTeams("hohoh");
         for (Team x : teams_array) {
             System.out.println(x.toString());
-
         }
 
     }
