@@ -11,14 +11,28 @@ public class TableDisplay {
     public static TableLayout setlayout(Context mycontext, Team[] data)
     {
         TableLayout tableLayout = new TableLayout(mycontext);
-
+        for(int i = 0; i < 3; i++) {
+            tableLayout.setColumnShrinkable(i, true);
+            tableLayout.setColumnStretchable(i, true);
+        }
         TableRow tableRow = new TableRow(mycontext);
+
         TextView text = new Button(mycontext);
-        text.setText("Playarena kurla");
+        text.setText("Pozycja");
         tableRow.addView(text);
+
+        TextView text2 = new Button(mycontext);
+        text2.setText("Druzyna");
+        tableRow.addView(text2);
+
+        TextView text3 = new Button(mycontext);
+        text3.setText("Pkt");
+        tableRow.addView(text3);
+
+
         tableLayout.addView(tableRow);
 
-        for (int i = 0; i < 16; i++) {
+        for (int i = 0; i < 15; i++) {
             tableRow = new TableRow(mycontext);
             Button button = new Button(mycontext);
             button.setText(data[i].position.toString());

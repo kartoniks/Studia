@@ -27,10 +27,10 @@ public class TeamExtractor {
     public  static Team[] getTeams(String url) throws IOException, ExecutionException, InterruptedException
     {
         //exectute tworzy ten watek w oparciu o ten link, a potem get wywala wartosc
-        Document doc =  (new TableDownloader()).execute("http://playarena.pl/leagueSeason/ajaxTable?league_season_id=15681").get();
+        Document doc =  (new TableDownloader()).execute(url).get();
         Elements team_list = doc.getElementsByTag("tr");
-        Team[] result = new Team[16];
-        for(int i = 1; i < 17; i++)
+        Team[] result = new Team[15];
+        for(int i = 1; i < 16; i++)
         {
             //Tu mamy caly html dotyczacy jednego klubu
             Element team_data = team_list.get(i);
@@ -53,13 +53,13 @@ public class TeamExtractor {
         return result;
     }
 
-
+/*
     public static void main(String argv[]) throws IOException, InterruptedException, ExecutionException
     {
-        Team[] teams_array = TeamExtractor.getTeams("hohoh");
+        Team[] teams_array = TeamExtractor.getTeams("http://playarena.pl/leagueSeason/ajaxTable?league_season_id=15681");
         for (Team x : teams_array) {
             System.out.println(x.toString());
         }
 
-    }
+    }*/
 }
