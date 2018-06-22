@@ -8,7 +8,6 @@ import java.util.concurrent.ExecutionException;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
-import android.util.Log;
 public class TeamExtractor {
 
     private static int StringToInt(String enter) //with dot!

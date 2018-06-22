@@ -80,7 +80,11 @@ public class LeagueActivity extends AppCompatActivity {
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        startActivity(new Intent(LeagueActivity.this,TeamActivity.class));
+                     Intent intent = new Intent(LeagueActivity.this,TeamActivity.class);
+                     Bundle b = new Bundle();
+                     b.putString("url",url);
+                     intent.putExtras(b);
+                     startActivity(intent);
                     }
                 });
                 tableRow.addView(button);
