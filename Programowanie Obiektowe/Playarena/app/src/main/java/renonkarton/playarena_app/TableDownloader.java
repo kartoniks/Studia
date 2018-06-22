@@ -43,7 +43,7 @@ public class TableDownloader extends AsyncTask<String,Void,Document>{
             this.exception = e;
             return null;
         }
-        }
+    }
 
     protected void onPostExecute(Document doc) {
         return;

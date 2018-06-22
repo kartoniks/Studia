@@ -1,12 +1,15 @@
 package renonkarton.playarena_app;
 
 import android.content.Context;
+import android.content.Intent;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-public class TableDisplay {
+//paczaj koment w league activity
+public class Table_Display {
 
     public static TableLayout setlayout(Context mycontext, Team[] data)
     {
@@ -32,7 +35,7 @@ public class TableDisplay {
 
         tableLayout.addView(tableRow);
 
-        for (int i = 0; i < 15; i++) {
+        for (int i = 0; i < 14; i++) {
             tableRow = new TableRow(mycontext);
             Button button = new Button(mycontext);
             button.setText(data[i].position.toString());

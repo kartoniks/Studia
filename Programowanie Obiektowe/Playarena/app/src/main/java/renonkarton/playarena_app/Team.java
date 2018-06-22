@@ -4,15 +4,17 @@ public class Team {
     String name;
     Integer position;
     Integer points;
-    public Team(String name, int position, int points)
+    String url;
+    public Team(String name, int position, int points, String url)
     {
         this.name = name;
         this.position = position;
         this.points = points;
+        this.url = url;
     }
 
     public String toString()
     {
-        return   position.toString() + " " + name + " " + points.toString();
+        return   position.toString() + " " + name + " " + points.toString() + "\n" + url;
     }
 }

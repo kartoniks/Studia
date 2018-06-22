@@ -13,6 +13,8 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 
 public class LeagueActivity extends AppCompatActivity {
 
@@ -26,7 +28,7 @@ public class LeagueActivity extends AppCompatActivity {
             Team[] teams_array = TeamExtractor.getTeams("http://playarena.pl/leagueSeason/ajaxTable?league_season_id=15681");
             //wyswietla tabele
             Context baseContext = getApplicationContext();
-            TableLayout tableLayout = TableDisplay.setlayout(baseContext, teams_array);
+            TableLayout tableLayout = new TableDisplay().setlayout(baseContext, teams_array);
             //setContentView(tableLayout);
 
             ScrollView scroll = new ScrollView(this);
@@ -38,6 +40,59 @@ public class LeagueActivity extends AppCompatActivity {
         }
 
 
+    }
+        //zeby dobrze te buttony konfigurowac ta klasa musi byc tu
+    protected class TableDisplay {
+
+        public  TableLayout setlayout(Context mycontext, Team[] data)
+        {
+            TableLayout tableLayout = new TableLayout(mycontext);
+            for(int i = 0; i < 3; i++) {
+                tableLayout.setColumnShrinkable(i, true);
+                tableLayout.setColumnStretchable(i, true);
+            }
+            TableRow tableRow = new TableRow(mycontext);
+
+            TextView text = new Button(mycontext);
+            text.setText("Pozycja");
+            tableRow.addView(text);
+
+            TextView text2 = new Button(mycontext);
+            text2.setText("Druzyna");
+            tableRow.addView(text2);
+
+            TextView text3 = new Button(mycontext);
+            text3.setText("Pkt");
+            tableRow.addView(text3);
+
+
+            tableLayout.addView(tableRow);
+
+            for (int i = 0; i < 14; i++) {
+                tableRow = new TableRow(mycontext);
+                Button button = new Button(mycontext);
+                button.setText(data[i].position.toString());
+                tableRow.addView(button);
+
+                button = new Button(mycontext);
+                button.setText(data[i].name.toString());
+                final String url = data[i].url;
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startActivity(new Intent(LeagueActivity.this,TeamActivity.class));
+                    }
+                });
+                tableRow.addView(button);
+
+                button = new Button(mycontext);
+                button.setText(data[i].points.toString());
+                tableRow.addView(button);
+
+                tableLayout.addView(tableRow);
+            }
+            return tableLayout;
+        }
     }
 
 }
