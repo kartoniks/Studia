@@ -3,11 +3,13 @@ package renonkarton.playarena_app;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+
 
 public class TeamActivity extends AppCompatActivity
 {
@@ -24,7 +26,7 @@ public class TeamActivity extends AppCompatActivity
                 url = b.getString("url");
             }
 
-            Player[] players_array = PlayersExtractor.getTeams("http://playarena.pl/team/ajaxTeamMembers/team_id/" + IdCutter(url));
+            Player[] players_array = PlayersExtractor.getPlayers("http://playarena.pl/team/ajaxTeamMembers/team_id/" + Team.IdCutter(url));
             Context baseContext = getApplicationContext();
             TableLayout tableLayout = new TableDisplay().setlayout(baseContext, players_array);
 
@@ -39,23 +41,6 @@ public class TeamActivity extends AppCompatActivity
 
     }
 
-
-    private String IdCutter(String url) {
-        String id = "";
-        Integer i = 1;
-        while (true)
-        {
-            char c = url.charAt(i);
-            if('0' <= c && '9' >= c)
-            {
-                id += c;
-                i++;
-                continue;
-            }
-            break;
-        }
-        return id;
-    }
 
 
     //zeby dobrze te buttony konfigurowac ta klasa musi byc tu

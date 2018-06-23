@@ -76,11 +76,11 @@ public class LeagueActivity extends AppCompatActivity {
 
                 button = new Button(mycontext);
                 button.setText(data[i].name.toString());
-                final String url = data[i].url;
+                final String url = data[i].teamUrl;
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                     Intent intent = new Intent(LeagueActivity.this,TeamActivity.class);
+                     Intent intent = new Intent(LeagueActivity.this,TeamChooserActivity.class);
                      Bundle b = new Bundle();
                      b.putString("url",url);
                      intent.putExtras(b);

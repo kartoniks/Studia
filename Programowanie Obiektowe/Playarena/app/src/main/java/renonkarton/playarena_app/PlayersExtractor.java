@@ -13,7 +13,7 @@ import java.lang.String;
 public class PlayersExtractor {
 
     //url docelowo ma byc podawane w argumencie, zeby wiecej tabeli moznabylo przerobic
-    public static Player[] getTeams(String url) throws IOException, ExecutionException, InterruptedException {
+    public static Player[] getPlayers(String url) throws IOException, ExecutionException, InterruptedException {
         //exectute tworzy ten watek w oparciu o ten link, a potem get wywala wartosc
         Document doc = (new TableDownloader()).execute(url).get();
         Elements player_list = doc.getElementsByTag("tbody");
