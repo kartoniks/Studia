@@ -5,12 +5,19 @@ public class Match {
     Team right;
     String score;
     String star;
+    String data;
 
-    public Match(Team left, Team right, String score, String star)
+    public Match(String data, Team left, Team right, String score, String star)
     {
+        this.data = data;
         this.left = left;
         this.right = right;
         this.score = score;
         this.star = star;
+    }
+
+    public String toString()
+    {
+        return data + " " + score;
     }
 }

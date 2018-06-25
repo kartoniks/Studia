@@ -45,7 +45,63 @@ public class TeamLastMatchesActivity extends AppCompatActivity {
 
         public TableLayout setlayout(Context mycontext, Match[] data) {
 
-            return null;
+            TableLayout tableLayout = new TableLayout(mycontext);
+            for(int i = 0; i < 5; i++) {
+                tableLayout.setColumnShrinkable(i, true);
+                tableLayout.setColumnStretchable(i, true);
+            }
+            TableRow tableRow = new TableRow(mycontext);
+
+            TextView text = new Button(mycontext);
+            text.setText("Data");
+            tableRow.addView(text);
+
+            TextView text2 = new Button(mycontext);
+            text2.setText("Druzyna A");
+            tableRow.addView(text2);
+
+            TextView text3 = new Button(mycontext);
+            text3.setText("Wynik");
+            tableRow.addView(text3);
+
+            TextView text4 = new Button(mycontext);
+            text4.setText("Druzyna B");
+            tableRow.addView(text4);
+
+            TextView text5 = new Button(mycontext);
+            text5.setText("Gwiazda");
+            tableRow.addView(text5);
+
+
+            tableLayout.addView(tableRow);
+
+            for (int i = 0; i < data.length; i++) {
+                tableRow = new TableRow(mycontext);
+
+                Button button = new Button(mycontext);
+                button.setText(data[i].data.toString());
+                tableRow.addView(button);
+
+                button = new Button(mycontext);
+                button.setText(data[i].left.name);
+                tableRow.addView(button);
+
+                button = new Button(mycontext);
+                button.setText(data[i].score);
+                tableRow.addView(button);
+
+                button = new Button(mycontext);
+                button.setText(data[i].right.name);
+                tableRow.addView(button);
+
+                button = new Button(mycontext);
+                button.setText(data[i].star);
+                tableRow.addView(button);
+
+
+                tableLayout.addView(tableRow);
+            }
+            return tableLayout;
         }
     }
 }

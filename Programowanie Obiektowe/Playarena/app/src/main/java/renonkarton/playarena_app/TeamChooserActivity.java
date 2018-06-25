@@ -36,7 +36,7 @@ public class TeamChooserActivity extends AppCompatActivity {
         newButton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent matches = new Intent(TeamChooserActivity.this,TeamActivity.class);
+                Intent matches = new Intent(TeamChooserActivity.this,TeamLastMatchesActivity.class);
                 matches.putExtras(b);
                 startActivity(matches);
             }
