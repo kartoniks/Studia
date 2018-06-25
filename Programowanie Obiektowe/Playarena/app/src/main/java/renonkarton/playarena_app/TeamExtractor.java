@@ -4,6 +4,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import org.jsoup.nodes.Document;
@@ -26,13 +28,14 @@ public class TeamExtractor {
         //exectute tworzy ten watek w oparciu o ten link, a potem get wywala wartosc
         Document doc = (new TableDownloader()).execute(url).get();
         Elements team_list = doc.getElementsByTag("tr");
-        Team[] result = new Team[14];
-        for (int i = 1; i < 15; i++) {
+        List<Team> result = new ArrayList<Team>();
+        for (int i = 1; i < 100; i++) {
             //Tu mamy caly html dotyczacy jednego klubu
             Element team_data = team_list.get(i);
             // System.out.print(team_data.toString());
             //Wszystkie rzeczy z atrybutem class to te rzeczy, ktore chcemy - pozycja w tabeli/nazwa/punkty i bramki
             Elements important_data = team_data.getElementsByAttribute("class");
+            if(important_data.size()==0 || important_data.get(0).text().equals("Pozycja")) break;
             //a no ciekawostka jest tez taka, ze jest to dwukrotnie xD
             //System.out.println(important_data.text());
 
@@ -46,20 +49,22 @@ public class TeamExtractor {
             int points = StringToInt(important_data.get(9).text());
             //szybki konwerter
             int position = StringToInt(position_text);
-            result[i - 1] = new Team(name, position, points,  teamUrl);
+            result.add( new Team(name, position, points,  teamUrl));
         }
-        return result;
+        return result.toArray(new Team[result.size()]);
     }
 
-/*
+
     public static void main(String argv[]) throws IOException, InterruptedException, ExecutionException {
         //     Team[] teams_array = TeamExtractor.getTeams("http://playarena.pl/leagueSeason/ajaxTable?league_season_id=15681");
-        Document doc = Jsoup.connect("http://playarena.pl/leagueSeason/ajaxTable?league_season_id=15681").get();
+        Document doc = Jsoup.connect("http://playarena.pl/leagueSeason/ajaxTable?league_season_id=15613").get();
         // Document doc =  (new TableDownloader()).execute(url).get();
         Elements team_list = doc.getElementsByTag("tr");
        // System.out.println(team_list.toString());
         Team[] result = new Team[14];
-        for(int i = 1; i < 15; i++)
+        Elements important_data = team_list.get(13).getElementsByAttribute("class");
+        System.out.println(important_data.get(0).toString());
+        /*for(int i = 1; i < 15; i++)
         {
             //Tu mamy caly html dotyczacy jednego klubu
             Element team_data = team_list.get(i);
@@ -82,7 +87,7 @@ public class TeamExtractor {
             int position = StringToInt(position_text);
             result[i-1] = new Team(name,position, points,  url);
             System.out.println(result[i-1].teamUrl.toString());
-        }
+        }*/
         return;
-    }*/
+    }
 }

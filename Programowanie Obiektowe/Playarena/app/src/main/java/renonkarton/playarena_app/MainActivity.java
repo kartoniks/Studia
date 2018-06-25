@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         newButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this,LeagueActivity.class));
+                startActivity(new Intent(MainActivity.this,CityChooserActivity.class));
             }
         });
 

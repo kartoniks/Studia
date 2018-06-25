@@ -24,8 +24,15 @@ public class LeagueActivity extends AppCompatActivity {
         setContentView(R.layout.activity_league);
 
         try {
+
+            Bundle b = getIntent().getExtras();
+            String url = "";
+            if(b != null)
+            {
+                url = b.getString("url");
+            }
             //pobiera tabele druzyn
-            Team[] teams_array = TeamExtractor.getTeams("http://playarena.pl/leagueSeason/ajaxTable?league_season_id=15681");
+            Team[] teams_array = TeamExtractor.getTeams("http://playarena.pl/leagueSeason/ajaxTable?league_season_id=" + url);
             //wyswietla tabele
             Context baseContext = getApplicationContext();
             TableLayout tableLayout = new TableDisplay().setlayout(baseContext, teams_array);
@@ -68,7 +75,7 @@ public class LeagueActivity extends AppCompatActivity {
 
             tableLayout.addView(tableRow);
 
-            for (int i = 0; i < 14; i++) {
+            for (int i = 0; i < data.length; i++) {
                 tableRow = new TableRow(mycontext);
                 Button button = new Button(mycontext);
                 button.setText(data[i].position.toString());
