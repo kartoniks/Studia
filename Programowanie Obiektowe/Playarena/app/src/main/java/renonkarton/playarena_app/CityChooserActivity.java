@@ -2,6 +2,7 @@ package renonkarton.playarena_app;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -25,10 +26,6 @@ public class CityChooserActivity extends AppCompatActivity {
             Context baseContext = getApplicationContext();
             TableLayout tableLayout = new TableDisplay().setlayout(baseContext);
 
-            ScrollView scroll = new ScrollView(this);
-            scroll.addView(tableLayout);
-            this.setContentView(scroll);
-
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -40,10 +37,10 @@ public class CityChooserActivity extends AppCompatActivity {
 
         public TableLayout setlayout(Context mycontext) {
 
-            TableLayout tableLayout = new TableLayout(mycontext);
+            TableLayout tableLayout = findViewById(R.id.main_table);
             for(int i = 0; i < 1; i++) {
                 tableLayout.setColumnShrinkable(i, true);
-                tableLayout.setColumnStretchable(i, true);
+                //tableLayout.setColumnStretchable(i, true);
             }
             TableRow tableRow = new TableRow(mycontext);
             tableLayout.addView(tableRow);

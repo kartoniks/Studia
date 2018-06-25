@@ -42,7 +42,7 @@ public class LeagueChooserActivity extends AppCompatActivity {
 
         public TableLayout setlayout(Context mycontext, int b) {
 
-            TableLayout tableLayout = new TableLayout(mycontext);
+            TableLayout tableLayout = findViewById(R.id.main_table);
             for(int i = 0; i < 1; i++) {
                 tableLayout.setColumnShrinkable(i, true);
                 tableLayout.setColumnStretchable(i, true);

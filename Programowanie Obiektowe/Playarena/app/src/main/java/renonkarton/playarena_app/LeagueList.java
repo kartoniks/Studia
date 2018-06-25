@@ -15,5 +15,13 @@ public class LeagueList
         list.add(city);
         city = new ArrayList<String>(Arrays.asList("Opole","15613"));
         list.add(city);
+        city = new ArrayList<String>(Arrays.asList("Lubin","16025","16026"));
+        list.add(city);
+        city = new ArrayList<String>(Arrays.asList("Głogów","15609"));
+        list.add(city);
+        city = new ArrayList<String>(Arrays.asList("Zielona Góra","15628"));
+        list.add(city);
+        city = new ArrayList<String>(Arrays.asList("Gorzów Wielkopolski","15599"));
+        list.add(city);
     }
 }

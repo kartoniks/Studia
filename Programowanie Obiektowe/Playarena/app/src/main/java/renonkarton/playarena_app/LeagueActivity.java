@@ -38,10 +38,6 @@ public class LeagueActivity extends AppCompatActivity {
             TableLayout tableLayout = new TableDisplay().setlayout(baseContext, teams_array);
             //setContentView(tableLayout);
 
-            ScrollView scroll = new ScrollView(this);
-            scroll.addView(tableLayout);
-            this.setContentView(scroll);
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -53,7 +49,7 @@ public class LeagueActivity extends AppCompatActivity {
 
         public  TableLayout setlayout(Context mycontext, Team[] data)
         {
-            TableLayout tableLayout = new TableLayout(mycontext);
+            TableLayout tableLayout = findViewById(R.id.main_table);
             for(int i = 0; i < 3; i++) {
                 tableLayout.setColumnShrinkable(i, true);
                 tableLayout.setColumnStretchable(i, true);
