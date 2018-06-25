@@ -6,6 +6,7 @@ public class Team extends League{
     Integer position;
     Integer points;
     String teamUrl;
+    String logoUrl;
 
     public Team()
     {
@@ -15,12 +16,13 @@ public class Team extends League{
         teamUrl = "";
     }
 
-    public Team(String name, int position, int points, String url)
+    public Team(String name, int position, int points, String url, String logoUrl)
     {
         this.name = name;
         this.position = position;
         this.points = points;
         this.teamUrl = url;
+        this.logoUrl = logoUrl;
     }
 
     public Team(String name)

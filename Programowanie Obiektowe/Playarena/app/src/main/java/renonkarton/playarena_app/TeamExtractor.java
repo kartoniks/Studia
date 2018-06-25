@@ -44,16 +44,29 @@ public class TeamExtractor {
             //nazwa jest trzecia
             //Url jest w atrybucie/id, wiec trza sie inaczej do niego dobrac
             String teamUrl = important_data.attr("href");
+            String logoUrl = logo_url_cutter(important_data.get(2).html());
             String name = important_data.get(3).text();
             //punkty sa dziewiate
             int points = StringToInt(important_data.get(9).text());
             //szybki konwerter
             int position = StringToInt(position_text);
-            result.add( new Team(name, position, points,  teamUrl));
+            result.add( new Team(name, position, points,  teamUrl, logoUrl));
         }
         return result.toArray(new Team[result.size()]);
     }
 
+
+    private static String logo_url_cutter(String url) {
+        String result = "";
+        boolean p = false;
+        for (int i = 0; true; i++)
+        {
+            if(url.charAt(i) == ')') break;
+            if(p == true) result += url.charAt(i);
+            if(url.charAt(i) == '(') p = true;
+        }
+        return result;
+    }
 
     public static void main(String argv[]) throws IOException, InterruptedException, ExecutionException {
         //     Team[] teams_array = TeamExtractor.getTeams("http://playarena.pl/leagueSeason/ajaxTable?league_season_id=15681");
@@ -63,7 +76,7 @@ public class TeamExtractor {
        // System.out.println(team_list.toString());
         Team[] result = new Team[14];
         Elements important_data = team_list.get(13).getElementsByAttribute("class");
-        System.out.println(important_data.get(0).toString());
+        System.out.println(logo_url_cutter(team_list.get(2).getElementsByAttribute("class").get(2).html()));
         /*for(int i = 1; i < 15; i++)
         {
             //Tu mamy caly html dotyczacy jednego klubu
