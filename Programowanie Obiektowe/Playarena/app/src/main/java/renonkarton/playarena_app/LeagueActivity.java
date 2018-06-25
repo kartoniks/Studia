@@ -35,8 +35,8 @@ public class LeagueActivity extends AppCompatActivity {
             Team[] teams_array = TeamExtractor.getTeams("http://playarena.pl/leagueSeason/ajaxTable?league_season_id=" + url);
             //wyswietla tabele
             Context baseContext = getApplicationContext();
-            TableLayout tableLayout = new TableDisplay().setlayout(baseContext, teams_array);
-            //setContentView(tableLayout);
+            new TableDisplay().setlayout(baseContext, teams_array);
+
 
         } catch (Exception e) {
             e.printStackTrace();

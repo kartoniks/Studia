@@ -1,14 +1,20 @@
 package renonkarton.playarena_app;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+
+import java.io.InputStream;
 
 
 public class TeamActivity extends AppCompatActivity
@@ -26,13 +32,13 @@ public class TeamActivity extends AppCompatActivity
                 url = b.getString("url");
             }
 
+            ImageView logoImage = (ImageView) findViewById(R.id.team_logo);
+            String pathToFile = "http://playarena.pl" + b.getString("logo_url");
+            logoImage.setImageBitmap((new DownloadImageWithURLTask().execute(pathToFile)).get());
+
             Player[] players_array = PlayersExtractor.getPlayers("http://playarena.pl/team/ajaxTeamMembers/team_id/" + Team.IdCutter(url));
             Context baseContext = getApplicationContext();
-            TableLayout tableLayout = new TableDisplay().setlayout(baseContext, players_array);
-
-            ScrollView scroll = new ScrollView(this);
-            scroll.addView(tableLayout);
-            this.setContentView(scroll);
+            new TableDisplay().setlayout(baseContext, players_array);
 
 
         } catch (Exception e) {
@@ -48,7 +54,7 @@ public class TeamActivity extends AppCompatActivity
 
         public  TableLayout setlayout(Context mycontext, Player[] data)
         {
-            TableLayout tableLayout = new TableLayout(mycontext);
+            TableLayout tableLayout = findViewById(R.id.main_table);
             for(int i = 0; i < 8; i++) {
                 tableLayout.setColumnShrinkable(i, true);
                 tableLayout.setColumnStretchable(i, true);
@@ -127,6 +133,21 @@ public class TeamActivity extends AppCompatActivity
                 tableLayout.addView(tableRow);
             }
             return tableLayout;
+        }
+    }
+    private class DownloadImageWithURLTask extends AsyncTask<String, Void, Bitmap> {
+
+        protected Bitmap doInBackground(String... urls) {
+            String pathToFile = urls[0];
+            Bitmap bitmap = null;
+            try {
+                InputStream in = new java.net.URL(pathToFile).openStream();
+                bitmap = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return bitmap;
         }
     }
 }
