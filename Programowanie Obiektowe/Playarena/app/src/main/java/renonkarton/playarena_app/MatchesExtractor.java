@@ -19,6 +19,7 @@ public class MatchesExtractor {
         List<Match> result = new ArrayList<Match>();
         for (int i = 0; i < matches_list.size(); i += 4)
         {
+            if(matches_list.get(i).attr("class").toString().equals("meetItem row meetUpcomming")) continue;
             if(matches_list.get(i).text().equals("więcej meczów")) break;
             String data = matches_list.get(i+1).text();
             Element e = matches_list.get(i);
@@ -34,10 +35,10 @@ public class MatchesExtractor {
     }
 /*
     public static void main(String argv[]) throws IOException, InterruptedException, ExecutionException {
-        Document doc = Jsoup.connect("http://playarena.pl/team/ajaxMeetings/team_id/56088").get();
+        Document doc = Jsoup.connect("http://playarena.pl/team/ajaxMeetings/team_id/32393").get();
         Elements matches_list = doc.getElementsByAttribute("id");
         List<Match> result = new ArrayList<Match>();
-        for (int i = 0; i < matches_list.size(); i += 4)
+       /* for (int i = 0; i < matches_list.size(); i += 4)
         {
             if(matches_list.get(i).text().equals("więcej meczów")) break;
             String data = matches_list.get(i+1).text();
@@ -49,8 +50,8 @@ public class MatchesExtractor {
             String star = "";
             if(teams.size() == 8) star = teams.get(7).text();
             result.add(new Match(data,teamL,teamR,score,star));
-        }
-        System.out.println(result.toString());
-    }*/
+        }*/
+       // System.out.println(matches_list.get(0).attr("class").toString());
+    //}*/
 
 }

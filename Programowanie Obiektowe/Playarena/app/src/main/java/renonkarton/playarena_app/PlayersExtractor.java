@@ -28,16 +28,16 @@ public class PlayersExtractor {
                 switch(i)
                 {
                     case 0:
-                        p.setPosition("Bramkarz");
+                        p.setPosition("Br");
                         break;
                     case 1:
-                        p.setPosition("Obronca");
+                        p.setPosition("Ob");
                         break;
                         case 2:
-                        p.setPosition("Pomocnik");
+                        p.setPosition("Pm");
                         break;
                         case 3:
-                        p.setPosition("Napastnik");
+                        p.setPosition("Np");
                         break;
                 }
                 result.add(p);

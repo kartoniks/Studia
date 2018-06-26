@@ -62,11 +62,11 @@ public class TeamActivity extends AppCompatActivity
             TableRow tableRow = new TableRow(mycontext);
 
             TextView text = new Button(mycontext);
-            text.setText("Pozycja");
+            text.setText("");
             tableRow.addView(text);
 
             TextView text2 = new Button(mycontext);
-            text2.setText("Numer");
+            text2.setText("Nr");
             tableRow.addView(text2);
 
             TextView text3 = new Button(mycontext);
@@ -78,11 +78,11 @@ public class TeamActivity extends AppCompatActivity
             tableRow.addView(text4);
 
             TextView text5 = new Button(mycontext);
-            text5.setText("Mecze");
+            text5.setText("M");
             tableRow.addView(text5);
 
             TextView text6 = new Button(mycontext);
-            text6.setText("Punkty");
+            text6.setText("Pkt");
             tableRow.addView(text6);
 
             TextView text7 = new Button(mycontext);

@@ -50,14 +50,14 @@ public class LeagueActivity extends AppCompatActivity {
         public  TableLayout setlayout(Context mycontext, Team[] data)
         {
             TableLayout tableLayout = findViewById(R.id.main_table);
-            for(int i = 0; i < 3; i++) {
+            for(int i = 1; i < 2; i++) {
                 tableLayout.setColumnShrinkable(i, true);
                 tableLayout.setColumnStretchable(i, true);
             }
             TableRow tableRow = new TableRow(mycontext);
 
             TextView text = new Button(mycontext);
-            text.setText("Pozycja");
+            text.setText("");
             tableRow.addView(text);
 
             TextView text2 = new Button(mycontext);
@@ -68,6 +68,7 @@ public class LeagueActivity extends AppCompatActivity {
             text3.setText("Pkt");
             tableRow.addView(text3);
 
+            tableRow.setMinimumHeight(text2.getHeight());
 
             tableLayout.addView(tableRow);
 
@@ -79,6 +80,7 @@ public class LeagueActivity extends AppCompatActivity {
 
                 button = new Button(mycontext);
                 button.setText(data[i].name.toString());
+                tableRow.setMinimumHeight(button.getHeight());
                 final String url = data[i].teamUrl;
                 final String logo_url = data[i].logoUrl;
                 button.setOnClickListener(new View.OnClickListener() {
