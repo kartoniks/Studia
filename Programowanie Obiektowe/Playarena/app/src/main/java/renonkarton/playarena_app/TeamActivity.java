@@ -56,7 +56,7 @@ public class TeamActivity extends AppCompatActivity
         {
             TableLayout tableLayout = findViewById(R.id.main_table);
             for(int i = 0; i < 8; i++) {
-                tableLayout.setColumnShrinkable(i, true);
+               // tableLayout.setColumnShrinkable(i, true);
                 tableLayout.setColumnStretchable(i, true);
             }
             TableRow tableRow = new TableRow(mycontext);
