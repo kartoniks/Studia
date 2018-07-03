@@ -36,19 +36,19 @@ public class Team extends League{
     }
 
     public static String IdCutter(String url) {
-        String id = "";
         Integer i = 1;
+        StringBuilder bd = new StringBuilder("");
         while (true)
         {
             char c = url.charAt(i);
             if('0' <= c && '9' >= c)
             {
-                id += c;
+                bd.append(c);
                 i++;
                 continue;
             }
             break;
         }
-        return id;
+        return bd.toString();
     }
 }

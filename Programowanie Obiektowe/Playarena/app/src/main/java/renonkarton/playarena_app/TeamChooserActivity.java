@@ -59,7 +59,7 @@ public class TeamChooserActivity extends AppCompatActivity {
         });
     }
 
-    private class DownloadImageWithURLTask extends AsyncTask<String, Void, Bitmap> {
+    private static class DownloadImageWithURLTask extends AsyncTask<String, Void, Bitmap> {
 
         protected Bitmap doInBackground(String... urls) {
             String pathToFile = urls[0];

@@ -90,7 +90,7 @@ public class TeamActivity extends AppCompatActivity
             tableRow.addView(text7);
 
             TextView text8 = new Button(mycontext);
-            text8.setText("GO");
+            text8.setText("MVP");
             tableRow.addView(text8);
 
             tableLayout.addView(tableRow);

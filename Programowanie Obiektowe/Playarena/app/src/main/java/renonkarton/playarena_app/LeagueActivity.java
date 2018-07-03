@@ -45,9 +45,9 @@ public class LeagueActivity extends AppCompatActivity {
 
     }
         //zeby dobrze te buttony konfigurowac ta klasa musi byc tu
-    protected class TableDisplay {
+        private class TableDisplay {
 
-        public  TableLayout setlayout(Context mycontext, Team[] data)
+        private   void setlayout(Context mycontext, Team[] data)
         {
             TableLayout tableLayout = findViewById(R.id.main_table);
             for(int i = 1; i < 2; i++) {
@@ -61,7 +61,7 @@ public class LeagueActivity extends AppCompatActivity {
             tableRow.addView(text);
 
             TextView text2 = new Button(mycontext);
-            text2.setText("Druzyna");
+            text2.setText("Drużyna");
             tableRow.addView(text2);
 
             TextView text3 = new Button(mycontext);
@@ -102,7 +102,6 @@ public class LeagueActivity extends AppCompatActivity {
 
                 tableLayout.addView(tableRow);
             }
-            return tableLayout;
         }
     }
 

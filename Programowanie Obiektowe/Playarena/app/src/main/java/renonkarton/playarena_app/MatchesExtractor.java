@@ -19,7 +19,7 @@ public class MatchesExtractor {
         List<Match> result = new ArrayList<Match>();
         for (int i = 0; i < matches_list.size(); i += 4)
         {
-            if(matches_list.get(i).attr("class").toString().equals("meetItem row meetUpcomming")) continue;
+            if(matches_list.get(i).attr("class").equals("meetItem row meetUpcomming")) continue;
             if(matches_list.get(i).text().equals("więcej meczów")) break;
             String data = matches_list.get(i+1).text();
             Element e = matches_list.get(i);

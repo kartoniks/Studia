@@ -25,7 +25,7 @@ public class Table_Display {
         tableRow.addView(text);
 
         TextView text2 = new Button(mycontext);
-        text2.setText("Druzyna");
+        text2.setText("Drużyna");
         tableRow.addView(text2);
 
         TextView text3 = new Button(mycontext);

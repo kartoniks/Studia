@@ -45,9 +45,9 @@ public class TeamLastMatchesActivity extends AppCompatActivity {
 
     }
 
-    protected class TableDisplay {
+    private class TableDisplay {
 
-        public TableLayout setlayout(Context mycontext, Match[] data) {
+        private void setlayout(Context mycontext, Match[] data) {
 
             TableLayout tableLayout = findViewById(R.id.main_table);
             for (int i = 0; i < 5; i++) {
@@ -61,7 +61,7 @@ public class TeamLastMatchesActivity extends AppCompatActivity {
             tableRow.addView(text);
 
             TextView text2 = new Button(mycontext);
-            text2.setText("Druzyna A");
+            text2.setText("Drużyna A");
             tableRow.addView(text2);
 
             TextView text3 = new Button(mycontext);
@@ -69,11 +69,11 @@ public class TeamLastMatchesActivity extends AppCompatActivity {
             tableRow.addView(text3);
 
             TextView text4 = new Button(mycontext);
-            text4.setText("Druzyna B");
+            text4.setText("Drużyna B");
             tableRow.addView(text4);
 
             TextView text5 = new Button(mycontext);
-            text5.setText("Gwiazda");
+            text5.setText("MVP");
             tableRow.addView(text5);
 
 
@@ -83,7 +83,7 @@ public class TeamLastMatchesActivity extends AppCompatActivity {
                 tableRow = new TableRow(mycontext);
 
                 Button button = new Button(mycontext);
-                button.setText(data[i].data.toString());
+                button.setText(data[i].data);
                 tableRow.addView(button);
 
                 button = new Button(mycontext);
@@ -105,11 +105,10 @@ public class TeamLastMatchesActivity extends AppCompatActivity {
 
                 tableLayout.addView(tableRow);
             }
-            return tableLayout;
         }
     }
 
-    private class DownloadImageWithURLTask extends AsyncTask<String, Void, Bitmap> {
+    private static class DownloadImageWithURLTask extends AsyncTask<String, Void, Bitmap> {
 
         protected Bitmap doInBackground(String... urls) {
             String pathToFile = urls[0];

@@ -26,6 +26,9 @@ public class CityChooserActivity extends AppCompatActivity {
             Context baseContext = getApplicationContext();
             TableLayout tableLayout = new TableDisplay().setlayout(baseContext);
 
+            ScrollView scroll = new ScrollView(this);
+            scroll.addView(tableLayout);
+            this.setContentView(scroll);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -33,15 +36,14 @@ public class CityChooserActivity extends AppCompatActivity {
 
     }
 
-    protected class TableDisplay {
+    private class TableDisplay {
 
         public TableLayout setlayout(Context mycontext) {
 
             TableLayout tableLayout = findViewById(R.id.main_table);
-            for(int i = 0; i < 1; i++) {
-                tableLayout.setColumnShrinkable(i, true);
+          //  for(int i = 0; i < 1; i++) {
+                tableLayout.setColumnShrinkable(0, true);
                 //tableLayout.setColumnStretchable(i, true);
-            }
             TableRow tableRow = new TableRow(mycontext);
             tableLayout.addView(tableRow);
 
@@ -67,7 +69,6 @@ public class CityChooserActivity extends AppCompatActivity {
                 });
 
                 tableRow.addView(button);
-
                 tableLayout.addView(tableRow);
             }
             return tableLayout;

@@ -59,13 +59,14 @@ public class TeamExtractor {
     private static String logo_url_cutter(String url) {
         String result = "";
         boolean p = false;
+        StringBuilder bd = new StringBuilder(result);
         for (int i = 0; true; i++)
         {
             if(url.charAt(i) == ')') break;
-            if(p == true) result += url.charAt(i);
+            if(p)  bd.append(url.charAt(i));
             if(url.charAt(i) == '(') p = true;
         }
-        return result;
+        return bd.toString();
     }
 
     public static void main(String argv[]) throws IOException, InterruptedException, ExecutionException {
@@ -101,6 +102,5 @@ public class TeamExtractor {
             result[i-1] = new Team(name,position, points,  url);
             System.out.println(result[i-1].teamUrl.toString());
         }*/
-        return;
     }
 }

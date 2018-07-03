@@ -25,11 +25,9 @@ public class LeagueChooserActivity extends AppCompatActivity {
 
             Context baseContext = getApplicationContext();
             TableLayout tableLayout = new TableDisplay().setlayout(baseContext,bundle_value);
-
             ScrollView scroll = new ScrollView(this);
             scroll.addView(tableLayout);
             this.setContentView(scroll);
-
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -38,19 +36,18 @@ public class LeagueChooserActivity extends AppCompatActivity {
     }
 
 
-    protected class TableDisplay {
+    private class TableDisplay {
 
-        public TableLayout setlayout(Context mycontext, int b) {
+        private TableLayout setlayout(Context mycontext, int b) {
 
             TableLayout tableLayout = findViewById(R.id.main_table);
-            for(int i = 0; i < 1; i++) {
-                tableLayout.setColumnShrinkable(i, true);
-                tableLayout.setColumnStretchable(i, true);
-            }
+            tableLayout.setColumnShrinkable(0, true);
+            tableLayout.setColumnStretchable(0, true);
+
             TableRow tableRow = new TableRow(mycontext);
             tableLayout.addView(tableRow);
 
-            List<String> list = new LeagueList().list.get(b);
+            List<String> list =  new LeagueList().list.get(b);
 
             for (int i = 1; i < list.size(); i++) {
                 tableRow = new TableRow(mycontext);
@@ -59,19 +56,20 @@ public class LeagueChooserActivity extends AppCompatActivity {
                 button.setText("Liga " + i);
 
                 final String url = list.get(i);
+                final int cityIndex = b;
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(LeagueChooserActivity.this,LeagueActivity.class);
                         Bundle b = new Bundle();
                         b.putString("url", url);
+                        b.putInt("cityIndex",cityIndex);
                         intent.putExtras(b);
                         startActivity(intent);
                     }
                 });
 
                 tableRow.addView(button);
-
                 tableLayout.addView(tableRow);
             }
             return tableLayout;
