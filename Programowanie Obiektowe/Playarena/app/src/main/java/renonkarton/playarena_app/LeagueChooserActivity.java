@@ -49,11 +49,12 @@ public class LeagueChooserActivity extends AppCompatActivity {
 
             List<String> list =  new LeagueList().list.get(b);
 
-            for (int i = 1; i < list.size(); i++) {
+            final String cityId = list.get(1);
+            for (int i = 2; i < list.size(); i++) {
                 tableRow = new TableRow(mycontext);
 
                 Button button = new Button(mycontext);
-                button.setText("Liga " + i);
+                button.setText("Liga " + (i-1));
 
                 final String url = list.get(i);
                 final int cityIndex = b;
@@ -64,6 +65,7 @@ public class LeagueChooserActivity extends AppCompatActivity {
                         Bundle b = new Bundle();
                         b.putString("url", url);
                         b.putInt("cityIndex",cityIndex);
+                        b.putString("cityId",cityId);
                         intent.putExtras(b);
                         startActivity(intent);
                     }

@@ -2,7 +2,7 @@ package renonkarton.playarena_app;
 
 public class League {
 
-    String localization;
+    private String localization;
     Integer number;
     String url;
 

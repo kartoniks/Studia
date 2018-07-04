@@ -16,6 +16,21 @@ public class Match {
         this.star = star;
     }
 
+    public Match(String data, Team left, Team right, String score)
+    {
+        this.data = data;
+        this.left = left;
+        this.right = right;
+        this.score = score;
+    }
+
+    public Match(String data, Team left, Team right)
+    {
+        this.data = data;
+        this.left = left;
+        this.right = right;
+    }
+
     public String toString()
     {
         return data + " " + score;

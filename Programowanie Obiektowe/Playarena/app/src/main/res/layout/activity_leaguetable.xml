@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".LeagueTableActivity">
 
     <ImageView
         android:id="@+id/playarena_logo"
         android:layout_width="0dp"
         android:layout_height="157dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,31 +28,38 @@
         app:layout_constraintTop_toBottomOf="@+id/playarena_logo"
         app:srcCompat="@android:color/holo_green_dark" />
 
-    <Button
-        android:id="@+id/table_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="134dp"
-        android:layout_marginLeft="134dp"
-        android:layout_marginRight="134dp"
-        android:layout_marginStart="134dp"
-        android:layout_marginTop="68dp"
-        android:text="Zobacz Tabele"
+    <ScrollView
+        android:id="@+id/layout"
+        android:layout_width="match_parent"
+        android:layout_height="393dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:fillViewport="true"
+        android:scrollbarStyle="outsideInset"
+        android:scrollbars="horizontal|vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/playarena_logo" />
+        app:layout_constraintTop_toBottomOf="@+id/playarena_logo">
 
-    <Button
-        android:id="@+id/next_matches_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="134dp"
-        android:layout_marginLeft="134dp"
-        android:layout_marginRight="134dp"
-        android:layout_marginStart="134dp"
-        android:layout_marginTop="152dp"
-        android:text="Mecze"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/playarena_logo" />
+        <TableLayout
+            android:id="@+id/main_table"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/playarena_logo">
+
+        </TableLayout>
+    </ScrollView>
+
 </android.support.constraint.ConstraintLayout>

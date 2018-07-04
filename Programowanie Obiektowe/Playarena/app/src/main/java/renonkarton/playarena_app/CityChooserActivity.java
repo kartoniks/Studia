@@ -38,7 +38,7 @@ public class CityChooserActivity extends AppCompatActivity {
 
     private class TableDisplay {
 
-        public TableLayout setlayout(Context mycontext) {
+        private TableLayout setlayout(Context mycontext) {
 
             TableLayout tableLayout = findViewById(R.id.main_table);
           //  for(int i = 0; i < 1; i++) {

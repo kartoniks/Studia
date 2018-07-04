@@ -33,7 +33,27 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".TeamActivity"
+            android:name=".LeagueNextMachesActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".LeagueTableActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".TeamSquadActivity"
             android:label="playarena_app"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -43,7 +63,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".TeamChooserActivity"
+            android:name=".TeamActivity"
             android:label="playarena_app"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
