@@ -42,17 +42,15 @@ public class CityChooserActivity extends AppCompatActivity {
 
             TableLayout tableLayout = findViewById(R.id.main_table);
           //  for(int i = 0; i < 1; i++) {
-                tableLayout.setColumnShrinkable(0, true);
+            tableLayout.setColumnShrinkable(0, true);
                 //tableLayout.setColumnStretchable(i, true);
             TableRow tableRow = new TableRow(mycontext);
             tableLayout.addView(tableRow);
 
-            LeagueList cities = new LeagueList();
-
-            for (int i = 0; i < cities.list.size(); i++) {
+            for (int i = 0; i < LeagueList.list.size(); i++) {
                 tableRow = new TableRow(mycontext);
 
-                List<String> list = cities.list.get(i);
+                List<String> list = LeagueList.list.get(i);
                 Button button = new Button(mycontext);
                 button.setText(list.get(0));
 

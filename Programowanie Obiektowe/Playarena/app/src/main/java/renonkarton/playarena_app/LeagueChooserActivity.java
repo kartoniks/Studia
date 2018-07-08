@@ -21,10 +21,13 @@ public class LeagueChooserActivity extends AppCompatActivity {
 
         try {
             Bundle b = getIntent().getExtras();
-            int bundle_value = b.getInt("index");
-
+            int value = -1;
+            if(null != b)
+            {
+                value = b.getInt("index");
+            }
             Context baseContext = getApplicationContext();
-            TableLayout tableLayout = new TableDisplay().setlayout(baseContext,bundle_value);
+            TableLayout tableLayout = new TableDisplay().setlayout(baseContext,value);
             ScrollView scroll = new ScrollView(this);
             scroll.addView(tableLayout);
             this.setContentView(scroll);
@@ -47,7 +50,7 @@ public class LeagueChooserActivity extends AppCompatActivity {
             TableRow tableRow = new TableRow(mycontext);
             tableLayout.addView(tableRow);
 
-            List<String> list =  new LeagueList().list.get(b);
+            List<String> list =  LeagueList.list.get(b);
 
             final String cityId = list.get(1);
             for (int i = 2; i < list.size(); i++) {
@@ -63,7 +66,7 @@ public class LeagueChooserActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         Intent intent = new Intent(LeagueChooserActivity.this,LeagueActivity.class);
                         Bundle b = new Bundle();
-                        b.putString("url", url);
+                        b.putString("leagueUrl", url);
                         b.putInt("cityIndex",cityIndex);
                         b.putString("cityId",cityId);
                         intent.putExtras(b);

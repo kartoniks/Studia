@@ -2,26 +2,23 @@ package renonkarton.playarena_app;
 
 public class League {
 
-    private String localization;
-    Integer number;
-    String url;
+    Integer leagueId;
+    String leagueUrl;
 
     public League()
     {
-        localization = "";
-        number = -1;
-        url = "";
+        leagueId = -1;
+        leagueUrl = "";
     }
 
-    public League(String loc, int num, String url)
+    public League(int num, String url)
     {
-        localization = loc;
-        number = num;
-        this.url = url;
+        leagueId = num;
+        this.leagueUrl = url;
     }
 
     public String toString()
     {
-        return localization + number.toString();
+        return leagueId.toString();
     }
 }

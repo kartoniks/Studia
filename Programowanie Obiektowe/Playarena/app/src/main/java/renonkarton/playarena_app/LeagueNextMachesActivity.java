@@ -29,7 +29,7 @@ public class LeagueNextMachesActivity extends AppCompatActivity {
             String url = "";
             String cityId = "";
             if (b != null) {
-                url = b.getString("url");
+                url = b.getString("leagueUrl");
                 cityId = b.getString("cityId");
             }
             Match[] matches_array = NextMatchesExtractor.getMatches(cityId,url);
@@ -121,7 +121,7 @@ public class LeagueNextMachesActivity extends AppCompatActivity {
     {
         double chances = 0;
         try {
-            Team[] leagueTable = TeamExtractor.getTeams(a.url);
+            Team[] leagueTable = TeamExtractor.getTeams(a.leagueUrl);
 
             for (Team t:
                  leagueTable) {

@@ -23,7 +23,7 @@ public class LeagueTableActivity extends AppCompatActivity {
             String url = "";
             if(b != null)
             {
-                url = b.getString("url");
+                url = b.getString("leagueUrl");
             }
             //pobiera tabele druzyn
             Team[] teams_array = TeamExtractor.getTeams(url);
@@ -70,11 +70,11 @@ public class LeagueTableActivity extends AppCompatActivity {
                  data) {
                 tableRow = new TableRow(mycontext);
                 Button button = new Button(mycontext);
-                button.setText(t.position.toString());
+                button.setText(t.position);
                 tableRow.addView(button);
 
                 button = new Button(mycontext);
-                button.setText(t.name.toString());
+                button.setText(t.name);
                 tableRow.setMinimumHeight(button.getHeight());
                 final String url = t.teamUrl;
                 final String logo_url = t.logoUrl;
@@ -83,8 +83,8 @@ public class LeagueTableActivity extends AppCompatActivity {
                     public void onClick(View v) {
                      Intent intent = new Intent(LeagueTableActivity.this,TeamActivity.class);
                      Bundle b = new Bundle();
-                     b.putString("url",url);
-                     b.putString("logo_url",logo_url);
+                     b.putString("teamUrl",url);
+                     b.putString("logoUrl",logo_url);
                      intent.putExtras(b);
                      startActivity(intent);
                     }
@@ -92,7 +92,7 @@ public class LeagueTableActivity extends AppCompatActivity {
                 tableRow.addView(button);
 
                 button = new Button(mycontext);
-                button.setText(t.points.toString());
+                button.setText(String.valueOf(t.points));
                 tableRow.addView(button);
 
                 tableLayout.addView(tableRow);

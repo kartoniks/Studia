@@ -55,7 +55,7 @@ public class NextMatchesExtractor {
         }
         return result.toArray(new Match[result.size()]);
     }
-
+/*
     public static void main(String argv[]) throws IOException {
         Document doc = Jsoup.connect("http://playarena.pl/branch/ajaxMeetings/branch_id/6/league_season_id/15658").get();
         Elements matches_list = doc.getElementsByAttribute("id");
@@ -99,7 +99,7 @@ public class NextMatchesExtractor {
         }
         System.out.println(result.toString());
         System.out.println(matches_list.get(0).attr("class").toString());
-    }
+    }*/
 
     private static String url_cutter(String url) {
         String result = "";

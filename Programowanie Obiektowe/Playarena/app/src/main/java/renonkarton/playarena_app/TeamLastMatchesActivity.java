@@ -25,12 +25,14 @@ public class TeamLastMatchesActivity extends AppCompatActivity {
         try {
             Bundle b = getIntent().getExtras();
             String url = "";
+            String logoUrl = "";
             if (b != null) {
-                url = b.getString("url");
+                url = b.getString("teamUrl");
+                logoUrl = b.getString("logoUrl");
             }
             ImageView logoImage = (ImageView) findViewById(R.id.team_logo);
-            String pathToFile = "http://playarena.pl" + b.getString("logo_url");
-            logoImage.setImageBitmap((new DownloadImageWithURLTask().execute(pathToFile)).get());
+            String pathToFile = "http://playarena.pl" + logoUrl;
+            logoImage.setImageBitmap((new ImageDownloader().execute(pathToFile)).get());
 
             Match[] matches_array = MatchesExtractor.getMatches(Team.IdCutter(url));
             Context baseContext = getApplicationContext();
@@ -105,22 +107,6 @@ public class TeamLastMatchesActivity extends AppCompatActivity {
 
                 tableLayout.addView(tableRow);
             }
-        }
-    }
-
-    private static class DownloadImageWithURLTask extends AsyncTask<String, Void, Bitmap> {
-
-        protected Bitmap doInBackground(String... urls) {
-            String pathToFile = urls[0];
-            Bitmap bitmap = null;
-            try {
-                InputStream in = new java.net.URL(pathToFile).openStream();
-                bitmap = BitmapFactory.decodeStream(in);
-            } catch (Exception e) {
-                Log.e("Error", e.getMessage());
-                e.printStackTrace();
-            }
-            return bitmap;
         }
     }
 }

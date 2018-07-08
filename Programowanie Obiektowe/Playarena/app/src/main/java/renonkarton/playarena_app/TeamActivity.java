@@ -22,10 +22,14 @@ public class TeamActivity extends AppCompatActivity {
             setContentView(R.layout.activity_teamactivity);
 
             Bundle b = getIntent().getExtras();
-
+            String logoUrl = "";
+            if(null != b)
+            {
+                logoUrl = b.getString("logoUrl");
+            }
             ImageView logoImage = (ImageView) findViewById(R.id.team_logo);
-            String pathToFile = "http://playarena.pl" + b.getString("logo_url");
-            logoImage.setImageBitmap((new DownloadImageWithURLTask().execute(pathToFile)).get());
+            String pathToFile = "http://playarena.pl" + logoUrl;
+            logoImage.setImageBitmap((new ImageDownloader().execute(pathToFile)).get());
             configureButtons(b);
         } catch (Exception e)
         {
@@ -56,22 +60,5 @@ public class TeamActivity extends AppCompatActivity {
             }
         });
     }
-
-    private static class DownloadImageWithURLTask extends AsyncTask<String, Void, Bitmap> {
-
-        protected Bitmap doInBackground(String... urls) {
-            String pathToFile = urls[0];
-            Bitmap bitmap = null;
-            try {
-                InputStream in = new java.net.URL(pathToFile).openStream();
-                bitmap = BitmapFactory.decodeStream(in);
-            } catch (Exception e) {
-                Log.e("Error", e.getMessage());
-                e.printStackTrace();
-            }
-            return bitmap;
-        }
-    }
-
 
 }

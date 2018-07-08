@@ -26,16 +26,18 @@ public class TeamSquadActivity extends AppCompatActivity
         try {
             Bundle b = getIntent().getExtras();
             String url = "";
+            String logoUrl = "";
             if(b != null)
             {
-                url = b.getString("url");
+                url = b.getString("teamUrl");
+                logoUrl = b.getString("logoUrl");
             }
 
             ImageView logoImage = (ImageView) findViewById(R.id.team_logo);
-            String pathToFile = "http://playarena.pl" + b.getString("logo_url");
-            logoImage.setImageBitmap((new DownloadImageWithURLTask().execute(pathToFile)).get());
+            String pathToFile = "http://playarena.pl" + logoUrl;
+            logoImage.setImageBitmap((new ImageDownloader().execute(pathToFile)).get());
 
-            Player[] players_array = PlayersExtractor.getPlayers("http://playarena.pl/team/ajaxTeamMembers/team_id/" + Team.IdCutter(url));
+            Player[] players_array = PlayersExtractor.getPlayers(Team.IdCutter(url));
             Context baseContext = getApplicationContext();
             new TableDisplay().setlayout(baseContext, players_array);
 
@@ -46,12 +48,10 @@ public class TeamSquadActivity extends AppCompatActivity
 
     }
 
-
-
     //zeby dobrze te buttony konfigurowac ta klasa musi byc tu
-    protected class TableDisplay {
+    private class TableDisplay {
 
-        public  TableLayout setlayout(Context mycontext, Player[] data)
+        private  void setlayout(Context mycontext, Player[] data)
         {
             TableLayout tableLayout = findViewById(R.id.main_table);
             for(int i = 0; i < 8; i++) {
@@ -99,55 +99,39 @@ public class TeamSquadActivity extends AppCompatActivity
                 tableRow = new TableRow(mycontext);
                 Button button = new Button(mycontext);
 
-                button.setText(p.position.toString());
+                button.setText(p.position);
                 tableRow.addView(button);
 
                 button = new Button(mycontext);
-                button.setText(p.number.toString());
+                button.setText(String.valueOf(p.number));
                 tableRow.addView(button);
 
                 button = new Button(mycontext);
-                button.setText(p.name.toString());
+                button.setText(p.name);
                 tableRow.addView(button);
 
                 button = new Button(mycontext);
-                button.setText(p.age.toString());
+                button.setText(String.valueOf(p.age));
                 tableRow.addView(button);
 
                 button = new Button(mycontext);
-                button.setText(p.matches.toString());
+                button.setText(String.valueOf(p.matches));
                 tableRow.addView(button);
 
                 button = new Button(mycontext);
-                button.setText(p.points.toString());
+                button.setText(String.valueOf(p.points));
                 tableRow.addView(button);
 
                 button = new Button(mycontext);
-                button.setText(p.stars.toString());
+                button.setText(String.valueOf(p.stars));
                 tableRow.addView(button);
 
                 button = new Button(mycontext);
-                button.setText(p.goals.toString());
+                button.setText(String.valueOf(p.goals));
                 tableRow.addView(button);
 
                 tableLayout.addView(tableRow);
             }
-            return tableLayout;
-        }
-    }
-    private static class DownloadImageWithURLTask extends AsyncTask<String, Void, Bitmap> {
-
-        protected Bitmap doInBackground(String... urls) {
-            String pathToFile = urls[0];
-            Bitmap bitmap = null;
-            try {
-                InputStream in = new java.net.URL(pathToFile).openStream();
-                bitmap = BitmapFactory.decodeStream(in);
-            } catch (Exception e) {
-                Log.e("Error", e.getMessage());
-                e.printStackTrace();
-            }
-            return bitmap;
         }
     }
 }

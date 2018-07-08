@@ -28,7 +28,7 @@ public class Team extends League{
     public Team(String name, String leagueurl)
     {
         this.name = name;
-        this.url = leagueurl;
+        this.leagueUrl = leagueurl;
     }
 
 
@@ -37,7 +37,7 @@ public class Team extends League{
     {
         this.name = name;
         this.teamUrl = teamUrl;
-        this.url = leagueurl;
+        this.leagueUrl = leagueurl;
     }
 
     public String toString()
