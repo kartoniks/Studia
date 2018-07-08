@@ -29,6 +29,7 @@ public class Match {
         this.data = data;
         this.left = left;
         this.right = right;
+        this.score = null;
     }
 
     public String toString()

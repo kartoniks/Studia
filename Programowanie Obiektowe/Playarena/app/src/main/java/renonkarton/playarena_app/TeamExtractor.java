@@ -26,7 +26,7 @@ public class TeamExtractor {
     //url docelowo ma byc podawane w argumencie, zeby wiecej tabeli moznabylo przerobic
     public static Team[] getTeams(String url) throws IOException, ExecutionException, InterruptedException {
         //exectute tworzy ten watek w oparciu o ten link, a potem get wywala wartosc
-        Document doc = (new TableDownloader()).execute(url).get();
+        Document doc = (new TableDownloader()).execute("http://playarena.pl/leagueSeason/ajaxTable?league_season_id=" + url).get();
         Elements team_list = doc.getElementsByTag("tr");
         List<Team> result = new ArrayList<Team>();
         for (int i = 1; i < 100; i++) {

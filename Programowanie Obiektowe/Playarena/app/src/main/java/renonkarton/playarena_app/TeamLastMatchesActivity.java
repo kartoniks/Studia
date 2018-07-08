@@ -32,7 +32,7 @@ public class TeamLastMatchesActivity extends AppCompatActivity {
             String pathToFile = "http://playarena.pl" + b.getString("logo_url");
             logoImage.setImageBitmap((new DownloadImageWithURLTask().execute(pathToFile)).get());
 
-            Match[] matches_array = MatchesExtractor.getMatches("http://playarena.pl/team/ajaxMeetings/team_id/" + Team.IdCutter(url));
+            Match[] matches_array = MatchesExtractor.getMatches(Team.IdCutter(url));
             Context baseContext = getApplicationContext();
 
             new TableDisplay().setlayout(baseContext, matches_array);
@@ -50,7 +50,7 @@ public class TeamLastMatchesActivity extends AppCompatActivity {
 
             TableLayout tableLayout = findViewById(R.id.main_table);
             for (int i = 0; i < 5; i++) {
-               // tableLayout.setColumnShrinkable(i, true);
+                // tableLayout.setColumnShrinkable(i, true);
                 tableLayout.setColumnStretchable(i, true);
             }
             TableRow tableRow = new TableRow(mycontext);
@@ -78,8 +78,8 @@ public class TeamLastMatchesActivity extends AppCompatActivity {
 
             tableLayout.addView(tableRow);
 
-            for (Match m:
-                 data) {
+            for (Match m :
+                    data) {
                 tableRow = new TableRow(mycontext);
 
                 Button button = new Button(mycontext);

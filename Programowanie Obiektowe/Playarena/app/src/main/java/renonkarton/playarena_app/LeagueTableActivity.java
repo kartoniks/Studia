@@ -26,7 +26,7 @@ public class LeagueTableActivity extends AppCompatActivity {
                 url = b.getString("url");
             }
             //pobiera tabele druzyn
-            Team[] teams_array = TeamExtractor.getTeams("http://playarena.pl/leagueSeason/ajaxTable?league_season_id=" + url);
+            Team[] teams_array = TeamExtractor.getTeams(url);
             //wyswietla tabele
             Context baseContext = getApplicationContext();
             new TableDisplay().setlayout(baseContext, teams_array);

@@ -25,9 +25,19 @@ public class Team extends League{
         this.logoUrl = logoUrl;
     }
 
-    public Team(String name)
+    public Team(String name, String leagueurl)
     {
         this.name = name;
+        this.url = leagueurl;
+    }
+
+
+
+    public Team(String name, String leagueurl, String teamUrl)
+    {
+        this.name = name;
+        this.teamUrl = teamUrl;
+        this.url = leagueurl;
     }
 
     public String toString()

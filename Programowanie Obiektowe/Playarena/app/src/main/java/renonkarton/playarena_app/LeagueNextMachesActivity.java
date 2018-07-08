@@ -3,10 +3,12 @@ package renonkarton.playarena_app;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.util.Pair;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TableLayout;
@@ -30,7 +32,7 @@ public class LeagueNextMachesActivity extends AppCompatActivity {
                 url = b.getString("url");
                 cityId = b.getString("cityId");
             }
-            Match[] matches_array = NextMatchesExtractor.getMatches("http://playarena.pl/branch/ajaxMeetings/branch_id/" + cityId + "/league_season_id/" + url);
+            Match[] matches_array = NextMatchesExtractor.getMatches(cityId,url);
             Context baseContext = getApplicationContext();
 
             new TableDisplay().setlayout(baseContext, matches_array);
@@ -78,22 +80,110 @@ public class LeagueNextMachesActivity extends AppCompatActivity {
                 button.setText(m.data);
                 tableRow.addView(button);
 
-                button = new Button(mycontext);
-                button.setText(m.left.name);
-                tableRow.addView(button);
+                Button buttonL = new Button(mycontext);
+                buttonL.setText(m.left.name);
 
-                button = new Button(mycontext);
-                button.setText(m.right.name);
-                tableRow.addView(button);
 
-                button = new Button(mycontext);
-                button.setText(m.score);
-                tableRow.addView(button);
+                Button buttonR = new Button(mycontext);
+                buttonR.setText(m.right.name);
 
+                if(null == m.score)
+                {
+                    button = new Button(mycontext);
+                    button.setText(m.score);
+                    boolean t =false;
+                    t = is_favorite(m.left, m.right);
+                    if(t)
+                    {
+                        buttonL.setBackgroundColor(Color.BLUE);
+                    }
+                    else
+                    {
+                        buttonR.setBackgroundColor(Color.BLUE);
+                    }
+                }
+                else {
+                    button = new Button(mycontext);
+                    button.setText(m.score);
+                }
+
+                tableRow.addView(buttonL);
+                tableRow.addView(buttonR);
+                tableRow.addView(button);
 
                 tableLayout.addView(tableRow);
             }
         }
+    }
+
+
+    private boolean is_favorite(Team a, Team b)
+    {
+        double chances = 0;
+        try {
+            Team[] leagueTable = TeamExtractor.getTeams(a.url);
+
+            for (Team t:
+                 leagueTable) {
+                if(a.name.equals(t.name))
+                {
+                    a.position = t.position;
+                    a.points = t.points;
+                }
+                if(b.name.equals(t.name))
+                {
+                    b.position = t.position;
+                    b.points = t.points;
+                }
+            }
+            chances = 1.0*(a.points - b.points);
+            chances /= 1.0*(a.points + b.points);
+            Match[] aMatches = MatchesExtractor.getMatches(a.teamUrl);
+            int i = 1;
+            for (Match m:
+                 aMatches) {
+                Pair<Integer,Integer> p = Score_cutter(m.score);
+                if(p.first > p.second && m.left.name.equals(a.name))
+                {
+                    chances += 1.0*1/1.0*(i+2);
+                }
+                i++;
+            }
+            Match[] bMatches = MatchesExtractor.getMatches(b.teamUrl);
+            for (Match m:
+                    bMatches) {
+                Pair<Integer,Integer> p = Score_cutter(m.score);
+                if(p.first > p.second && m.left.name.equals(b.name))
+                {
+                    chances -= 1.0*1/1.0*(i+2);
+                }
+                i++;
+            }
+            if(chances > 0) return true;
+            return false;
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return true;
+    }
+
+    private Pair<Integer,Integer> Score_cutter(String score)
+    {
+        int f = 0;
+        int t = 0;
+        for(int i = 0; i < score.length(); i++)
+        {
+            if(score.charAt(i) == ':')
+            {
+                f = t;
+                t = 0;
+                continue;
+            }
+            t =  t*10 + score.charAt(i) - '0';
+        }
+        return new Pair<Integer, Integer>(f,t);
     }
 
 }
