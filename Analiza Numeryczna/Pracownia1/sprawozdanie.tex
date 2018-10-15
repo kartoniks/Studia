@@ -1,0 +1,134 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Short Sectioned Assignment
+% LaTeX Template
+% Version 1.0 (5/5/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original author:
+% Frits Wenneker (http://www.howtotex.com)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[paper=a4, fontsize=11pt]{scrartcl} % A4 paper and 11pt font size
+
+\usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
+\usepackage{fourier} % Use the Adobe Utopia font for the document - comment this line to return to the LaTeX default
+\usepackage[english]{babel} % English language/hyphenation
+\usepackage{amsmath,amsfonts,amsthm} % Math packages
+\usepackage{polski}
+
+\usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
+
+\usepackage{sectsty} % Allows customizing section commands
+\allsectionsfont{\centering \normalfont\scshape} % Make all sections centered, the default font and small caps
+
+\usepackage{fancyhdr} % Custom headers and footers
+\pagestyle{fancyplain} % Makes all pages in the document conform to the custom headers and footers
+\fancyhead{} % No page header - if you want one, create it in the same way as the footers below
+\fancyfoot[L]{} % Empty left footer
+\fancyfoot[C]{} % Empty center footer
+\fancyfoot[R]{\thepage} % Page numbering for right footer
+\renewcommand{\headrulewidth}{0pt} % Remove header underlines
+\renewcommand{\footrulewidth}{0pt} % Remove footer underlines
+\setlength{\headheight}{13.6pt} % Customize the height of the header
+
+\numberwithin{equation}{section} % Number equations within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{figure}{section} % Number figures within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{table}{section} % Number tables within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs - comment this line for an assignment with lots of text
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of height
+
+\title{	
+\normalfont \normalsize 
+\textsc{Uniwersytet Wrocławski} \\ [25pt] % Your university, school and/or department name(s)
+\horrule{0.5pt} \\[0.4cm] % Thin top horizontal rule
+\huge Pracownia 1.19 \\ % The assignment title
+\horrule{2pt} \\[0.5cm] % Thick bottom horizontal rule
+}
+
+\author{Antoni Tomaszewski, Artur Derechowski} % Your name
+
+\date{\normalsize\today} % Today's date or a custom date
+
+\begin{document}
+
+\maketitle % Print the title
+
+%----------------------------------------------------------------------------------------
+%	PROBLEM 1
+%----------------------------------------------------------------------------------------
+
+\section{Opis problemu}
+
+Zadanie polega na napisaniu algorytmu Strassena mnożenia macierzy n*n  i porównania go z klasycznym mnożeniem macierzy. Algorytm Strassena ma złożoność asymptotyczną 
+\[ O(N^{\log 7 } )\]
+co jest lepsze od klasycznego mnożenia w czasie \[ O(N^{3} )\], więc dla dużych macierzy algorytm Strassena powinien być szybszy.
+
+\begin{align} 
+\begin{split}
+(x+y)^3 	&= (x+y)^2(x+y)\\
+&=(x^2+2xy+y^2)(x+y)\\
+&=(x^3+2x^2y+xy^2) + (x^2y+2xy^2+y^3)\\
+&=x^3+3x^2y+3xy^2+y^3
+\end{split}					
+\end{align}
+
+\begin{align}
+A = 
+\begin{bmatrix}
+A_{11} & A_{21} \\
+A_{21} & A_{22}
+\end{bmatrix}
+\end{align}
+
+%----------------------------------------------------------------------------------------
+%	PROBLEM 2
+%----------------------------------------------------------------------------------------
+
+\section{Algorytm Strassena}
+
+mając dwie macierze X i Y aby wyznaczyć ich iloczyn można najpierw podzielić je na bloki
+Z =  R S T U  , X =  A B C D  , Y =  E G F H  .\\
+Następnie trzeba zauważyć, że zamiast robić 8 mnożeń bloków macierzy wystarczy zrobić 7.\\
+R = AE + BF, S = AG + BH, T = CE + DF, U = CG + DH
+R = P5 + P4 - P2 + P6, S = P1 + P2, T = P3 + P4, U = P5 + P1 - P3 - P7,\\
+gdzie:\\
+P1 = A(G - H), P2 = (A + B)H, P3 = (C + D)E, P4 = D(F - E), P5 = (A + D)(E + H), P6 = (B - D)(F + H), P7 = (A - C)(E + G)\\
+
+Algorytm Strassena dzieli wtedy macierze na coraz mniejsze i wywołuje na nich mnożenie. \\
+
+Widać, że algorytm Strassena działa najefektywniej dla macierzy rozmiaru 2dok. Wtedy zawsze można je dzielić na 2 i wywoływać rekurencyjnie Strassena dla mniejszych macierzy. Gdy macierz jest nieparzystego rozumiaru, to nie można jej pomnożyć, bo nie można jej podzielić na bloki. Problem pojawia się, gdy mamy więc macierz rozmiaru 2dok+1. Wtedy efektywnie tworzymy macierz 4 razy większą (resztę wypełniamy zerami), aby ją pomnożyć. Można to też zbadać (nie jest ujęte w opisie pracowni).
+
+
+\section{Analiza błędów}
+po implementacji algorytmu Strassena kolejną częścią pracowni jest analiza błędów algorytmu.
+Należy przeprowadzić obliczenia dla macierzy o rozmiarach od 4 do 500. Dla danej macierzy nieosobliwej trzeba też policzyć wartości błędów delta(X*Xdo-1 - I) oraz delta(Xdo-1*X - I) , gdzie 
+delta(X) := SUM Xn i=1 Xn j=1 xdo2 ij. Jak te błędy mają się do klasycznego sposobu mnożenia macierzy?\\
+
+Dla danych macierzy X Y Z, obliczyć także delta((XY )V - X(Y V )). Porównać to z klasycznym mnożeniem macierzy. To sprawdzi, czy mnożenie Strassena dobrze zachowuje łączność mnożenia macierzy.\\
+
+Czy generowane macierze powinny być losowe?\\
+Chyba musimy też stworzyć algorytm liczenia macierzy odwrotnej.
+
+\section{Algorytm łączony}
+Nie jest to opisane w poleceniu pracowni, ale ciekawie byłoby pokazać dla jak dużych macierzy w naszej implementacji opłaca się bardziej stosowac algorytm Strassena od klasycznego. Można też się zastanowić wtedy nad algorytmem, który stosuje dzielenie Strassena do pewnego momentu, a gdy macierze są dostatecznie małe, to mnoży je klasycznie.
+
+\section{Forma}
+Programy mają być wykonane w języku Julia. Wykresy należy stworzyć w Jupyter Notebook i skonwertować do HTML. 
+
+\end{document}
