@@ -19,12 +19,12 @@
 %----------------------------------------------------------------------------------------
 
 \documentclass[paper=a4, fontsize=11pt]{scrartcl} % A4 paper and 11pt font size
-
+\usepackage[utf8]{inputenc}
+\usepackage[MeX]{polski}
 \usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
 \usepackage{fourier} % Use the Adobe Utopia font for the document - comment this line to return to the LaTeX default
-\usepackage[english]{babel} % English language/hyphenation
+ % English language/hyphenation
 \usepackage{amsmath,amsfonts,amsthm} % Math packages
-\usepackage{polski}
 
 \usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
 
@@ -88,14 +88,6 @@ co jest lepsze od klasycznego mnożenia w czasie \[ O(N^{3} )\], więc dla duży
 \end{split}					
 \end{align}
 
-\begin{align}
-A = 
-\begin{bmatrix}
-A_{11} & A_{21} \\
-A_{21} & A_{22}
-\end{bmatrix}
-\end{align}
-
 %----------------------------------------------------------------------------------------
 %	PROBLEM 2
 %----------------------------------------------------------------------------------------
@@ -103,24 +95,52 @@ A_{21} & A_{22}
 \section{Algorytm Strassena}
 
 mając dwie macierze X i Y aby wyznaczyć ich iloczyn można najpierw podzielić je na bloki
-Z =  R S T U  , X =  A B C D  , Y =  E G F H  .\\
-Następnie trzeba zauważyć, że zamiast robić 8 mnożeń bloków macierzy wystarczy zrobić 7.\\
-R = AE + BF, S = AG + BH, T = CE + DF, U = CG + DH
-R = P5 + P4 - P2 + P6, S = P1 + P2, T = P3 + P4, U = P5 + P1 - P3 - P7,\\
+\begin{align}
+Z = 
+\begin{bmatrix}
+R & S \\
+T & U
+\end{bmatrix} &&
+X = 
+\begin{bmatrix}
+A & B \\
+C & D
+\end{bmatrix} &&
+Y = 
+\begin{bmatrix}
+E & F \\
+G & H
+\end{bmatrix}
+\end{align}
+gdzie Z jest iloczynem macierzy X i Y. Następnie trzeba zauważyć, że zamiast robić 8 mnożeń bloków macierzy wystarczy zrobić 7.\\
+\begin{align}
+R = AE + BH, && S = AG + BH, && T = CE + DF, && U = CG + DH
+\end{align}
+Tę samą macierz można przedstawić w ten sposób:\\
+\begin{align}
+R = P5 + P4 - P2 + P6, && S = P1 + P2, && T = P3 + P4, && U = P5 + P1 - P3 - P7
+\end{align}
 gdzie:\\
-P1 = A(G - H), P2 = (A + B)H, P3 = (C + D)E, P4 = D(F - E), P5 = (A + D)(E + H), P6 = (B - D)(F + H), P7 = (A - C)(E + G)\\
+\begin{align}
+P1 = A(G - H), && P2 = (A + B)H, && P3 = (C + D)E, && P4 = D(F - E), \notag\\
+P5 = (A + D)(E + H), && P6 = (B - D)(F + H), && P7 = (A - C)(E + G)
+\end{align}
 
 Algorytm Strassena dzieli wtedy macierze na coraz mniejsze i wywołuje na nich mnożenie. \\
 
-Widać, że algorytm Strassena działa najefektywniej dla macierzy rozmiaru 2dok. Wtedy zawsze można je dzielić na 2 i wywoływać rekurencyjnie Strassena dla mniejszych macierzy. Gdy macierz jest nieparzystego rozumiaru, to nie można jej pomnożyć, bo nie można jej podzielić na bloki. Problem pojawia się, gdy mamy więc macierz rozmiaru 2dok+1. Wtedy efektywnie tworzymy macierz 4 razy większą (resztę wypełniamy zerami), aby ją pomnożyć. Można to też zbadać (nie jest ujęte w opisie pracowni).
+Widać, że algorytm Strassena działa najefektywniej dla macierzy rozmiaru 
+${2^k}$. Wtedy zawsze można je dzielić na 2 i wywoływać rekurencyjnie Strassena dla mniejszych macierzy. Gdy macierz jest nieparzystego rozumiaru, to nie można jej pomnożyć, bo nie można jej podzielić na bloki. Problem pojawia się, gdy mamy więc macierz rozmiaru 
+${2^k+1}$. Wtedy efektywnie tworzymy macierz 4 razy większą (resztę wypełniamy zerami), aby ją pomnożyć. Można to też zbadać (nie jest ujęte w opisie pracowni).
 
 
 \section{Analiza błędów}
 po implementacji algorytmu Strassena kolejną częścią pracowni jest analiza błędów algorytmu.
-Należy przeprowadzić obliczenia dla macierzy o rozmiarach od 4 do 500. Dla danej macierzy nieosobliwej trzeba też policzyć wartości błędów delta(X*Xdo-1 - I) oraz delta(Xdo-1*X - I) , gdzie 
-delta(X) := SUM Xn i=1 Xn j=1 xdo2 ij. Jak te błędy mają się do klasycznego sposobu mnożenia macierzy?\\
+Należy przeprowadzić obliczenia dla macierzy o rozmiarach od 4 do 500. Dla danej macierzy nieosobliwej trzeba też policzyć wartości błędów 
+$\Delta(X X^{-1} - I)$ oraz $\Delta(X^{-1}X - I)$ , gdzie 
+$${\Delta(X) := \sum_{i=1}^n \sum_{j=1}^n x_{i,j}^2 }$$ 
+Jak te błędy mają się do klasycznego sposobu mnożenia macierzy?\\
 
-Dla danych macierzy X Y Z, obliczyć także delta((XY )V - X(Y V )). Porównać to z klasycznym mnożeniem macierzy. To sprawdzi, czy mnożenie Strassena dobrze zachowuje łączność mnożenia macierzy.\\
+Dla danych macierzy X Y V, obliczyć także ${\Delta((X Y)V - X(Y V))}$. Porównać to z klasycznym mnożeniem macierzy. To sprawdzi, czy mnożenie Strassena dobrze zachowuje łączność mnożenia macierzy.\\
 
 Czy generowane macierze powinny być losowe?\\
 Chyba musimy też stworzyć algorytm liczenia macierzy odwrotnej.
