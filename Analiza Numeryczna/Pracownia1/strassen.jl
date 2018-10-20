@@ -35,5 +35,30 @@ function strassen(A, B, size) #algorytm Strassena, mnozy macierze A, B o rozmiar
    res = vcat(hcat(c11, c12), hcat(c21, c22))
    return res
 end
+t=[1 1 1;
+   1 1 1]
+      z=[1 1;
+         1 1;
+         1 1]
 
-print(strassen(x,x,4))
+function s_mult(A,B)
+   edge1 = size(A, 1)
+   edge2 = size(A, 2)
+   pow2 = 2^Integer(ceil(max(log(2, edge2),
+                             log(2, edge1))))
+   if edge1 < pow2 || edge2 < pow2
+      zero_ = zeros(pow2-edge1, edge2)
+      A = vcat(A, zero_)
+      zero_ = zeros(size(A, 1), pow2-edge2)
+      A = hcat(A, zero_)
+      zero_ = zeros(edge2, pow2-edge1)
+      B = hcat(B, zero_)
+      zero_ = zeros(pow2-edge2, size(B,2))
+      B = vcat(B, zero_)
+   end
+
+   res = strassen(A,B, pow2)
+   return res[1:edge1, 1:edge1]
+end
+
+print(s_mult(t,z))
