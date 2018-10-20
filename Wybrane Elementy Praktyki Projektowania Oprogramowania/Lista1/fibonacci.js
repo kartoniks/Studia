@@ -19,7 +19,8 @@ function fibrek(n){
     return x;
 }
 
-testData=20;
+testData=40;
+console.log(testData, ": rozmiar danych")
 console.time();
 console.log(fib(testData));
 console.timeEnd();

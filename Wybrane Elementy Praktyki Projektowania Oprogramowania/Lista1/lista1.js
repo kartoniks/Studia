@@ -40,4 +40,4 @@ function primes() {
 }
 
 
-console.log(primes());
+console.log(divisible());
