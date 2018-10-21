@@ -140,6 +140,23 @@ $\Delta(X X^{-1} - I)$ oraz $\Delta(X^{-1}X - I)$ , gdzie
 $${\Delta(X) := \sum_{i=1}^n \sum_{j=1}^n x_{i,j}^2 }$$ 
 Jak te błędy mają się do klasycznego sposobu mnożenia macierzy?\\
 
+% w tabeli wystarczy iść tak co 4 plus wszystkie postaci (2^k )-1, czyli byłaoby z 50 pomiarów
+% ogólnie to te tabele najłatwiej robić używając tej stronki: http://www.tablesgenerator.com/  
+% Jak będziemy mieli wyniki to wystarczy je zapisać w pliku .csv i można go załadować
+
+\begin{table}[]
+\caption{Mnożenie macierzy przez jej odwrotność dwoma sposobami}
+\label{my-label}
+\begin{tabular}{|c|l|l|l|l|l|l|l|l|l|}
+\hline
+\textbf{Rozmiar Macierzy} & 4 & 7 & 8 & 12 & 15 & 16 & 20 & 24 & 28 \\ \hline
+\textbf{Czas Zwyczajny Algorytm} &  &  &  &  &  &  &  &  &  \\ \hline
+\textbf{Zwyczajny Algorytm} &  &  &  &  &  &  &  &  &  \\ \hline
+\textbf{Czas Algorytm Strassena} &  &  &  &  &  &  &  &  &  \\ \hline
+\textbf{Blad Algorytm Strassena} &  &  &  &  &  &  &  &  &  \\ \hline
+\end{tabular}
+\end{table}
+
 Dla danych macierzy X Y V, obliczyć także ${\Delta((X Y)V - X(Y V))}$. Porównać to z klasycznym mnożeniem macierzy. To sprawdzi, czy mnożenie Strassena dobrze zachowuje łączność mnożenia macierzy.\\
 
 Czy generowane macierze powinny być losowe?\\
