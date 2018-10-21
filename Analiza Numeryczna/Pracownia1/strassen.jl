@@ -61,9 +61,6 @@ function s_mult(A,B)
    return res[1:edge1, 1:edge1]
 end
 
-print(s_mult(t,z))
-
-
 # Testowanie błędów i czasów w obliczaniu (A*B)*C - A*(B*C)
 function err(M)
     sum = Float64(0)
@@ -89,7 +86,14 @@ end
 function test_str(A,B,C,s)
    return s_mult(s_mult(A,B),C) - s_mult(A,s_mult(B,C))
 end
-D = rand(-100.0:0.01:100.0, 4, 4)
-@timev println(err(test_normal(D,D,D,4)))
-@timev println(err(test_str(D,D,D,4)))
-test(test_normal)
+
+#@timev println(err(test_normal(D,D,D,4)))
+#@timev println(err(test_str(D,D,D,4)))
+#test(test_normal)
+function testAA()
+    for i in 32:32:256    #test dla strassena, różne wielkosci
+        D = rand(-100.0:0.01:100.0, i, i)
+        println(@elapsed (D*D))
+    end
+end
+testAA()
