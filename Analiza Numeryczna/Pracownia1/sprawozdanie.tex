@@ -150,15 +150,15 @@ Dlatego w pomiarach bierzemy pod uwagę tylko macierze kwadratowe.\medbreak
 \label{my-label}
 \begin{tabular}{|l|l|l|l|l|}
 \hline
-n	&	Zwykły	&	Strassen (R) &	\\  \hline
-32	&	2.8482e-5	&	0.012895832	&\\  \hline
-64	&	6.0576e-5	&	0.089886236	&\\  \hline
-96	&	0.000170009	&	0.550218023	&\\  \hline
-128	&	0.000166872	&	0.548687255	&\\  \hline
-160	&	0.000330841	&	3.860402354	&\\  \hline
-192	&	0.000502141	&	3.860977080	&\\  \hline
-224	&	0.000735925	&	3.851896002	&\\  \hline
-256 &	0.001038842	&	3.846245318	&\\
+n	&	Zwykły (wbudowany)	&	Zwykły	&	Strassen (R) &	\\  \hline
+32	&	2.8482e-5	&	0.000105749	&	0.012895832	&\\  \hline
+64	&	6.0576e-5	&	0.000894503	&	0.089886236	&\\  \hline
+96	&	0.000170009	&	0.003644241	&	0.550218023	&\\  \hline
+128	&	0.000166872	&	0.010069118	&	0.548687255	&\\  \hline
+160	&	0.000330841	&	0.015669477	&	3.860402354	&\\  \hline
+192	&	0.000502141	&	0.022380795	&	3.860977080	&\\  \hline
+224	&	0.000735925	&	0.032780297	&	3.851896002	&\\  \hline
+256 &	0.001038842	&	0.064917801	&	3.846245318	&\\
 \hline
 \end{tabular}
 \end{table}
@@ -167,6 +167,10 @@ Można zauważyć, że algorytm Strassena obecnie wykonuje się o wiele wolniej 
 Ten operator może być jednak zaimplementowany o wiele wydajniej, ponieważ jest częścią języka.
 Warto w takim razie sprawdzić, jak algorytm Strassena ma się do ręcznie napisanej
 funkcji, która działa tak samo jak wbudowany operator, ale nie korzysta z możliwych usprawnień systemowych.\medbreak
+
+Widać, że algorytm Strassena w wersji rekurencyjnej jest również o wiele wolniejszy od napisanej przez nas funkcji mnożącej macierze.
+To może być jednak spowodowane tym, że algorytm tworzy bardzo wiele wywołań rekurencyjnych (aż do macierzy stopnia 1),
+więc następnym krokiem będzie napisanie algorytmu w wersji iteracyjnej. \medbreak
 Czasy wykonania algorytmu Strassena są natomiast identyczne co do rzędu wielkości dla macierzy o rozmiarach ${\left[2^k, 2^{k+1} \right)}$.
 Dzieje się tak, ponieważ w algorytmie Strassena macierze są zawsze wyrównywane do parzystych wielkości poprzez wypełnienie zerami.
 Można zauważyć, że wszystkich wyrównań nigdy nie będzie więcej niż czterokrotność całej wielkości macierzy (dla macierzy o boku ${2^k+1}$).

@@ -61,12 +61,14 @@ function test_my_normal(A,B,C,s)
     return mult(mult(A,B),C) - mult(A,mult(B,C))
 end
 D = rand(-100.0:0.01:100.0, 500, 500)
-@timev println(err(test_normal(D,D,D,4)))
+#@timev println(err(test_normal(D,D,D,4)))
 
 # for i in 4:10:50
 #     M = ones(Float64,i,i)
 #     println(i, " ", mult(M,M))
 # end
-@timev println(err(test_my_normal(D,D,D,4)))
-
+for i in 32:32:256    #test dla strassena, różne wielkosci
+      D = rand(-100.0:0.01:100.0, i, i)
+      println(@elapsed err(mult(D,D)))
+  end
 # test(test_my_normal)

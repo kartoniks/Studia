@@ -93,7 +93,7 @@ end
 function testAA()
     for i in 32:32:256    #test dla strassena, różne wielkosci
         D = rand(-100.0:0.01:100.0, i, i)
-        println(@elapsed (D*D))
+        println(@elapsed s_mult(D,D))
     end
 end
 testAA()
