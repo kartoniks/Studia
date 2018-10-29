@@ -1,0 +1,138 @@
+# TESTY CZASU, NA DOLE W TEXU, WYDAJE MI SIE ZE 128 JEST NAJLEPSZE, ZROBIE PROGRAM DO LICZENIA SREDNIEJ Z WIELU ZEBY MIEC DOKLADNE WYNIKI
+
+
+function Mv(M, v)
+    res = zeros(size(M,1), 1)
+    for i = 1:size(M, 1)
+        for j = 1:size(M, 2)
+          res[i] += M[i,j] * v[i]
+        end
+    end
+    return res
+end
+function column(M, c)
+    v = zeros(size(M,1),1)
+    for i = 1:size(M,1)
+        v[i] = M[i,c]
+    end
+    return v
+end
+function mult(M, V)
+    R = Array{Float64}(undef, size(M,1), 0)
+    for i = 1:size(V,2)
+        R = hcat(R, Mv(M, column(V, i)))
+    end
+    return R
+end
+
+
+function strassen(A, B, size, stop) #algorytm Strassena, mnozy macierze A, B o rozmiarze size
+   if size <= stop
+      return mult(A,B)
+   end
+   half = div(size,2)
+   a11 = A[1:half, 1:half]
+   a12 = A[1:half, half+1:size]
+   a21 = A[half+1:size, 1:half]
+   a22 = A[half+1:size, half+1:size]
+
+   b11 = B[1:half, 1:half]
+   b12 = B[1:half, half+1:size]
+   b21 = B[half+1:size, 1:half]
+   b22 = B[half+1:size, half+1:size]
+
+   m1 = strassen(a11 + a22, b11 + b22, half, stop)
+   m2 = strassen(a21 + a22, b11, half, stop)
+   m3 = strassen(a11, b12 - b22, half, stop)
+   m4 = strassen(a22, b21 - b11, half, stop)
+   m5 = strassen(a11 + a12, b22, half, stop)
+   m6 = strassen(a21 - a11, b11 + b12, half, stop)
+   m7 = strassen(a12 - a22, b21 + b22, half, stop)
+
+   c11 = m1 + m4 - m5 + m7
+   c12 = m3 + m5
+   c21 = m2 + m4
+   c22 = m1 - m2 + m3 + m6
+
+   res = vcat(hcat(c11, c12), hcat(c21, c22))
+   return res
+end
+function s_mult(A,B,stop)
+   edge1 = size(A, 1)
+   edge2 = size(A, 2)
+   pow2 = 2^Integer(ceil(max(log(2, edge2),
+                             log(2, edge1))))
+   if edge1 < pow2 || edge2 < pow2
+      zero_ = zeros(pow2-edge1, edge2)
+      A = vcat(A, zero_)
+      zero_ = zeros(size(A, 1), pow2-edge2)
+      A = hcat(A, zero_)
+      zero_ = zeros(edge2, pow2-edge1)
+      B = hcat(B, zero_)
+      zero_ = zeros(pow2-edge2, size(B,2))
+      B = vcat(B, zero_)
+   end
+
+   res = strassen(A,B, pow2, stop)
+   return res[1:edge1, 1:edge1]
+end
+
+# Testowanie błędów i czasów w obliczaniu (A*B)*C - A*(B*C)
+function err(M)
+    sum = Float64(0)
+    for i in Base.eachindex(M)
+        k = M[i]
+        sum += k*k
+    end
+    return sum
+end
+
+function powers_of_2(s, e)
+   res = []
+   for i in s:e
+      res = Base.vcat(res, [2^i])
+   end
+   return res
+end
+
+
+# porownanie predkosci w mnozeniu dwoch macierzy w zaleznosci od punktu przejscia ze strassena na normalne
+function test_stop()
+   println("test stopa")
+   function _test_stop(size)
+      A = rand(-100.0:0.01:100.0, size, size)
+      B = rand(-100.0:0.01:100.0, size, size)
+      print(size, ",")
+      for stop in powers_of_2(2,10)
+         if (stop <= size)
+            print(@elapsed s_mult(A,B,stop))
+            print(", ")
+         end
+      end
+      println()
+   end
+   for size in powers_of_2(2,10)
+      _test_stop(size)
+   end
+   println("koniec testu stopa")
+   println()
+end
+
+test_stop()
+
+# 
+# \begin{table}[]
+# \begin{tabular}{|c|l|l|l|l|l|l|l|l|l|}
+# \hline
+# rozmiar\stop  & \multicolumn{1}{c|}{\textbf{4}} & \multicolumn{1}{c|}{\textbf{8}} & \multicolumn{1}{c|}{\textbf{16}} & \multicolumn{1}{c|}{\textbf{32}} & \multicolumn{1}{c|}{\textbf{64}} & \multicolumn{1}{c|}{\textbf{128}} & \multicolumn{1}{c|}{\textbf{256}} & \multicolumn{1}{c|}{\textbf{512}} & \multicolumn{1}{c|}{\textbf{1024}} \\ \hline
+# \textbf{4}    & 0.070771276                     &                                 &                                  &                                  &                                  &                                   &                                   &                                   &                                    \\ \hline
+# \textbf{8}    & 1.9535e-5                       & 4.112e-6                        &                                  &                                  &                                  &                                   &                                   &                                   &                                    \\ \hline
+# \textbf{16}   & 5.2948e-5                       & 2.0563e-5                       & 9.767e-6                         &                                  &                                  &                                   &                                   &                                   &                                    \\ \hline
+# \textbf{32}   & 0.000387085                     & 0.000181462                     & 7.1968e-5                        & 5.6032e-5                        &                                  &                                   &                                   &                                   &                                    \\ \hline
+# \textbf{64}   & 0.005778516                     & 0.00140389                      & 0.000631262                      & 0.00039788                       & 0.000406619                      &                                   &                                   &                                   &                                    \\ \hline
+# \textbf{128}  & 0.02340091                      & 0.011357579                     & 0.006290517                      & 0.002833483                      & 0.003554191                      & 0.003665741                       &                                   &                                   &                                    \\ \hline
+# \textbf{256}  & 0.134705592                     & 0.054862236                     & 0.032755208                      & 0.023799818                      & 0.025558922                      & 0.025187772                       & 0.051237618                       &                                   &                                    \\ \hline
+# \textbf{512}  & 0.995440827                     & 0.392449734                     & 0.236235477                      & 0.196982073                      & 0.201236925                      & 0.181857484                       & 0.321853752                       & 0.378633934                       &                                    \\ \hline
+# \textbf{1024} & 6.88983344                      & 2.597385814                     & 1.561684545                      & 1.276221413                      & 1.29331227                       & 1.321597237                       & 1.978555078                       & 2.724947039                       & 6.576784459                        \\ \hline
+# \end{tabular}
+# \end{table}
