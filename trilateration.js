@@ -30,13 +30,20 @@ function solvethree(spheres) {//solution: https://en.wikipedia.org/wiki/Trilater
         A_array[i][2] -= offset[2];
     }
     
-    var cos_a = math.dot(A_array[1], [0,1,0])/math.norm(A_array[1],2);
-    var sin_a = math.norm(math.cross(A_array[1], [0,1,0]), 2)/math.norm(A_array[1], 2);
-    var rotation_1 = [  [cos_a, 0, sin_a],
-                        [0, 1, 0],
-                        [-sin_a, 0, cos_a]];
+    var cos_a = math.dot(A_array[1], [1, 0, 0])/math.norm(A_array[1], 2);
+    var sin_a = math.norm(math.cross(A_array[1], [1, 0, 0]), 2)/math.norm(A_array[1], 2);
+    //wiki: Rotation matrix from axis and angle
+    var u = math.cross(A_array[1], [1,0,0]);
+    var u_norm = math.norm(u, 2)
+    u[0] /= u_norm;
+    u[1] /= u_norm;
+    u[2] /= u_norm;
+    var rotation_1 = [  [cos_a+u[0]*u[0]*(1-cos_a), u[0]*u[1]*(1-cos_a)-u[2]*sin_a, u[0]*u[2]*(1-cos_a)+u[2]*sin_a],
+                        [u[1]*u[0]*(1-cos_a)+u[2]*sin_a, cos_a+u[1]*u[1]*(1-cos_a), u[1]*u[2]*(1-cos_a)-u[0]*sin_a],
+                        [u[2]*u[0]*(1-cos_a)-u[1]*sin_a, u[2]*u[1]*(1-cos_a)+u[0]*sin_a, cos_a+u[2]*u[2]*(1-cos_a)]];
+
     for(i in spheres) {//rotate to make y2=0
-        //A_array[i] = math.multiply(rotation_1, A_array[i]);
+        A_array[i] = math.multiply(rotation_1, A_array[i]);
     }
     
 
@@ -86,7 +93,7 @@ spheres.push({
     distance: 25
 });
 spheres.push({ 
-    point: {x: 1, y: 1, z: 1},
+    point: {x: 2, y: 2, z: 6},
     distance: 25
 });
 // spheres.push({ 
