@@ -1,0 +1,17 @@
+xeyes &
+kill $PID
+xeyes &
+pkill xeyes
+xkill
+#The default sent signal is SIGTERM (wiki)
+kill -STOP $PID
+kill -CONT $PID
+cd /proc/$PID
+cat status
+#Signal mask is ShdPnd
+#More info man proc(5)
+#SIGUSR1, SIGUSR2 - signals for user to define
+#SIGHUP - sent to a process when controlling terminal is switched off
+#SIGINT - interrupt, by default causes process to terminate.
+#By contrast, if multiple standard signals are pending for a process, the order in which they are delivered is unspecified. (man signal(7))
+

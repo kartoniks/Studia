@@ -1,0 +1,12 @@
+  694  strace find /etc
+  695  gedit &
+  696  strace gedit
+  697  ps
+  698  strace -p 22253
+  699  sudo strace -p 22253
+  700  strace -f -p 22253       #sledzi wszystkie dzieci procesu
+  701  sudo strace -f -p 22253
+  702  strace -c 22253          #zlicza wywolania
+  703  strace -c -p 22253
+  704  sudo strace -c -p 22253
+  705  sudo strace -e trace=read,write -p 22253

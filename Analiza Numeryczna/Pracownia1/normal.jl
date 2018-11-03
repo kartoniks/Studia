@@ -67,7 +67,7 @@ D = rand(-100.0:0.01:100.0, 500, 500)
 #     M = ones(Float64,i,i)
 #     println(i, " ", mult(M,M))
 # end
-for i in 32:32:256    #test dla strassena, różne wielkosci
+for i in 1024:32:1024    #test dla strassena, różne wielkosci
       D = rand(-100.0:0.01:100.0, i, i)
       println(@elapsed err(mult(D,D)))
   end

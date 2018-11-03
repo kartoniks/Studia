@@ -3,10 +3,35 @@ x=[1 1 1 1;
    0 0 1 1;
    0 0 0 1]
 
+function mult(M, V)
+    R = Array{Float64}(undef, size(M,1), 0)
+    for i = 1:size(V,2)
+        R = hcat(R, Mv(M, column(V, i)))
+    end
+    return R
+end
+
+function column(M, c)
+    v = zeros(size(M,1),1)
+    for i = 1:size(M,1)
+        v[i] = M[i,c]
+    end
+    return v
+end
+
+function Mv(M, v)
+    res = zeros(size(M,1), 1)
+    for i = 1:size(M, 1)
+        for j = 1:size(M, 2)
+            res[i] += M[i,j] * v[i]
+        end
+    end
+    return res
+end
 
 function strassen(A, B, size) #algorytm Strassena, mnozy macierze A, B o rozmiarze size
-   if size == 1
-      return A*B
+   if size < 100
+      return mult(A,B)
    end
    half = div(size,2)
    a11 = A[1:half, 1:half]
@@ -91,7 +116,7 @@ end
 #@timev println(err(test_str(D,D,D,4)))
 #test(test_normal)
 function testAA()
-    for i in 32:32:256    #test dla strassena, różne wielkosci
+    for i in 1024:32:1024    #test dla strassena, różne wielkosci
         D = rand(-100.0:0.01:100.0, i, i)
         println(@elapsed s_mult(D,D))
     end

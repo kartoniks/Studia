@@ -182,9 +182,63 @@ jest to proces wolniejszy od iteracyjnego rozwiązania. Rekurencyjna wersja algo
 Strassena jest również o wiele mniej wydajna pod względem pamięciowym, gdzie już dla macierzy niewielkich rozmiarów obserwujemy znaczny wzrost w zaalokowanej pamięci 
 (2GB RAM dla macierzy o boku 300).
 
+\section{Mnożenie kwaternionów}
+Algorytm Strassena daje oszczędność jednego mnożenia na osiem. Istnieją jednak inne przekształcenia,
+które mogą bardziej zmniejszyć liczbę kosztownych mnożeń na rzecz dodawania. Przykładem tego jest mnożenie kwaternionów.
+
+\subsection{Kwaterniony}
+Kwaternion jest strukturą algebraiczną rozszerzającą liczby zespolone:
+\[q = a + bi + cj + dk \]
+gdzie ${a,b,c,d}$ są liczbami rzeczywistymi,
+ \[i^{2}=j^{2}=k^{2}=ijk=-1 \]
+Mnożąc klasycznie dwa kwaterniony zgodnie z zasadą rozdzielności wykonamy 16 mnożeń:\medbreak
+\begin{equation}
+	\begin{gathered}
+	(x_1 + x_2 i + x_3 j + x_4 k ) * (y_1 + y_2 i + y_3 j + y_4 k) = f1 + f2 + f3 + f4 \\
+	f_1 = x_1 y_1 - x_2 y_2 - x_3 y_3 - x_4 y_4 \\
+	f_2 = (x_1 y_2 + x_2 y_1 + x_3 y_4 - x_4 y_3 ) i \\
+	f_3 = ( x_1 y_3 - x_2 y_4 + x_3 y_1 + x_4 y_2 ) j \\
+	f_4 = ( x_1 y_4 + x_2 y_3 - x_3 y_2 + x_4 y_1 ) k	
+	\end{gathered}
+\end{equation}
+
+\subsection{Przekształcenie}
+Zapiszemy powyższą sumę w inny sposób, wykonując tylko 8 mnożeń zamiast 16. Niech:
+\begin{equation}
+\begin{gathered}
+\\
+[I] = x1 y1 \\ 
+[II] = x4 y3 \\ 
+[III] = x2 y4 \\
+[IV] = x3 y2 \\
+[V] = (x1+x2+x3+x4)(y1+y2+y3+y4) \\
+[VI] = (x1+x2-x3-x4)(y1+y2-y3-y4) \\
+[VII] = (x1-x2+x3-x4)(y1-y2+y3-y4) \\
+[VIII] = (x1-x2-x3+x4)(y1-y2-y3+y4) \\
+\end{gathered}
+\end{equation}
+
+Wtedy sumę ${f_1+f_2+f_3+f_4}$ można zapisać jako:
+
+\begin{equation}
+\begin{gathered}
+\\
+f_1 = 2[I] - ([V] + [VI] + [VII] + [VIII])/4 \\ 
+f_2 = -2[II] + ([V] + [VI] - [VII] - [VIII])/4 \\ 
+f_3 = -2[III] + ([V] - [VI] + [VII] - [VIII])/4 \\
+f_4 = -2[IV] + ([V] - [VI] - [VII] + [VIII])/4 \\
+\end{gathered}
+\end{equation}
+
+Widać więc, że iloczyn dwóch kwaternionów można wykonać, robiąc tylko 8 mnożeń zamiast 16\cite{quaternion}. 
+Zapisanie tego przekształcenia w innej postaci pozwala więc na poprawę liczby mnożeń o ${50\%}$., 
+podczas gdy algorytm Strassena mnożenia macierzy pozwalał jedynie na ${12,5\%}$ oszczędności.\medbreak
+Dla algorytmu mnożącego kwaterniony można udowodnić, że nie da się go wykonać z liczbą mnożeń mniejszą niż 8.\cite{quaternion}
+
 \section{Plany}
 
 \subsection{Algorytm łączony}
+
 Nie jest to opisane w poleceniu pracowni, ale ciekawie byłoby pokazać dla jak dużych macierzy w naszej implementacji opłaca się bardziej stosowac algorytm Strassena od klasycznego. Można też się zastanowić wtedy nad algorytmem, który stosuje dzielenie Strassena do pewnego momentu, a gdy macierze są dostatecznie małe, to mnoży je klasycznie.
 Taki algorytm powinien teoretycznie być szybszy od obu powyższych, bo łączy najlepszą część algorytmu Strassena (mnożenie dużych macierzy) z klasycznym mnożeniem, 
 które jest szybsze dla małych macierzy.
@@ -193,9 +247,18 @@ które jest szybsze dla małych macierzy.
 
 \begin{itemize}
   \item wzory na duże macierze odwrotne
-  \item iteracyjna wersja algorytmu Strassena
-  \item algorytm łączony
   \item analiza błędów
 \end{itemize}
+
+\begin{thebibliography}{9}
+
+\bibitem{quaternion}
+  Thomas D. Howell,
+  Jean-Cleaude Lafon,
+  \textit{The Complexity of the Quaternion Product}, \\
+  Department of Computer Science, Cornell University, Ithaca, N.Y.
+  1975.
+
+\end{thebibliography}
 
 \end{document}
