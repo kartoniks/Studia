@@ -67,8 +67,13 @@ D = rand(-100.0:0.01:100.0, 500, 500)
 #     M = ones(Float64,i,i)
 #     println(i, " ", mult(M,M))
 # end
+t=[1 2;
+   3 4]
+       z=[2 0;
+          1 2]
+println(mult(t,z))
 for i in 1024:32:1024    #test dla strassena, różne wielkosci
-      D = rand(-100.0:0.01:100.0, i, i)
-      println(@elapsed err(mult(D,D)))
-  end
+    D = rand(-100.0:0.01:100.0, i, i)
+    #println(err(mult(D,D)))
+end
 # test(test_my_normal)

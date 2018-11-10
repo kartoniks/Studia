@@ -57,11 +57,12 @@
 \normalfont \normalsize 
 \textsc{Uniwersytet Wrocławski} \\ [25pt] % Your university, school and/or department name(s)
 \horrule{0.5pt} \\[0.4cm] % Thin top horizontal rule
-\huge Pracownia 1.19 \\ % The assignment title
+\huge Algorytm Strassena \\
+\large Pracownia 1.19 \\ % The assignment title
 \horrule{2pt} \\[0.5cm] % Thick bottom horizontal rule
 }
 
-\author{Antoni Tomaszewski, Artur Derechowski} % Your name
+\author{Antoni Tomaszewski \\ Artur Derechowski} % Your name
 
 \date{\normalsize\today} % Today's date or a custom date
 
@@ -77,7 +78,7 @@
 
 Zadanie polega na napisaniu algorytmu Strassena mnożenia macierzy n*n  i porównania go z klasycznym mnożeniem macierzy. Algorytm Strassena ma złożoność asymptotyczną 
 \[ O(N^{\log 7 } )\]
-co jest lepsze od klasycznego mnożenia w czasie \[ O(N^{3} )\], więc dla dużych macierzy algorytm Strassena powinien być szybszy. Algorytm Strassena ma jednak w sobie dużą stałą
+co jest lepsze od standardowego mnożenia w asymptotycznym czasie \[ O(N^{3} )\] Dla dużych macierzy algorytm Strassena powinien więc być szybszy. Algorytm ten zawiera jednak dużą stałą
 rzędu $O(N^2)$, dlatego dla małych macierzy spodziewamy się, że będzie on wolniejszy od klasycznego mnożenia.
 
 \section{Algorytm Strassena}
@@ -118,7 +119,9 @@ Algorytm Strassena dzieli wtedy macierze na pół i wywołuje na nich kolejne mn
 
 Widać, że algorytm Strassena działa najefektywniej dla macierzy rozmiaru 
 ${2^k}$. Wtedy zawsze można je dzielić na 2 i wywoływać rekurencyjnie Strassena dla mniejszych macierzy. Gdy macierz jest nieparzystego rozumiaru, to nie można jej pomnożyć, bo nie można jej podzielić na bloki. Problem pojawia się, gdy mamy więc macierz rozmiaru 
-${2^k+1}$. Wtedy efektywnie tworzymy macierz 4 razy większą (resztę wypełniamy zerami), aby ją pomnożyć. Można to też zbadać (nie jest ujęte w opisie pracowni).
+${2^k+1}$. Wtedy efektywnie tworzymy macierz 4 razy większą (resztę wypełniamy zerami), aby ją pomnożyć.
+W części doświadczalnej pracowni sprawdzamy więc tylko macierze o boku ${2^k}$, aby zilustrować jak najbardziej efektywny algorytm Strassena.
+Stała, którą zaniedbujemy nie jest jednak duża, bo w najgorszym przypadku wynosi 4.
 
 
 \section{Analiza błędów}
