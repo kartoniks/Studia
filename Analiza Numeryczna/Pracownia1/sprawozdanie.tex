@@ -269,6 +269,16 @@ Zapisanie tego przekształcenia w innej postaci pozwala więc na poprawę liczby
 podczas gdy algorytm Strassena mnożenia macierzy pozwalał jedynie na ${12,5\%}$ oszczędności.\medbreak
 Dla algorytmu mnożącego kwaterniony można udowodnić, że nie da się go wykonać z liczbą mnożeń mniejszą niż 8.\cite{quaternion}
 
+\section{Wnioski}
+Algorytm Strassena, który daje lepszą złożoność obliczeniową, może być wykorzystany
+tylko do mnożenia określonych macierzy 
+(kwadratowych, o dużym rozmiarze, o których wiemy, że nie zawierają dużej ilości zer).
+W takim przypadku jest on jednak wielokrotnie szybszy, co może mieć znaczenie.
+Z powodu ograniczeń sprzętowych (pamięć RAM) największe macierze jakie testowaliśmy
+to 1024 na 1024.
+Po obejściu tego problemu można jednak mnożyć macierze dwukrotnie lub czterokrotnie większe, 
+dla których różnica pomiędzy mnożeniem Strassena a klasycznym będzie o wiele bardziej widoczna.
+
 \begin{thebibliography}{9}
 
 \bibitem{quaternion}
