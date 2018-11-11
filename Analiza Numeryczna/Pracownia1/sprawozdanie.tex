@@ -167,8 +167,10 @@ Strassena jest również o wiele mniej wydajna pod względem pamięciowym, gdzie
 (2GB RAM dla macierzy o boku 512 w porównaniu do 2MB dla wersji iteracyjnej).
 
 \section{Efektywny algorytm Strassena}
-Skoro dla małych macierzy nie opłaca się mnożyć algorytmem Strassena, a zamiast tego lepiej jest mnożyć klasycznie,
-to implementację algorytmu Strassena będziemy zatrzymywać na pewnej stałej, którą wyznaczamy eksperymentalnie.\\
+Naiwna imlementacja algorytmu Strassena nie jest więc wydajna i zachowuje się o wiele gorzej od oczekiwań.
+Jest to spowodowane dużym kosztem wielu wywołań rekurencyjnych dla małych macierzy, które możnaby szybko policzyć mnożący klasycznie.
+Skoro dla małych macierzy nie opłaca się mnożyć algorytmem Strassena,
+to implementację algorytmu Strassena będziemy zatrzymywać na pewnej stałej, którą wyznaczamy eksperymentalnie.
 Do pewnego momentu dzielimy duże macierze algorytmem Strassena.
 Gdy natomiast bok macierzy jest mniejszy od pewnej stałej, macierze są mnożone klasycznie.\medbreak
 

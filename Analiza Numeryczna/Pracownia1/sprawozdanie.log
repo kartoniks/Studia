@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.10.21)  11 NOV 2018 09:07
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.10.21)  11 NOV 2018 09:13
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1051,7 +1051,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 119--120
 [2] <krok.jpg, id=13, 1673.25125pt x 1059.96pt>
 File: krok.jpg Graphic file (type jpg)
  <use krok.jpg>
-Package pdftex.def Info: krok.jpg used on input line 176.
+Package pdftex.def Info: krok.jpg used on input line 178.
 (pdftex.def)             Requested size: 418.25555pt x 264.957pt.
 
 
@@ -1060,19 +1060,19 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 <szybkosc.jpg, id=14, 1673.25125pt x 1059.96pt>
 File: szybkosc.jpg Graphic file (type jpg)
  <use szybkosc.jpg>
-Package pdftex.def Info: szybkosc.jpg used on input line 181.
+Package pdftex.def Info: szybkosc.jpg used on input line 183.
 (pdftex.def)             Requested size: 418.25555pt x 264.957pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 LaTeX Font Info:    Font shape `T1/futs/bx/n' in size <10.95> not available
-(Font)              Font shape `T1/futs/b/n' tried instead on input line 190.
+(Font)              Font shape `T1/futs/b/n' tried instead on input line 192.
 
-LaTeX Warning: Reference `krok' on page 3 undefined on input line 190.
+LaTeX Warning: Reference `krok' on page 3 undefined on input line 192.
 
 [3] [4 <./krok.jpg> <./szybkosc.jpg>]
-Overfull \hbox (18.51367pt too wide) in paragraph at lines 196--200
+Overfull \hbox (18.51367pt too wide) in paragraph at lines 198--202
 \T1/futs/m/n/10.95 dej ite-ra-cji). Dla da-nej ma-cie-rzy nie-oso-bli-wej li-cz
 y-my war-to-±ci bª¦-dów $\FML/futm/m/it/10.95 ^^A\T1/futs/m/n/10.95 (\FML/futmi
 /m/it/10.95 XX[] \FMS/futm/m/n/10.95 ^^@ \FML/futmi/m/it/10.95 I\T1/futs/m/n/10
@@ -1083,7 +1083,7 @@ X[]X \FMS/futm/m/n/10.95 ^^@
 <inv.jpg, id=22, 1673.25125pt x 1116.17pt>
 File: inv.jpg Graphic file (type jpg)
  <use inv.jpg>
-Package pdftex.def Info: inv.jpg used on input line 207.
+Package pdftex.def Info: inv.jpg used on input line 209.
 (pdftex.def)             Requested size: 418.25555pt x 279.00775pt.
  [5
 
@@ -1095,7 +1095,7 @@ Class scrartcl Warning: incompatible usage of \@ssect detected.
 (scrartcl)              from within a non compatible caller, that does not
 (scrartcl)              \scr@s@ct@@nn@m@ locally.
 (scrartcl)              This could result in several error messages on input li
-ne 270.
+ne 272.
 
 [7] (./sprawozdanie.aux)
 
@@ -1120,7 +1120,7 @@ t/fonts/type1/public/fourier/fourier-ms.pfb></usr/share/texlive/texmf-dist/font
 s/type1/adobe/utopia/putb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/adob
 e/utopia/putr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/adobe/utopia/put
 ri8a.pfb>
-Output written on sprawozdanie.pdf (7 pages, 331964 bytes).
+Output written on sprawozdanie.pdf (7 pages, 332155 bytes).
 PDF statistics:
  56 PDF objects out of 1000 (max. 8388607)
  37 compressed objects within 1 object stream
