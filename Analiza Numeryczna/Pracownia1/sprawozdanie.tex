@@ -25,7 +25,8 @@
 \usepackage{fourier} % Use the Adobe Utopia font for the document - comment this line to return to the LaTeX default
  % English language/hyphenation
 \usepackage{amsmath,amsfonts,amsthm} % Math packages
-
+\usepackage{graphicx} %images
+\usepackage{placeins}%for direct positioning
 \usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
 
 \usepackage{sectsty} % Allows customizing section commands
@@ -123,45 +124,26 @@ ${2^k+1}$. Wtedy efektywnie tworzymy macierz 4 razy większą (resztę wypełnia
 W części doświadczalnej pracowni sprawdzamy więc tylko macierze o boku ${2^k}$, aby zilustrować jak najbardziej efektywny algorytm Strassena.
 Stała, którą zaniedbujemy nie jest jednak duża, bo w najgorszym przypadku wynosi 4.
 
-
-\section{Analiza błędów}
-po implementacji algorytmu Strassena kolejną częścią pracowni jest analiza błędów algorytmu.
-Należy przeprowadzić obliczenia dla macierzy o rozmiarach od 4 do 500. Dla danej macierzy nieosobliwej trzeba też policzyć wartości błędów 
-$\Delta(X X^{-1} - I)$ oraz $\Delta(X^{-1}X - I)$ , gdzie 
-$${\Delta(X) := \sum_{i=1}^n \sum_{j=1}^n x_{i,j}^2 }$$ 
-Jak te błędy mają się do klasycznego sposobu mnożenia macierzy?\\
-
-% w tabeli wystarczy iść tak co 4 plus wszystkie postaci (2^k )-1, czyli byłaoby z 50 pomiarów
-% ogólnie to te tabele najłatwiej robić używając tej stronki: http://www.tablesgenerator.com/  
-% Jak będziemy mieli wyniki to wystarczy je zapisać w pliku .csv i można go załadować
-
-
-
-Dla danych macierzy X Y V, obliczyć także ${\Delta((X Y)V - X(Y V))}$. Porównać to z klasycznym mnożeniem macierzy. To sprawdzi, czy mnożenie Strassena dobrze zachowuje łączność mnożenia macierzy.\\
-
-Czy generowane macierze powinny być losowe?\\
-Chyba musimy też stworzyć algorytm liczenia macierzy odwrotnej.
-
-\section{Pomiary}
+\section{Szybkość algorytmu Strassena}
 
 Porównujemy czasy mnożenia dwóch macierzy o danym boku n (tabela 5.1).
 Ponieważ algorytm Strassena wyrównuje macierze nie-kwadratowe do macierzy kwadratowych, może tracić na tym dużo czasu.
 Dla przykładu pomnożenie wektorów k-elementowych zajmie mu tyle samo czasu, co pomnożenie macierzy kwadratowych o boku k.
 Dlatego w pomiarach bierzemy pod uwagę tylko macierze kwadratowe.\medbreak
-\begin{table}[]
+\begin{table}[h!]
 \caption{Czas mnożenie macierzy dwoma sposobami}
 \label{my-label}
-\begin{tabular}{|l|l|l|l|l|}
+\begin{tabular}{|l|l|l|l|}
 \hline
-n	&	Zwykły (wbudowany)	&	Zwykły	&	Strassen (R) &	\\  \hline
-32	&	2.8482e-5	&	0.000105749	&	0.012895832	&\\  \hline
-64	&	6.0576e-5	&	0.000894503	&	0.089886236	&\\  \hline
-96	&	0.000170009	&	0.003644241	&	0.550218023	&\\  \hline
-128	&	0.000166872	&	0.010069118	&	0.548687255	&\\  \hline
-160	&	0.000330841	&	0.015669477	&	3.860402354	&\\  \hline
-192	&	0.000502141	&	0.022380795	&	3.860977080	&\\  \hline
-224	&	0.000735925	&	0.032780297	&	3.851896002	&\\  \hline
-256 &	0.001038842	&	0.064917801	&	3.846245318	&\\
+n	&	Zwykły (wbudowany)	&	Zwykły	&	Strassen (R)	\\  \hline
+32	&	2.8482e-5	&	0.000105749	&	0.012895832\\  \hline
+64	&	6.0576e-5	&	0.000894503	&	0.089886236\\  \hline
+96	&	0.000170009	&	0.003644241	&	0.550218023\\  \hline
+128	&	0.000166872	&	0.010069118	&	0.548687255\\  \hline
+160	&	0.000330841	&	0.015669477	&	3.860402354\\  \hline
+192	&	0.000502141	&	0.022380795	&	3.860977080\\  \hline
+224	&	0.000735925	&	0.032780297	&	3.851896002\\  \hline
+256 &	0.001038842	&	0.064917801	&	3.846245318\\
 \hline
 \end{tabular}
 \end{table}
@@ -172,18 +154,65 @@ Warto w takim razie sprawdzić, jak algorytm Strassena ma się do ręcznie napis
 funkcji, która działa tak samo jak wbudowany operator, ale nie korzysta z możliwych usprawnień systemowych.\medbreak
 
 Widać, że algorytm Strassena w wersji rekurencyjnej jest również o wiele wolniejszy od napisanej przez nas funkcji mnożącej macierze.
-To może być jednak spowodowane tym, że algorytm tworzy bardzo wiele wywołań rekurencyjnych (aż do macierzy stopnia 1),
-więc następnym krokiem będzie napisanie algorytmu w wersji iteracyjnej. \medbreak
+Jest to spowodowane tym, że algorytm tworzy bardzo wiele wywołań rekurencyjnych (aż do macierzy stopnia 1), co znacząco spowalnia czas wykonania programu. \medbreak
 Czasy wykonania algorytmu Strassena są natomiast identyczne co do rzędu wielkości dla macierzy o rozmiarach ${\left[2^k, 2^{k+1} \right)}$.
 Dzieje się tak, ponieważ w algorytmie Strassena macierze są zawsze wyrównywane do parzystych wielkości poprzez wypełnienie zerami.
 Można zauważyć, że wszystkich wyrównań nigdy nie będzie więcej niż czterokrotność całej wielkości macierzy (dla macierzy o boku ${2^k+1}$).
-Najefektywniej jest natomiast mnożyć macierze o boku ${2^k}$.\medbreak
+Najefektywniej jest mnożyć macierze o boku ${2^k}$.\medbreak
 
-Kolejnym problemem w implementacji algorytmu Strassena jest rekurencja.
+Dużym problemem w implementacji algorytmu Strassena jest rekurencja.
 Implementacja opierająca się na wzorze naturalnie z niej korzysta, jednak dla komputera
 jest to proces wolniejszy od iteracyjnego rozwiązania. Rekurencyjna wersja algorytmu 
 Strassena jest również o wiele mniej wydajna pod względem pamięciowym, gdzie już dla macierzy niewielkich rozmiarów obserwujemy znaczny wzrost w zaalokowanej pamięci 
-(2GB RAM dla macierzy o boku 300).
+(2GB RAM dla macierzy o boku 512 w porównaniu do 2MB dla wersji iteracyjnej).
+
+\section{Efektywny algorytm Strassena}
+Skoro dla małych macierzy nie opłaca się mnożyć algorytmem Strassena, a zamiast tego lepiej jest mnożyć klasycznie,
+to implementację algorytmu Strassena będziemy zatrzymywać na pewnej stałej, którą wyznaczamy eksperymentalnie.\\
+Do pewnego momentu dzielimy duże macierze algorytmem Strassena.
+Gdy natomiast bok macierzy jest mniejszy od pewnej stałej, macierze są mnożone klasycznie.\medbreak
+
+\begin{figure}[h!]
+  \includegraphics[width=\linewidth]{krok.jpg}
+  \caption{Czas mnożenia dla macierzy 1024x1024 z różnymi punktami przejścia}
+  \label{szybkosc}
+\end{figure}
+\begin{figure}[h!]
+  \includegraphics[width=\linewidth]{szybkosc.jpg}
+  \caption{Czas lepszego mnożenia macierzy Strassena i klasycznego mnożenia}
+  \label{szybkosc}
+\end{figure}
+ 
+Dzięki temu uzyskujemy algorytm, który wykorzystuje lepszą złożoność algorytmu Strassena, 
+jednocześnie nie traci jednak na dużej ilości mnożeń małych macierzy, które musi wykonać.\medbreak
+
+Do wyznaczenia najlepszego punktu przejścia algorytmu sprawdzamy wszystkie możliwe wartości postaci ${2^n}$.
+Widać, że minimum osiągane jest przy wartości 64, na wykresie \ref{krok}.\medbreak
+Wykorzystując ten algorytm, uzyskujemy już wyniki, które są istotnie szybsze dla macierzy dużych rozmiarów. \ref{szybkosc}
+\FloatBarrier
+
+
+\section{Analiza błędów}
+Ważnym wskaźnikiem jakości algorytmu jest nie tylko jego szybkość, ale także jak bardzo dokładny jest numerycznie.
+Przeprowadzamy obliczenia dla macierzy o rozmiarach od 4 do 1024, 
+sprawdzając każdą potęgę dwójki (wtedy algorytm Strassena jest różny względem każdej iteracji). Dla danej macierzy nieosobliwej liczymy wartości błędów 
+$\Delta(X X^{-1} - I)$ oraz $\Delta(X^{-1}X - I)$ , gdzie 
+$${\Delta(X) := \sum_{i=1}^n \sum_{j=1}^n x_{i,j}^2 }$$ \medbreak
+
+Na wykresie \ref{blad} widać, że błędy obliczeń w algorytmie Strassena tylko nieznacznie różnią się od błędów w klasycznym mnożeniu.
+Większą różnicę ma natomiast kolejność wykonywania mnożenia.
+Lepszą dokładność obserwujemy, mnożąc ${A A^{-1} }$ niż ${A A^{-1} }$. 
+
+\begin{figure}[h!]
+  \includegraphics[width=\linewidth]{inv.jpg}
+  \caption{Błędy $\Delta(A^{-1}A - I)$ i $\Delta(A A^{-1} - I)$ algorytmu Strassena}
+  \label{blad}
+\end{figure}
+% w tabeli wystarczy iść tak co 4 plus wszystkie postaci (2^k )-1, czyli byłaoby z 50 pomiarów
+% ogólnie to te tabele najłatwiej robić używając tej stronki: http://www.tablesgenerator.com/  
+% Jak będziemy mieli wyniki to wystarczy je zapisać w pliku .csv i można go załadować
+
+\FloatBarrier
 
 \section{Mnożenie kwaternionów}
 Algorytm Strassena daje oszczędność jednego mnożenia na osiem. Istnieją jednak inne przekształcenia,
@@ -238,21 +267,6 @@ Zapisanie tego przekształcenia w innej postaci pozwala więc na poprawę liczby
 podczas gdy algorytm Strassena mnożenia macierzy pozwalał jedynie na ${12,5\%}$ oszczędności.\medbreak
 Dla algorytmu mnożącego kwaterniony można udowodnić, że nie da się go wykonać z liczbą mnożeń mniejszą niż 8.\cite{quaternion}
 
-\section{Plany}
-
-\subsection{Algorytm łączony}
-
-Nie jest to opisane w poleceniu pracowni, ale ciekawie byłoby pokazać dla jak dużych macierzy w naszej implementacji opłaca się bardziej stosowac algorytm Strassena od klasycznego. Można też się zastanowić wtedy nad algorytmem, który stosuje dzielenie Strassena do pewnego momentu, a gdy macierze są dostatecznie małe, to mnoży je klasycznie.
-Taki algorytm powinien teoretycznie być szybszy od obu powyższych, bo łączy najlepszą część algorytmu Strassena (mnożenie dużych macierzy) z klasycznym mnożeniem, 
-które jest szybsze dla małych macierzy.
-
-\subsection{Do zrobienia}
-
-\begin{itemize}
-  \item wzory na duże macierze odwrotne
-  \item analiza błędów
-\end{itemize}
-
 \begin{thebibliography}{9}
 
 \bibitem{quaternion}
@@ -262,6 +276,10 @@ które jest szybsze dla małych macierzy.
   Department of Computer Science, Cornell University, Ithaca, N.Y.
   1975.
 
+\bibitem{strassen}
+  Volker Strassen,
+  \textit{Gaussian Elimination is not Optimal}, \\
+  Numerische Mathematik 13, p. 354-356, 1969
 \end{thebibliography}
 
 \end{document}

@@ -42,8 +42,7 @@ function strassen(A, B, size) #algorytm Strassena, mnozy macierze A, B o rozmiar
    m5 = strassen(a11 + a12, b22, half)
    m6 = strassen(a21 - a11, b11 + b12, half)
    m7 = strassen(a12 - a22, b21 + b22, half)
-   println(m1)
-
+   
    c11 = m1 + m4 - m5 + m7
    c12 = m3 + m5
    c21 = m2 + m4
@@ -122,7 +121,7 @@ function test_str(A,B,C)
 end
 
 function compare()
-    M_size = 16
+    M_size = 64
     for i in 1:10
         A = rand(-100.0:0.001:100.0, M_size, M_size)
         B = rand(-100.0:0.001:100.0, M_size, M_size)
@@ -130,9 +129,16 @@ function compare()
         S_result = test_str(A,B,C)
         N_result = test_normal(A,B,C)
         println(err(S_result))
-        println(S_result)
+        println(err(N_result))
         println("Blad wzgledny:", abs(err(S_result) - err(N_result)) / err(N_result) )
     end
 end
-compare()
-#println(mult(t,z) )
+#compare()
+function memory_usage()
+    M_size = 512
+    A = rand(-100.0:0.001:100.0, M_size, M_size)
+    B = rand(-100.0:0.001:100.0, M_size, M_size)
+    @timev mult(A,B)
+    @timev s_mult(A,B)
+end
+memory_usage()
