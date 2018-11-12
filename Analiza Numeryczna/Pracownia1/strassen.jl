@@ -1,36 +1,17 @@
-x=[1 1 1 1;
-   0 1 1 1;
-   0 0 1 1;
-   0 0 0 1]
-
-function mult(M, V)
-    R = Array{Float64}(undef, size(M,1), 0)
-    for i = 1:size(V,2)
-        R = hcat(R, Mv(M, column(V, i)))
+function mult(M, V) #funkcja mnozaca macierze M V
+    R = zeros(size(M,1), size(V,2))
+    for i = 1:size(M,1)
+        for j = 1:size(V,2)
+            for k = 1:size(M,1)
+                R[i,j] += M[i,k] * V[k,j]
+            end
+        end
     end
     return R
 end
 
-function column(M, c)
-    v = zeros(size(M,1),1)
-    for i = 1:size(M,1)
-        v[i] = M[i,c]
-    end
-    return v
-end
-
-function Mv(M, v)
-    res = zeros(size(M,1), 1)
-    for i = 1:size(M, 1)
-        for j = 1:size(M, 2)
-            res[i] += M[i,j] * v[i]
-        end
-    end
-    return res
-end
-
-function strassen(A, B, size) #algorytm Strassena, mnozy macierze A, B o rozmiarze size
-   if size < 100
+function strassen(A, B, size, stop) #algorytm Strassena, mnozy macierze A, B o rozmiarze size
+   if size <= stop
       return mult(A,B)
    end
    half = div(size,2)
@@ -44,13 +25,13 @@ function strassen(A, B, size) #algorytm Strassena, mnozy macierze A, B o rozmiar
    b21 = B[half+1:size, 1:half]
    b22 = B[half+1:size, half+1:size]
 
-   m1 = strassen(a11 + a22, b11 + b22, half)
-   m2 = strassen(a21 + a22, b11, half)
-   m3 = strassen(a11, b12 - b22, half)
-   m4 = strassen(a22, b21 - b11, half)
-   m5 = strassen(a11 + a12, b22, half)
-   m6 = strassen(a21 - a11, b11 + b12, half)
-   m7 = strassen(a12 - a22, b21 + b22, half)
+   m1 = strassen(a11 + a22, b11 + b22, half, stop)
+   m2 = strassen(a21 + a22, b11, half, stop)
+   m3 = strassen(a11, b12 - b22, half, stop)
+   m4 = strassen(a22, b21 - b11, half, stop)
+   m5 = strassen(a11 + a12, b22, half, stop)
+   m6 = strassen(a21 - a11, b11 + b12, half, stop)
+   m7 = strassen(a12 - a22, b21 + b22, half, stop)
 
    c11 = m1 + m4 - m5 + m7
    c12 = m3 + m5
@@ -60,13 +41,7 @@ function strassen(A, B, size) #algorytm Strassena, mnozy macierze A, B o rozmiar
    res = vcat(hcat(c11, c12), hcat(c21, c22))
    return res
 end
-t=[1 1 1;
-   1 1 1]
-      z=[1 1;
-         1 1;
-         1 1]
-
-function s_mult(A,B)
+function s_mult(A,B,stop)
    edge1 = size(A, 1)
    edge2 = size(A, 2)
    pow2 = 2^Integer(ceil(max(log(2, edge2),
@@ -82,43 +57,24 @@ function s_mult(A,B)
       B = vcat(B, zero_)
    end
 
-   res = strassen(A,B, pow2)
+   res = strassen(A,B, pow2, stop)
    return res[1:edge1, 1:edge1]
 end
 
-# Testowanie błędów i czasów w obliczaniu (A*B)*C - A*(B*C)
+
 function err(M)
-    sum = Float64(0)
-    for i in Base.eachindex(M)
-        k = M[i]
-        sum += k*k
-    end
+   r = size(M, 1)
+   c = size(M, 2)
+   sum = Float64(0)
+   for i in 1:r
+      for j in 1:c
+         k = M[r,c]
+         sum += k*k
+      end
+   end
     return sum
 end
 
-function test(f)
-    for i in 4:10:500
-        A = rand(-100.0:0.01:100.0, i, i)
-        B = rand(-100.0:0.01:100.0, i, i)
-        C = rand(-100.0:0.01:100.0, i, i)
-        println(i, " ", err(f(A,B,C,i)))
-    end
+function bestStrass(A, B)
+   return s_mult(A, B, 64)
 end
-
-function test_normal(A,B,C,s)
-   return (A*B)*C - A*(B*C)
-end
-function test_str(A,B,C,s)
-   return s_mult(s_mult(A,B),C) - s_mult(A,s_mult(B,C))
-end
-
-#@timev println(err(test_normal(D,D,D,4)))
-#@timev println(err(test_str(D,D,D,4)))
-#test(test_normal)
-function testAA()
-    for i in 1024:32:1024    #test dla strassena, różne wielkosci
-        D = rand(-100.0:0.01:100.0, i, i)
-        println(@elapsed s_mult(D,D))
-    end
-end
-testAA()
