@@ -114,6 +114,7 @@ function doIt(ile, name="sprawdzBladOdStopa")
     return  ind, A, Ai
 end
 indeksy, be, bei = doIt(20)
+print(bei)
 # indeksy
 # plottuj(transpose(vcat(a, ai)), ind)
 
