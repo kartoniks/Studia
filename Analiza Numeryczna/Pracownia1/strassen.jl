@@ -15,11 +15,6 @@ function mult(M, V) #funkcja mnozaca macierze M V
     return R
 end
 
-t=[1 2;
-   3 4]
-       z=[2 0;
-          1 2]
-
 function strassen(A, B, size) #algorytm Strassena, mnozy macierze A, B o rozmiarze size
    if size < 100
       return mult(A,B)
@@ -113,7 +108,7 @@ function err(M)
 end
 
 function test_normal(A,B,C)
-    return (A*B)*C - A*(B*C)
+    return mult(mult(A,B),C) - mult(A, mult(B,C))
 end
 
 function test_str(A,B,C)
@@ -141,4 +136,9 @@ function memory_usage()
     @timev mult(A,B)
     @timev s_mult(A,B)
 end
-memory_usage()
+#memory_usage()
+
+A = rand(-100.0:0.001:100.0, 2048, 2048)
+B = rand(-100.0:0.001:100.0, 2048, 2048)
+@timev mult(A,B)
+@timev s_mult(A,B)
