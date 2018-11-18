@@ -1,4 +1,4 @@
-function mult(M, V) #funkcja mnozaca macierze M V
+function mult(M, V) #funkcja mnozaca macierze M V klasycznie
     R = zeros(size(M,1), size(V,2))
     for i = 1:size(M,1)
         for j = 1:size(V,2)
@@ -79,9 +79,10 @@ function bestStrass(A, B)
    return s_mult(A, B, 64)
 end
 
+#przykładowy test:
+#D = rand(-100.0:0.001:100.0, 256, 256)
 #@timev println(err(test_normal(D,D,D,4)))
 #@timev println(err(test_str(D,D,D,4)))
-#test(test_normal)
 function testAA()
     for i in 1024:32:1024    #pomiar czasu dla strassena, różne wielkosci
         D = rand(-100.0:0.01:100.0, i, i)

@@ -80,7 +80,10 @@
 Zadanie polega na napisaniu algorytmu Strassena mnożenia macierzy n*n  i porównania go z klasycznym mnożeniem macierzy. Algorytm Strassena ma złożoność asymptotyczną 
 \[ O(N^{\log 7 } )\]
 co jest lepsze od standardowego mnożenia w asymptotycznym czasie \[ O(N^{3} )\] Dla dużych macierzy algorytm Strassena powinien więc być szybszy. Algorytm ten zawiera jednak dużą stałą
-rzędu $O(N^2)$, dlatego dla małych macierzy spodziewamy się, że będzie on wolniejszy od klasycznego mnożenia.
+rzędu $O(N^2)$, dlatego dla małych macierzy spodziewamy się, że będzie on wolniejszy od klasycznego mnożenia.\medbreak
+Implementacja algorytmu Strassena została wykonana w języku Julia w pliku "program.jl".
+Testy zawierają się w plikach "test.*" i "Wyniki.*".
+Wykresy zostały wygenerowane korzystając z biblioteki "Plots".
 
 \section{Algorytm Strassena}
 
@@ -180,7 +183,7 @@ Gdy natomiast bok macierzy jest mniejszy od pewnej stałej, macierze są mnożon
   \label{szybkosc}
 \end{figure}
 \begin{figure}[h!]
-  \includegraphics[width=0.95\linewidth]{szybkosc.jpg}
+  \includegraphics[width=0.95\linewidth]{szybkosc.png}
   \caption{Czas lepszego mnożenia macierzy Strassena i klasycznego mnożenia}
   \label{szybkosc}
 \end{figure}
@@ -273,11 +276,11 @@ Dla algorytmu mnożącego kwaterniony można udowodnić, że nie da się go wyko
 Algorytm Strassena, który daje lepszą złożoność obliczeniową, może być wykorzystany
 tylko do mnożenia określonych macierzy 
 (kwadratowych, o dużym rozmiarze, o których wiemy, że nie zawierają dużej ilości zer).
-W takim przypadku jest on jednak wielokrotnie szybszy, co może mieć znaczenie.
+W takim przypadku jest on jednak kilkukrotnie szybszy, co może mieć znaczenie w praktyce.
 Z powodu ograniczeń sprzętowych (pamięć RAM) największe macierze jakie testowaliśmy
 to 1024 na 1024.
 Po obejściu tego problemu można jednak mnożyć macierze dwukrotnie lub czterokrotnie większe, 
-dla których różnica pomiędzy mnożeniem Strassena a klasycznym będzie o wiele bardziej widoczna.
+dla których różnica pomiędzy czasem mnożenia Strassena a klasycznym będzie o wiele bardziej widoczna.
 
 \begin{thebibliography}{9}
 
