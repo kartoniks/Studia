@@ -206,13 +206,24 @@ $${\Delta(X) := \sum_{i=1}^n \sum_{j=1}^n x_{i,j}^2 }$$ \medbreak
 
 Na wykresie \ref{blad} widać, że błędy obliczeń w algorytmie Strassena tylko nieznacznie różnią się od błędów w klasycznym mnożeniu.
 Większą różnicę ma natomiast kolejność wykonywania mnożenia.
-Lepszą dokładność obserwujemy, mnożąc ${A A^{-1} }$ niż ${A A^{-1} }$. 
+Lepszą dokładność obserwujemy, mnożąc ${A A^{-1} }$ niż ${A A^{-1} }$.\medbreak
+
+Następnie porównujemy algorytm Strassena pod względem dokładności mnożąc macierze ${(X Y)Z - X(Y Z) }$ coraz to większych rozmiarów.
+Mnożenie macierzy jest łączne, więc uzyskany błąd powinien być jak najmniejszy. 
+Na wykresie \ref{xyz} widać jednak, że w tym przypadku algorytm Strassena daje mniejszą dokładność od klasycznego mnożenia.
 
 \begin{figure}[h!]
   \includegraphics[width=\linewidth]{inv.jpg}
   \caption{Błędy $\Delta(A^{-1}A - I)$ i $\Delta(A A^{-1} - I)$ algorytmu Strassena}
   \label{blad}
 \end{figure}
+
+\begin{figure}[h!]
+  \includegraphics[width=\linewidth]{BladXYZ.png}
+  \caption{Błędy $\Delta(A^{-1}A - I)$ i $\Delta(A A^{-1} - I)$ algorytmu Strassena}
+  \label{xyz}
+\end{figure}
+
 % w tabeli wystarczy iść tak co 4 plus wszystkie postaci (2^k )-1, czyli byłaoby z 50 pomiarów
 % ogólnie to te tabele najłatwiej robić używając tej stronki: http://www.tablesgenerator.com/  
 % Jak będziemy mieli wyniki to wystarczy je zapisać w pliku .csv i można go załadować
