@@ -1,6 +1,5 @@
 using Polynomials
 using Plots
-using QuadGK
 
 #Liczenie postaci interpolacyjnej Lagrange
 
@@ -47,15 +46,6 @@ function Sigma(arr, xi, pxi) #liczy sigmy w postaci Lagrange
     return s
 end
 
-#xs = [0,1,2,3,4,5]
-#ys = [2, 4, 8, 0, 14, 7]
-#sigs = CountSigmas(xs, ys)
-#poly = Lagrange(sigs, xs)
-#println(sigs)
-#println("lagrange:")
-#println(poly)
-#f(x) = poly(x)
-#plot(f, 0, 5)
 function Newtonb(k, sigmas, xs)
     b = 0
     n = 1
@@ -84,12 +74,9 @@ function Newton(sigmas, xs)
     while(n <= length(sigmas))
         arr = filter(e -> e<xs[n], xs)
         factor = Factor(arr)
-        #println(roots(factor))
         p += (bs[n] * factor)
         n += 1
     end
-    # println("in newton, returning")
-    # println(p)
     return p
 end
     
@@ -175,4 +162,3 @@ function testfunc()
         println("n:", cnt, "  runge:", rerror, "  atan:", aerror, "  sin:", serror)
     end
 end
-testfunc()

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.10.21)  10 DEC 2018 11:00
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.10.21)  10 DEC 2018 13:32
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1029,39 +1029,66 @@ LaTeX Font Info:    Font shape `U/futm/m/n' will be
 <lagnew.png, id=14, 578.16pt x 392.46625pt>
 File: lagnew.png Graphic file (type png)
  <use lagnew.png>
-Package pdftex.def Info: lagnew.png used on input line 184.
+Package pdftex.def Info: lagnew.png used on input line 176.
 (pdftex.def)             Requested size: 418.25555pt x 283.9169pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
+<stosunek.png, id=15, 581.17125pt x 398.48875pt>
+File: stosunek.png Graphic file (type png)
+ <use stosunek.png>
+Package pdftex.def Info: stosunek.png used on input line 196.
+(pdftex.def)             Requested size: 341.43306pt x 234.10913pt.
+
+<stosunek_log.png, id=16, 585.18625pt x 400.49625pt>
+File: stosunek_log.png Graphic file (type png)
+ <use stosunek_log.png>
+Package pdftex.def Info: stosunek_log.png used on input line 201.
+(pdftex.def)             Requested size: 341.43306pt x 233.6813pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[3]
 
 Class scrartcl Warning: incompatible usage of \@ssect detected.
 (scrartcl)              You've used the KOMA-Script implementation of \@ssect
 (scrartcl)              from within a non compatible caller, that does not
 (scrartcl)              \scr@s@ct@@nn@m@ locally.
 (scrartcl)              This could result in several error messages on input li
-ne 190.
+ne 233.
 
-[3] [4 <./lagnew.png>] (./sprawozdanie.aux) ) 
+[4 <./lagnew.png>]
+Overfull \vbox (2.63165pt too high) has occurred while \output is active []
+
+
+[5 <./stosunek.png> <./stosunek_log.png>] (./sprawozdanie.aux)
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ ) 
 Here is how much of TeX's memory you used:
- 5864 strings out of 493029
- 83899 string characters out of 6136233
- 301034 words of memory out of 5000000
- 9237 multiletter control sequences out of 15000+600000
+ 5876 strings out of 493029
+ 84093 string characters out of 6136233
+ 301054 words of memory out of 5000000
+ 9247 multiletter control sequences out of 15000+600000
  94476 words of font info for 105 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 47i,14n,47p,268b,238s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texlive/texmf-dist/fon
-ts/enc/dvips/base/8r.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/four
-ier/fourier-mex.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/fourier/f
-ourier-mlit.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/fourier/fouri
-er-ms.pfb></usr/share/texlive/texmf-dist/fonts/type1/adobe/utopia/putr8a.pfb></
-usr/share/texlive/texmf-dist/fonts/type1/adobe/utopia/putri8a.pfb>
-Output written on sprawozdanie.pdf (4 pages, 65798 bytes).
+ 47i,14n,47p,268b,314s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
+e/texmf-dist/fonts/type1/public/fourier/fourier-mex.pfb></usr/share/texlive/tex
+mf-dist/fonts/type1/public/fourier/fourier-mlit.pfb></usr/share/texlive/texmf-d
+ist/fonts/type1/public/fourier/fourier-ms.pfb></usr/share/texlive/texmf-dist/fo
+nts/type1/adobe/utopia/putr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/ad
+obe/utopia/putri8a.pfb>
+Output written on sprawozdanie.pdf (5 pages, 86996 bytes).
 PDF statistics:
- 39 PDF objects out of 1000 (max. 8388607)
- 26 compressed objects within 1 object stream
+ 44 PDF objects out of 1000 (max. 8388607)
+ 28 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 6 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 16 words of extra memory for PDF output out of 10000 (max. 10000000)
 
