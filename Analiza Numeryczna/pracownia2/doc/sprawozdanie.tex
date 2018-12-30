@@ -143,7 +143,11 @@ Dobierzemy więc odpowiednie funkcje, dla których ta pochodna może być dowoln
 \subsection{Runge}
 Funkcja Rungego dana jest wzorem:
 \begin{align}
+<<<<<<< Updated upstream
  rg(x) = \frac{1}{1+25x^2} 
+=======
+ f(x) = \frac{1}{1+25x^2} 
+>>>>>>> Stashed changes
 \end{align}
 Można pokazać, że jej kolejne pochodne są rozbieżne, na przykład 10-ta pochodna
 w pobliżu zera osiąga wartość ponad $2*10^13$.
@@ -171,6 +175,7 @@ kolejne pochodne zostaną więc ograniczone do $\pm1$ w okolicy zera.
 \section{Pomiary}
 
 \subsection{Lagrange a Newton}
+<<<<<<< Updated upstream
 
 \begin{figure}[h!]
   \includegraphics[width=\linewidth]{lagnew.png}
@@ -178,6 +183,8 @@ kolejne pochodne zostaną więc ograniczone do $\pm1$ w okolicy zera.
   \label{lagnew}
 \end{figure} 
 
+=======
+>>>>>>> Stashed changes
 Poniżej przedstawiono pomiary dla funkcji Rungego. Pomiary przebiegają
 co 5 stopni wielomianu interpolacyjnego, na przedziale $(-1,1)$ liczony jest błąd
 jako różnica w pomiędzy wielomianem interpolującym postaci a funkcją.
@@ -187,6 +194,7 @@ Wykres \ref{lagnew} został przedstawiony w skali logarytmicznej, aby pokazać o
 widoczna jest różnica pomiędzy postaciami.
 Widać, że postać Newtona daje dokładniejsze wyniki od postaci Lagrange'a.
 
+<<<<<<< Updated upstream
 \subsubsection{Stosunek błędu}
 Widząc, że postać Newtona jest dokładniejsza od postaci Lagrange'a można jeszcze zobaczyć jak bardzo się różnią.
 Wykres \ref{stos} przedstawia stosunek błędów interpolacji postaci Lagrange'a do Newtona. Widać, że
@@ -203,10 +211,13 @@ kilka tysięcy razy dokładniejsza od postaci Lagrange'a. Wykres został przedst
   \label{stos_log}
 \end{figure} 
 
+=======
+>>>>>>> Stashed changes
 \subsection{Porównanie funkcji}
 Błąd dokładności zależy od stopnia wielomianu interpolującego, ale także od interpolowanej funkcji.
 Poniższa tabela przedstawia różnicę pomiędzy wielomianem interpolującym n-tego stopnia, a funkcjami:
 $sin(x)$, $arctan(x)$, $runge(x)$.
+<<<<<<< Updated upstream
 \begin{center}
 \begin{tabular}{ |c|c|c|c| } 
  \hline
@@ -228,6 +239,16 @@ na błąd interpolacji ma stopień interpolującego wielomianu, niż funkcja, kt
 Dla uzyskanych pomiarów postać interpolacyjna Newtona okazała się dokładniejsza od postaci Lagrange'a.
 Różnice nie są widoczne dla małych stopni interpolującego wielomianu (do ok. 30), ale potem znacznie rosną.
 Chcąc interpolować funkcję wielomianem w wielu punktach lepiej jest użyć do tego postaci Newtona.
+=======
+
+\section{Wnioski}
+
+\begin{figure}[h!]
+  \includegraphics[width=\linewidth]{lagnew.png}
+  \caption{Porównanie dokładności postaci Newtona i Lagrange'a dla funkcji Rungego}
+  \label{lagnew}
+\end{figure} 
+>>>>>>> Stashed changes
 
 
 \begin{thebibliography}{9}
