@@ -1,0 +1,21 @@
+\select@language {polish}
+\contentsline {section}{\numberline {1}Wst\IeC {\k e}p}{2}
+\contentsline {subsection}{\numberline {1.1}Cel zadania}{2}
+\contentsline {subsection}{\numberline {1.2}Streszczenie sprawozdania}{2}
+\contentsline {section}{\numberline {2}Opis teoretyczny problemu}{2}
+\contentsline {subsection}{\numberline {2.1}Wprowadzenie do zagadnienia}{2}
+\contentsline {subsection}{\numberline {2.2}?}{2}
+\contentsline {section}{\numberline {3}Rozk\IeC {\l }ad QR}{2}
+\contentsline {subsection}{\numberline {3.1}Wst\IeC {\k e}p}{2}
+\contentsline {subsection}{\numberline {3.2}Przekszta\IeC {\l }cenia Householdera}{3}
+\contentsline {subsection}{\numberline {3.3}Przebieg algorytmu}{3}
+\contentsline {subsection}{\numberline {3.4}Gram-Schmidt}{5}
+\contentsline {section}{\numberline {4}Rozk\IeC {\l }ad LU}{5}
+\contentsline {subsection}{\numberline {4.1}Wst\IeC {\k e}p}{5}
+\contentsline {subsection}{\numberline {4.2}Metoda Doolittle\IeC {\textquoteright }a}{5}
+\contentsline {subsection}{\numberline {4.3}Obliczenie macierzy odwrotnej za pomoc\IeC {\k a} rozk\IeC {\l }adu LU}{6}
+\contentsline {paragraph}{Rozwi\IeC {\k a}zywanie uk\IeC {\l }ad\IeC {\'o}w r\IeC {\'o}wna\IeC {\'n} za pomoc\IeC {\k a} rozk\IeC {\l }adu LU}{6}
+\contentsline {paragraph}{Wyznaczanie $A^{-1}$}{6}
+\contentsline {subsection}{\numberline {4.4}?}{7}
+\contentsline {section}{\numberline {5}Podsumowanie}{7}
+\contentsline {section}{\numberline {6}Literatura}{7}

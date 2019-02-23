@@ -1,0 +1,302 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[polish]{babel}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{program}
+\usepackage{amsfonts}
+\usepackage{titlesec}
+\usepackage{graphicx}
+\title{%
+  Sprawozdanie \\
+  \large P3.20 z analizy numerycznej\\
+    Obliczanie $A^{-1}$ za pomocą rozkładu QR macierzy}
+\author{Artur Derechowski\\Mateusz Markiewicz}
+\begin{document}
+\maketitle
+\tableofcontents
+
+\newtheorem{definition}{Definicja}[section]
+
+\titleformat{\paragraph}
+{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}
+{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\newpage
+\section{Wstęp}
+Macierz odwrotną do $A$, czyli taką $A^{-1}$, że $AA^{-1} = A^{-1}A = I$ można otrzymać na różne sposoby.
+W naszej pracowni przedstawiamy dwa z nich, czyli rozkład QR i rozkład LU oraz porównanie tych dwóch metod.
+
+\subsection{Cel zadania}
+Zadanie zostało podzielone na dwie części. Wyznaczamy rozkład macierzy $A = QR$, gdzie $Q$ jest
+macierzą ortogonalną, a $R$ macierzą górnotrójkątną.\\
+Następnie wyznaczamy również rozkład macierzy $A = LU$, gdzie $L$ i $U$ są odpowiednio macierzami
+dolno i górnotrójkątnymi.\\
+Następnie wykorzystujemy oba te rozkłady do policzenia macierzy odwrotnej do $A$ i badamy je pod względem
+dokładności.
+
+\subsection{Streszczenie sprawozdania}
+
+\section{Opis teoretyczny problemu}
+\subsection{Wprowadzenie do zagadnienia}
+
+\subsection{?}
+
+\section{Rozkład QR}
+\subsection{Wstęp}
+Daną macierz $A$ można jednoznacznie rozłożyć na iloczyn macierzy $Q$ i $R$, takich, że $A=QR$.
+Dodatkowo, macierz $Q$ jest ortogonalna, czyli jest odwrotna do swojej transpozycji, spełnia równanie $QQ^T=I$.
+Macierz $R$ jest natomiast górnotrójkątna. \\
+Dzięki temu można łatwo rozwiązać układ równań $Ax=b$:
+\begin{align*}
+Ax=b \\
+QRx=b \\
+Rx = Q^Tb
+\end{align*}
+Gdy układ równań jest trójkątny, kolejne zmienne można wyznaczyć podstawieniami w sumarycznym czasie $O(n^2)$.\\
+
+Podobnie, mając macierz $A=QR$, można wyliczyć odwrotność macierzy $A$, co jest naszym zadaniem.
+\begin{align*}
+AA^{-1}=I \\
+QRA^{-1}=I \\
+A^{-1}=R^{-1}Q^T
+\end{align*}
+
+\subsection{Przekształcenia Householdera}
+Aby uzyskać macierz górnotrójkątną $R$, w każdym kroku algorytmu będziemy zerować
+dolną część jednej kolumny macierzy $A$. Używamy do tego przekształceń Householdera,
+które jest odbiciem, czyli przekształceniem ortogonalnym. 
+Przykładowo, po zastosowaniu jednego przekształcenia Householdera,
+macierz $H_1A$ będzie wyglądała następująco: 
+\begin{center}
+\begin{math}
+\begin{bmatrix}
+    a_{11} & a_{12} & \dots  & a_{1n} \\
+    0 & a_{22} & \dots  & a_{2n} \\
+    \vdots & \vdots & \ddots & \vdots \\
+    0 & a_{n2} & \dots  & a_{nn}
+\end{bmatrix}
+\end{math}
+\end{center}
+Aby uzyskać takie przekształcenie mnożymy macierz $A$ przez macierz Householdera postaci 
+\begin{center}
+$H=I-2v*v^T$
+\end{center}
+gdzie $v$ jest wektorem jednostkowym.\\
+
+\subsection{Przebieg algorytmu}
+Do rozkładu QR stosuje się przekształcenia Householdera na wektorze 
+\begin{equation*}
+u=x-\|x\|e_1
+\end{equation*}
+gdzie $x$ jest pierwszą kolumną macierzy $A$, a $e_1 = [1, 0, ..., 0]^T$.\\
+
+Gdy normalizujemy wektor $u$, macierz przekształcenia $H$ dana jest wzorem:
+\begin{equation*}
+H=I-2\frac{u}{\|u\|}\frac{u^T}{\|u^T\|} = I-2\frac{uu^T}{u^Tu}
+\end{equation*}
+Można pokazać, że po tym przekształceniu macierz $H_1A$ będzie miała wyzerowaną
+pierwszą dolną kolumnę poza najwyższym polem, czyli będzie odpowiedniej postaci
+do dalszego przekształcania na macierz górnotrójkątną. \\
+
+W kolejnych krokach algorytmu 
+stosujemy przekształcenia Householdera na macierzy $A$ bez lewej kolumny i górnego wiersza.
+Wtedy uzyskana macierz będzie jednak mniejsza od macierzy $A$, więc aby nie zmieniać ''lewych'' kolumn,
+które zostały wcześniej dobrze dopasowane, dopełniamy macierz $H_i$ macierzą identycznościową.
+Wtedy macierz, przez którą w każdym kroku mnożymy dotychczas uzyskaną macierz wygląda następująco:
+\begin{center}
+\begin{math}
+H_k :=
+\begin{bmatrix}
+    I_{n-k} & 0 \\
+    0 & H_k \\
+\end{bmatrix}
+\end{math}
+\end{center}
+
+Stosując $n-1$ kolejnych przekształceń Householdera $H_i$ otrzymujemy wynikowo macierz górnotrójkątną $R$, 
+a także ortogonalną macierz $Q$, czyli rozkład, którego szukamy w następujący sposób:
+\begin{center}
+$R = H_{n-1}...H_2H_1A $ \\
+$Q = H_1H_2...H_{n-1}$
+\end{center}
+
+Wynikowe macierze w rozkładzie $QR$ można więc przedstawić jako iloczyn macierzy Householdera.
+
+Można zobaczyć, że mając rozkład macierzy na iloczyn $QR$ spełniający wyżej wymienione własności,
+macierz odwrotną $A^{-1}$ można wyliczyć jako $A^{-1}=R^{-1}Q^T$. Następnym krokiem algorytmu jest więc
+odwrócenie macierzy górnotrójkątnej $R$. Można to zrobić w następujący sposób:\\
+\begin{program}
+  \FOR i:=1 \TO n \DO
+	A_{ii} = 1/A_{ii}
+  \FOR i:=n-1 \STEP -1 \TO 1 \DO
+	\FOR j:=n \STEP -1 \TO i+1 \DO
+	  s:=0
+	  \FOR k:=i+1 \TO j \DO
+	    s:= s+A_{ik}*A_{kj}
+	  A_{ij} = - A_{ii}*s
+\end{program}
+
+Ten algorytm, zastosowany do macierzy górnotrójkątnej, wylicza jej odwrotność w czasie $O(n^3)$.\\
+
+Cały algorytm wyznaczania macierzy odwrotnej za pomocą rozkładu $QR$ tworzy $n$ macierzy $H_i$, 
+które można wyliczyć w czasie $O(n^2)$, następnie wykonuje operacje w czasie $O(n^3)$,
+więc cała złożoność algorytmu to $O(n^3)$.
+
+\subsection{Gram-Schmidt}
+Znaną metodą ortogonalizacji macierzy jest proces Grama-Schmidta i również w ten sposób można uzyskać rozkład $QR$.
+Nie jest to jednak zalecane, ponieważ w wyniku tych przekształceń mogą powstawać bardziej znaczące błędy numeryczne.
+Można to wywnioskować interpretując proces Grama-Schmidta jako odejmowanie od wektora jego rzutów na poprzednio
+uzyskane wektory. Wtedy, gdy dwa wektory były ''prawie'' liniowo zależne, odejmujemy niemal cały wektor, co powoduje
+brak stabilności numerycznej.\\ 
+
+\section{Rozkład LU}
+\subsection{Wstęp}
+Rozkład $LU$ macierzy $A$ polega na znalezieniu macierzy dolnotrójkątnej L oraz górnotrójkątnej U, takich że ich iloczyn będzie macierzą A, czyli:
+\begin{center}
+\begin{math}
+\begin{bmatrix}
+    a_{11} & a_{12} & \dots  & a_{1n} \\
+    a_{21} & a_{22} & \dots  & a_{2n} \\
+    \vdots & \vdots & \ddots & \vdots \\
+    a_{n1} & a_{n2} & \dots  & a_{nn}
+\end{bmatrix}
+=
+\begin{bmatrix}
+    1 & 0  & \dots  & 0 \\
+    l_{21} & 1 & \dots  & 0 \\
+    \vdots & \vdots & \ddots & \vdots \\
+    l_{n1} & l_{n2} & \dots  & 1
+\end{bmatrix}
+\times
+\begin{bmatrix}
+    u_{11} & u_{12} & \dots  & u_{1n} \\
+    0 & u_{22} & \dots  & u_{2n} \\
+    \vdots & \vdots & \ddots & \vdots \\
+    0 & 0 & \dots  & u_{nn}
+\end{bmatrix}
+\end{math}
+\end{center}
+
+\subsection{Metoda Doolittle’a}
+Metoda Doolittle’a polega na naprzemiennym wyznaczaniu kolejnych wierszy macierzy U oraz kolumn macierzy L. Szczegółowy algorytm wygląda następująco:
+\begin{program}
+  \FOR i:=1 \TO n \DO
+	u_{ii} = a_{ii} - \sum_{k=1}^{i-1} l_{ik} u_{ki}\\
+	l_{ii} = 1\\
+	\FOR j:=i+1 \TO n \DO
+		u_{ij} = a_{ij} - \sum_{k=1}^{i-1} l_{ik} u_{kj}\\
+		l_{ji} = \frac{1}{u_{ii}} (a_{ji} - \sum_{k=1}^{i-1} l_{jk} u_{ki})\\
+\end{program}
+Na podstawie algorytmu widać, że rozkład macierzy rozmiaru $n$ wymaga $O(n^{3})$ operacji. Duża liczba operacji wpływa negatywnie zarówno na czas działania, jak również dokładność obliczeń. 
+
+\subsection{Obliczenie macierzy odwrotnej za pomocą rozkładu LU}
+Dla danej macierzy kwadratowej $A$ rozmiaru $n$ macierz odwrotna $A^{-1}$ to macierz kwadratowa tego samego rozmiaru spełniająca równość
+\begin{center}
+$A \times A^{-1} = Id = A^{-1} \times A$
+\end{center}
+Powyższą równość możemy zapisać w postaci:
+\begin{center}
+\begin{math}
+A \times 
+\begin{bmatrix}
+    x_{11} & x_{12} & \dots  & x_{1n} \\
+    x_{21} & x_{22} & \dots  & x_{2n} \\
+    \vdots & \vdots & \ddots & \vdots \\
+    x_{n1} & x_{n2} & \dots  & x_{nn}
+\end{bmatrix}
+=
+\begin{bmatrix}
+    1 & 0 & \dots  & 0 \\
+    0 & 1 & \dots  & 0 \\
+    \vdots & \vdots & \ddots & \vdots \\
+    0 & 0 & \dots  & 1
+\end{bmatrix}
+\end{math}
+\end{center}
+stąd otrzymujemy $n$ układów równań:
+\begin{center}
+\begin{math}
+A \times
+\begin{bmatrix}
+    x_{11} \\
+    x_{21} \\
+    \vdots \\
+    x_{n1} 
+\end{bmatrix}
+=
+\begin{bmatrix}
+    1 \\
+    0 \\
+    \vdots \\
+    0
+\end{bmatrix}
+\hspace{1em}
+A \times
+\begin{bmatrix}
+    x_{12} \\
+    x_{22} \\
+    \vdots \\
+    x_{n2} 
+\end{bmatrix}
+=
+\begin{bmatrix}
+    0 \\
+    1 \\
+    \vdots \\
+    0
+\end{bmatrix}
+\hspace{0.7em} \hdots \hspace{0.8em}
+A \times
+\begin{bmatrix}
+    x_{1n} \\
+    x_{2n} \\
+    \vdots \\
+    x_{nn} 
+\end{bmatrix}
+=
+\begin{bmatrix}
+    0 \\
+    0 \\
+    \vdots \\
+    1
+\end{bmatrix}
+\end{math}
+\end{center}
+
+\paragraph{Rozwiązywanie układów równań za pomocą rozkładu LU}
+
+Korzystając z własności macierzy wiemy, że:
+\begin{center}
+$A \times X = B$ \\
+$(L \times U) \times X = B$ \\
+$L \times (U \times X) = B$
+\end{center}
+Stąd znajdując wektor $Y$ taki, że $L \times Y = B$ możemy wyznaczyć wektor X z własności $U \times X = Y$. Wektory $X$ oraz $Y$ łatwo wyznaczyć z zależności:
+\begin{center}
+$y_{1} = b_{1}$\\
+\vspace{0.3em} $y_{i} = b_{i} - \sum_{j=1}^{i-1} l_{ij} y_{j}$, dla $i = 2,3,...,n$\\
+\vspace{0.3em} $x_{n} = \frac{y_{n}}{u_{nn}}$\\
+\vspace{0.3em} $x_{i} = \frac{1}{u_{ii}} \Big( y_{i} - \sum_{j=i+1}^{n} u_{ij} x_{j} \Big)$ dla $i = n-1,n-2,...,1$
+\end{center}
+
+\paragraph{Wyznaczanie $A^{-1}$}
+Rozwiązując powyższe $n$ układów równań otrzymamy $n$ wektorów $X_{1}, X_{2},..., X_{n}$. Niech $X = [ X_{1} \vert X_{2} \vert ... \vert X_{n} ]$, wtedy $X = A^{-1}$, czyli wyznaczyliśmy macierz odwrotną do macierzy $A$. Dla macierzy $A$ rozmiaru $n \times n$ rozkład na macierze $L, U$ wymaga $O(n^{3})$ operacji. Obliczenie $A^{-1}$ wymaga rozwiązania $n$ układów równań, a rozwiązanie każdego z tych układów wymaga $O(n^{2})$ operacji, stąd cały algorytm obliczania $A^{-1}$ za pomocą rozkładu LU jest rzędu $O(n^{3})$.
+\subsection{?}
+
+\section{Podsumowanie}
+
+\section{Literatura}
+
+1) D. Kincaid, W. Cheney, Analiza numeryczna, WNT, 2005.\\
+2) A. Schegel (aaronsc32), QR Decomposition with Householder Reflections, RPubs, 2018.\\
+3) Mathematics Source Library C\&ASM, mymathlib.com, 2004.\\
+4) D. Bindel, Matrix Computations (CS6210), Cornell University, Sep 28 2012.\\ 
+
+
+	 
+
+\end{document}
