@@ -69,7 +69,7 @@ def addmoves(state):
                     dir = [i,j]
                     if(legal(state, 'bk', dir)):
                         nonzero=True
-                        newhis = copy.deepcopy(history)
+                        newhis = history.copy()
                         newhis.append(['bk', dir[0], dir[1]])
                         state_new = (1, wk[0], wk[1], wr[0], wr[1], bk[0]+dir[0], bk[1]+dir[1], newhis)
                         if(alreadysearched(state_new[0:7])):
@@ -82,7 +82,7 @@ def addmoves(state):
                     dir = [i,j]
                     if(legal(state, 'wk', dir)):
                         nonzero=True
-                        newhis = copy.deepcopy(history)
+                        newhis = history.copy()
                         newhis.append(['wk', dir[0], dir[1]])
                         state_new = (0, wk[0]+dir[0], wk[1]+dir[1], wr[0], wr[1], bk[0], bk[1], newhis)
                         if(alreadysearched(state_new[0:7])):
@@ -92,7 +92,7 @@ def addmoves(state):
             dir = [0, i]
             if(legal(state, 'wr', dir)):
                 nonzero=True
-                newhis = copy.deepcopy(history)
+                newhis = history.copy()
                 newhis.append(['wr', dir[0], dir[1]])
                 state_new = (0, wk[0], wk[1], wr[0]+dir[0], wr[1]+dir[1], bk[0], bk[1], newhis)
                 if(1<wr[1]+dir[1]<8 or alreadysearched(state_new[0:7])):
@@ -101,7 +101,7 @@ def addmoves(state):
             dir = [i, 0]
             if(legal(state, 'wr', dir)):
                 nonzero=True
-                newhis = copy.deepcopy(history)
+                newhis = history.copy()
                 newhis.append(['wr', dir[0], dir[1]])
                 state_new = (0, wk[0], wk[1], wr[0]+dir[0], wr[1]+dir[1], bk[0], bk[1], newhis)
                 if(1<wr[1]+dir[1]<8 or alreadysearched(state_new[0:7])):
@@ -123,8 +123,8 @@ def runfromstate(st):
     stateQ.append(st)
     while(stateQ):
         nowState = stateQ.popleft()
-        history = copy.deepcopy(nowState[7])
-        print(len(history))
+        history = nowState[7].copy()
+        #print(len(history))
         if(mate(nowState)):
             return history
         
@@ -132,12 +132,13 @@ def readfile():
     global visited
     global stateQ
     f = open("zad1_input.txt", "r")
+    out = open("zad1_output.txt", "w")
     for l in f:
         l = l.split()
         mystate = parse(l[0], l[1], l[2], l[3])
         visited=set()
         stateQ=deque([])
         # print(legal(mystate, 'wk', [1,0]))
-        print(runfromstate(mystate))
+        out.write(str(len(runfromstate(mystate))) + "\n")
 
 readfile()

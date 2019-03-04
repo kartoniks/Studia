@@ -1,3 +1,1 @@
-white a1 b2 c3
-black g6 a1 g8
-black c6 h3 c8
+black g8 h1 c4

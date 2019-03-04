@@ -1,8 +1,5 @@
 from collections import defaultdict
-from statistics import stdev, mean
 import random
-
-# card_order_dict = {"2":2, "3":3, "4":4, "5":5, "6":6, "7":7, "8":8, "9":9, "10":10,"J":11, "Q":12, "K":13, "A":14}
 
 def straight_flush(hand):
   return flush(hand) and straight(hand)
@@ -19,7 +16,6 @@ def full_house(hand):
   value_counts = defaultdict(lambda:0)
   for v in values:
     value_counts[v]+=1
-  
   return sorted(value_counts.values()) == [2,3]
 
 def flush(hand):
@@ -35,31 +31,31 @@ def straight(hand):
   return counts.values() == 1 and value_range == 4
 
 def three_of_a_kind(hand):
-    values = [i[0] for i in hand]
-    value_counts = defaultdict(lambda:0)
-    for v in values:
-        value_counts[v]+=1
-    return set(value_counts.values()) == { 3, 1 }
+  values = [i[0] for i in hand]
+  value_counts = defaultdict(lambda:0)
+  for v in values:
+    value_counts[v]+=1
+  return set(value_counts.values()) == { 3, 1 }
         
 def two_pairs(hand):
-    values = [i[0] for i in hand]
-    value_counts = defaultdict(lambda:0)
-    for v in values:
-        value_counts[v]+=1
-    if sorted(value_counts.values())==[1,2,2]:
-        return True
-    else:
-        return False
+  values = [i[0] for i in hand]
+  value_counts = defaultdict(lambda:0)
+  for v in values:
+    value_counts[v]+=1
+  if sorted(value_counts.values())==[1,2,2]:
+    return True
+  else:
+    return False
 
-def one_pairs(hand):
-    values = [i[0] for i in hand]
-    value_counts = defaultdict(lambda:0)
-    for v in values:
-        value_counts[v]+=1
-    if 2 in value_counts.values():
-        return True
-    else:
-        return False
+def one_pair(hand):
+  values = [i[0] for i in hand]
+  value_counts = defaultdict(lambda:0)
+  for v in values:
+    value_counts[v]+=1
+  if 2 in value_counts.values():
+    return True
+  else:
+    return False
 
 def rank(hand):
   if straight_flush(hand):
@@ -76,7 +72,7 @@ def rank(hand):
     return 4
   if two_pairs(hand):
     return 3
-  if one_pairs(hand):
+  if one_pair(hand):
     return 2
   return 1
 
@@ -109,10 +105,6 @@ def run_other_decks():
     s = len(low_cards)
     low_cards = low_cards[:s-j]
     print("Chance without", j+1, "random cards: ", run(1000, low_cards, high_cards))
-  
-    
-    
-    
 
 # print("Win chance:", run(10000, low_cards, high_cards))
 run_other_decks()

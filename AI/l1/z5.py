@@ -1,9 +1,9 @@
 import random
 
-size = 5
+size = 7
 board = [[0 for x in range(size)] for y in range(size)]
-rows = [1,3,5,3,1]
-cols = [1,3,5,3,1]
+rows = [2,2,7,7,2,2,2]
+cols = [2,2,7,7,2,2,2]
 
 def write():
   for i in board:
@@ -91,12 +91,14 @@ def choose_rand():
   return (row, col)
 
 def improve():
-  for i in range(1000):
-    if check_board():
-      print("Found")
-      return True
-    f = choose_rand()
-    swap(f[0],f[1])
+  for j in range(10):
+    for i in range(1000):
+      if check_board():
+        print("Found")
+        return True
+      f = choose_rand()
+      swap(f[0],f[1])
+    
 
 def test():
   write()

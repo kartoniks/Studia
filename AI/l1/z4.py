@@ -32,6 +32,29 @@ def opt_dist(bits, n):
         print(nbits)
         return i
 
+def opt_dist2(bits, n):
+  def count1(id):#check for n consecutive 1s starting at id
+    ones=0
+    for i in range(id, id+n):
+      if bits[i]==1:
+        ones += 1
+    return ones
+  bestid=0
+  bestcount=0
+  for i in range(0, len(bits)-n):
+    newcount = count1(i)
+    if bestcount < newcount:
+      bestid=i
+      bestcount=newcount
+  tochange=0
+  for i in range(0, len(bits)):
+    if bestid<=i<bestid+n and bits[i]==0:
+      tochange += 1
+    if (bestid>i or bestid+n<=i) and bits[i]==1:
+      tochange += 1
+  return tochange
 
-print(opt_dist([0,0,1,0,0,0,1,0,0,0,0], 4))
+
+
+print(opt_dist2([0,1,1,1,0,0,1,1,0,1,0], 4))
 # print(correct([1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0], 4))

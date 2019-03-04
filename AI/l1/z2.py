@@ -21,7 +21,7 @@ for i in range(n):
             elif(i == j + 1 and text[j:i] == '\n'):
                 score[i] = score[j]
                 partition[i] = partition[j]
-            print(partition)
+            # print(partition)
 
 cuts = []
 i = n - 1
@@ -30,7 +30,7 @@ while partition[i] != 0:
     cuts.append(i)
 cuts.reverse()
 
-def apply_cuts(text, cuts):
+def join_text(text, cuts):
     res = []
     # print(cuts)
     # print(text[21:-1])
@@ -40,5 +40,5 @@ def apply_cuts(text, cuts):
     res.append(text[cuts[-1]:])
     return " ".join(res)
 
-res = apply_cuts(text, cuts)
+res = join_text(text, cuts)
 print(res)
