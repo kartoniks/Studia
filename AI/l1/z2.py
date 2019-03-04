@@ -25,7 +25,7 @@ for i in range(n):
 
 cuts = []
 i = n - 1
-while partition[i] != 0:
+while(partition[i] != 0):
     i = partition[i]
     cuts.append(i)
 cuts.reverse()
@@ -41,4 +41,4 @@ def join_text(text, cuts):
     return " ".join(res)
 
 res = join_text(text, cuts)
-print(res)
+print(words)
