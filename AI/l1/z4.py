@@ -41,7 +41,7 @@ def opt_dist2(bits, n):
     return ones
   bestid=0
   bestcount=0
-  for i in range(0, len(bits)-n):
+  for i in range(0, len(bits)-n+1):
     newcount = count1(i)
     if bestcount < newcount:
       bestid=i
@@ -55,6 +55,13 @@ def opt_dist2(bits, n):
   return tochange
 
 
+inp = open("zad4_input.txt", "r")
+out = open("zad4_output.txt", "w")
+for line in inp:
+  line = line.split()
+  l = list(map(lambda x: ord(x)-ord('0'), line[0]))
+  arg2 = ord(line[1]) - ord('0') 
+  out.write(str(opt_dist2(l, arg2))+"\n")
 
-print(opt_dist2([0,1,1,1,0,0,1,1,0,1,0], 4))
+# print(opt_dist2([0,0,0,0,0,0,0,0,0,0,1], 1))
 # print(correct([1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0], 4))

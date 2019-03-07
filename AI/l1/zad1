@@ -17,7 +17,6 @@ def parse(t, wk, wr, bk, h=[]):
         turn = 1
     if(t=='black'):
         turn = 0
-        
     return (turn, wk[0], wk[1], wr[0], wr[1], bk[0], bk[1], [])
         
     
@@ -68,11 +67,8 @@ def addmoves(state):
             for j in range(-1, 2):
                 if(j!=0 or i!=0):
                     dir = [i,j]
-
                     if(legal(state, 'bk', dir)):
                         nonzero=True
-                        # if(len(history)==6 and history[0]==['bk', 1, 1]):#debug
-                        #     print(history)
                         newhis = history.copy()
                         newhis.append(['bk', dir[0], dir[1]])
                         state_new = (1, wk[0], wk[1], wr[0], wr[1], bk[0]+dir[0], bk[1]+dir[1], newhis)
@@ -99,7 +95,7 @@ def addmoves(state):
                 newhis = history.copy()
                 newhis.append(['wr', dir[0], dir[1]])
                 state_new = (0, wk[0], wk[1], wr[0]+dir[0], wr[1]+dir[1], bk[0], bk[1], newhis)
-                if(1<wr[1]+dir[1]<8 and 1<wr[0]+dir[0]<8 or alreadysearched(state_new[0:7])):#wieza na krancu
+                if(1<wr[1]+dir[1]<8 or alreadysearched(state_new[0:7])):
                     continue
                 stateQ.append(state_new)
             dir = [i, 0]
@@ -108,10 +104,8 @@ def addmoves(state):
                 newhis = history.copy()
                 newhis.append(['wr', dir[0], dir[1]])
                 state_new = (0, wk[0], wk[1], wr[0]+dir[0], wr[1]+dir[1], bk[0], bk[1], newhis)
-                if(1<wr[1]+dir[1]<8 and 1<wr[0]+dir[0]<8 or alreadysearched(state_new[0:7])):
+                if(1<wr[1]+dir[1]<8 or alreadysearched(state_new[0:7])):
                     continue
-                # if(len(history)==5 and history[0]==['bk', 1, 1]):#debug
-                #         print(history, [wk[0], wk[1], wr[0]+dir[0], wr[1]+dir[1], bk[0], bk[1]])
                 stateQ.append(state_new)
     return nonzero
 
@@ -121,7 +115,7 @@ def mate(state):
     bk = [state[5], state[6]]
     canmove = addmoves(state)
     if(turn==0 and (not canmove) and
-        (wr[0] == bk[0] and abs(wr[1]-bk[1])>1 or wr[1] == bk[1] and abs(wr[0]-bk[0])>1)):
+        (wr[0] == bk[0] and abs(wr[1]-bk[1]>1) or wr[1] == bk[1] and abs(wr[0]-bk[0]>1))):
         return True
     return False
 
