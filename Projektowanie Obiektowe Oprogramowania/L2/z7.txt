@@ -1,0 +1,28 @@
+class Student {
+    UsosWebPage page;
+    UUID id;
+    void show() {
+        return page.getStudentGradeInfo(id);
+    };
+}
+
+class UsosWebPage {
+    GradeController controller;
+
+    StudentInfo getStudentGradeInfo(student) {
+        return controller.getCourses(student);
+    };
+}
+
+class GradeController {
+    StudentRepository repo;
+    List<Course> getCourses(student) {
+        return repo.filter(entry => entry.studentInfo.id == student)
+                   .map(student => student.courses);   
+    };
+}
+
+class Student {
+    UUID id;
+    List<StudentMark> courses;
+}
