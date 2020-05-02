@@ -1,0 +1,8 @@
+ALTER TABLE users ADD PRIMARY KEY (id);
+
+ALTER TABLE badges ADD CONSTRAINT fk_user_id
+    FOREIGN KEY (userid) REFERENCES users(id) DEFERRABLE;
+
+ALTER TABLE posts DROP COLUMN viewcount;
+
+DELETE FROM posts WHERE body='' OR body IS NULL;

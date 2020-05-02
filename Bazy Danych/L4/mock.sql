@@ -1,0 +1,1 @@
+select grupa.kod_grupy, grupa.rodzaj_zajec, g.rodzaj_zajec from grupa join przedmiot_semestr using (kod_przed_sem) join grupa g using (kod_przed_sem) where g.rodzaj_zajec='w';

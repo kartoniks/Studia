@@ -1,0 +1,48 @@
+
+Ssquid:S2209F"5Change this instance-reference to a static reference.(»Áüì8òÄ×¥”.
+Ssquid:S2209I"5Change this instance-reference to a static reference.(¡Ğó®8òÄ×¥”.
+Xsquid:S2209C"5Change this instance-reference to a static reference.(¤áüÿÿÿÿ8òÄ×¥”.
+Fsquid:S1148"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8ÙüÃ¥”.
+[
+squid:S106"9Replace this use of System.out or System.err by a logger.(ªÓ¼áşÿÿÿÿ8½âÃ¤”.
+Xsquid:S2209J"5Change this instance-reference to a static reference.(œ½ƒÛøÿÿÿÿ8òÄ×¥”.
+V
+squid:S106."9Replace this use of System.out or System.err by a logger.(úŠß8ãª ¤”.
+Xsquid:S2209E"5Change this instance-reference to a static reference.(Ã›§øÿÿÿÿ8òÄ×¥”.
+[
+squid:S106K"9Replace this use of System.out or System.err by a logger.(«à˜úûÿÿÿÿ8×“º¥”.
+[
+squid:S106"9Replace this use of System.out or System.err by a logger.(²ıÄøÿÿÿÿ8©»¤”.
+[
+squid:S106D"9Replace this use of System.out or System.err by a logger.(¿ÙÉÇûÿÿÿÿ8á©‰¥”.
+nsquid:S1192D"KDefine a constant instead of duplicating this literal "Timestamp:" 3 times.(¿ÙÉÇûÿÿÿÿ8×“º¥”.
+V
+squid:S106F"9Replace this use of System.out or System.err by a logger.(»Áüì8á©‰¥”.
+[
+squid:S106L"9Replace this use of System.out or System.err by a logger.(ªÓ¼áşÿÿÿÿ8§â»¥”.
+dsquid:S21426"FEither re-interrupt this method or rethrow the "InterruptedException".(ä ¹€8²‰©¤”.
+~squid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(š©ÿ¦úÿÿÿÿ8ƒÎÒ¥”.
+Fsquid:S11487"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8²‰©¤”.
+dsquid:S2142"FEither re-interrupt this method or rethrow the "InterruptedException".(ä ¹€8ÙüÃ¥”.
+V
+squid:S106"9Replace this use of System.out or System.err by a logger.(ı´8ùáÂ¤”.
+[
+squid:S106J"9Replace this use of System.out or System.err by a logger.(œ½ƒÛøÿÿÿÿ8ˆû‰¥”.
+[
+squid:S106"9Replace this use of System.out or System.err by a logger.(İ„¾æúÿÿÿÿ8©»¤”.
+V
+squid:S106("9Replace this use of System.out or System.err by a logger.(¿„·8ãª ¤”.
+Xsquid:S1161&":Add the "@Override" annotation above this method signature(“–ış8ãª ¤”.
+[
+squid:S106G"9Replace this use of System.out or System.err by a logger.(ôÄâİıÿÿÿÿ8×“º¥”.
+Fsquid:S1148N"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8Úø‡¥”.
+V
+squid:S106"9Replace this use of System.out or System.err by a logger.(Ì¸áë8ÙüÃ¥”.
+dsquid:S2142M"FEither re-interrupt this method or rethrow the "InterruptedException".(ä ¹€8Úø‡¥”.
+U
+squid:S106+"9Replace this use of System.out or System.err by a logger.(ëËÜo8ãª ¤”.
+[
+squid:S106/"9Replace this use of System.out or System.err by a logger.(ªÓ¼áşÿÿÿÿ8—ÓÅ¥”.
+[
+squid:S106B"9Replace this use of System.out or System.err by a logger.(ª¤Å¤ÿÿÿÿÿ8ÂšÈ¥”.
+Xsquid:S2209D"5Change this instance-reference to a static reference.(¿ÙÉÇûÿÿÿÿ8òÄ×¥”.

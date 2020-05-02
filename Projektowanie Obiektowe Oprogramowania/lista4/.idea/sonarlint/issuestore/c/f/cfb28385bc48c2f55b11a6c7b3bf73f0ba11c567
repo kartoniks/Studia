@@ -1,0 +1,7 @@
+
+ˆ"squid:ClassVariableVisibilityCheck	"NMake id a static final constant or non-public and provide accessors if needed.(ÍéÌ‘øÿÿÿÿ8“©¤”.
+~squid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(š©ÿ¦úÿÿÿÿ8ÁÍÒ¥”.
+Œ"squid:ClassVariableVisibilityCheck%"WMake startMillis a static final constant or non-public and provide accessors if needed.(ºŒŒ·8”›ô¤”.
+Osquid:S1444%"1Make this "public static startMillis" field final(ºŒŒ·8ŒÖ ¥”.
+zsquid:S3008"WRename this field "_threadLocal" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(³æĞÌÿÿÿÿÿ8ØÚ˜¤”.
+Esquid:S5164""Call "remove()" on "_threadLocal".(³æĞÌÿÿÿÿÿ8ØÚ˜¤”.
